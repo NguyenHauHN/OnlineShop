@@ -1,0 +1,39 @@
+﻿.checkbox label, .radio label{
+    padding-left: 0px !important;
+}
+.radio-second{
+    margin-top: 10px !important;
+}
+.btn-action-second{
+    margin-left: 5px !important;
+}
+.btn-action-first{
+    margin-top: 1px !important;
+}
+.box-footer .pagination{
+    margin: 0px !important;
+}
+.wrap-image{
+    width: 150px;
+    height: 150px;
+    border-radius: 4px;
+}
+.wrap-button-upload{
+    margin-top: 10px;
+}
+.avatar{
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+}
+.wrap-button-add{
+    padding: 10px;
+}
+.img-avatar{
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ccc;
+}
+.wrap-avatar{
+    padding: 0px !important;
+}

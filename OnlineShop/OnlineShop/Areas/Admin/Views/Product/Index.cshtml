@@ -1,0 +1,125 @@
+﻿@model PagedList.IPagedList<Model.ViewModels.ProductDisplay>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Quản lý Sản phẩm - OnlineShop";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section breadcrumb {
+    <section class="content-header">
+        <h4>Quản lý Sản phẩm</h4>
+        <ol class="breadcrumb">
+            <li><a href="/Admin/Home"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+            <li class="active">Quản lý Sản phẩm</li>
+        </ol>
+    </section>
+}
+<div class="clearfix"></div>
+<section class="content">
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title"> Danh sách Sản phẩm</h3>
+            <div class="box-tools">
+                @using (Html.BeginForm("Index", "Product", FormMethod.Get))
+                {
+                    <div class="input-group input-group-sm" style="width: 150px;">
+                        <input type="text" id="txtSearch" class="form-control pull-right" value="@ViewBag.Keyword" placeholder="Nhập từ khóa..." name="keyword">
+
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- /.box-header -->
+        <div class="box-body no-padding">
+            <table class="table">
+
+                <tbody>
+                    <tr>
+                        <th style="width: 10px">#</th>
+                        <th>Mã</th>
+                        <th>Sản phẩm</th>
+                        <th>Giá</th>
+                        <th>Sale(%)</th>
+                        <th>Meta Title</th>
+                        <th>Mô tả</th>
+                        <th>Tag</th>
+                        <th>Trạng thái</th>
+                        <th>Action</th>
+                    </tr>
+                    @for (int i = 0; i < Model.Count(); i++)
+                    {
+                        var idx = (int)(@ViewBag.Page - 1) * 10 + i + 1;
+                        <tr id="row_@Model[i].Product.ID">
+                            <td>@idx</td>
+                            <td>@Model[i].Product.Code</td>
+                            <td>
+                                <div class="row col-lg-12">
+                                    <div class="col-lg-3 wrap-avatar">
+                                        @foreach (var item in Model[i].ListImage)
+                                        {
+                                            if (item.Type == 1)
+                                            {
+                                                if (!string.IsNullOrEmpty(item.Src))
+                                                {
+                                                    <img class="img-avatar img-responsive img-circle" src="@Url.Content(item.Src)" />
+                                                }
+                                                else
+                                                {
+                                                    <img class="img-avatar img-responsive img-circle" src='@Url.Content("~/Images/user.png")' />
+                                                }
+                                            }
+                                        }
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <span>@Model[i].Product.Name</span>
+                                    </div>
+                                </div>
+
+
+                            </td>
+                            <td>@Model[i].Product.Price</td>
+                            <td>@Model[i].Product.Sale.ToString()%</td>
+                            <td>@Model[i].Product.MetaTitle</td>
+                            <td>@Model[i].Product.Description</td>
+                            <td>@Model[i].Product.Tag</td>
+                            <td>@(Model[i].Product.Status == 1 ? "Đang bán" : "Hết hàng")</td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="/Admin/Product/Edit/@Model[i].Product.ID" class="btn btn-info btn-flat btn-action-first"><i class="fa fa-pencil"></i></a>
+                                    @Ajax.ActionLink(" ", "Delete", new { @ID = Model[i].Product.ID }, new AjaxOptions
+                               {
+                                   Confirm = "Bạn chắc chắn muốn xóa thông tin sản phẩm " + @Model[i].Product.Name + " ?",
+                                   OnComplete = "$('#row_" + @Model[i].Product.ID + "').remove()",
+                                   HttpMethod = "Delete"
+                               },
+                               new { @class = "btn btn-danger btn-flat glyphicon glyphicon-trash  btn-action-second" })
+                                </div>
+
+                            </td>
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+            <div class="pull-left">
+                <a href="/Admin/Product/Create" class="btn btn-primary">Thêm mới</a>
+            </div>
+            <div class="pull-right">
+                @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, @keyword = @ViewBag.Keyword }))
+            </div>
+
+
+        </div>
+    </div>
+
+</section>
+

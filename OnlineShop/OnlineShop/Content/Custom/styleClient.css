@@ -1,0 +1,6 @@
+﻿#content .page_header_wrap, .woocommerce .entry-header {
+    background: url(images/about-us-bg.jpg) no-repeat center;
+    background-size: cover;
+    padding: 42px 0px;
+    text-align: center;
+}

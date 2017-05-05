@@ -1,0 +1,78 @@
+﻿@model Model.ViewModels.OrderViewModel
+@{
+    ViewBag.Title = "Thêm mới Đơn hàng - OnlineShop";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var listUser = (List<Model.EF.User>)ViewBag.ListUser;
+    var listProduct = (List<Model.EF.Product>)ViewBag.ListProduct;
+}
+
+@section breadcrumb {
+    <section class="content-header">
+        <h4>Quản lý Đơn hàng</h4>
+        <ol class="breadcrumb">
+            <li><a href="/Admin/Home"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+            <li><a href="/Admin/OrderProduct/Index">Quản lý Đơn hàng</a></li>
+            <li class="active">Thêm mới</li>
+        </ol>
+    </section>
+}
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Thông tin Đơn hàng mới</h3>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <div class="box-body ">
+            <div class="row col-lg-12">
+                @using (Html.BeginForm("Create", "OrderProduct", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <fieldset>
+                        <div class="form-group">
+                            <label>Người mua</label>
+                            @Html.DropDownListFor(model => model.ReceiverID, new SelectList(listUser,
+                               "ID", "Name"), new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ReceiverID, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label>Sản phẩm</label>
+                            @Html.DropDownListFor(model => model.ProductID, new SelectList(listProduct,
+                               "ID", "Name"), new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ProductID, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label>Đơn giá</label>
+                            @Html.Editor("ProductPrice", new { htmlAttributes = new { @class = "form-control", @placeholder = "Đơn giá", @readonly = "readonly" } })
+                        </div>
+
+                        <div class="form-group">
+                            <label>Số lượng</label>
+                            @Html.EditorFor(model => model.ProductAmount, new { htmlAttributes = new { @class = "form-control", @placeholder = "Số lượng", @type="number" } })
+                            @Html.ValidationMessageFor(model => model.ProductAmount, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label>Thành tiền</label>
+                            @Html.Editor("TotalMoney", new { htmlAttributes = new { @class = "form-control", @placeholder = "Thành tiền", @readonly = "readonly" } })
+                        </div>
+
+                    </fieldset>
+
+                    <div class="row wrap-button-add">
+                        <button type="submit" class="btn btn-primary pull-right">Thêm mới</button>
+                    </div>
+                }
+            </div>
+
+        </div>
+
+
+        <!-- /.box-body -->
+
+
+    </div>
+</section>
+
+
+

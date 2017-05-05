@@ -1,0 +1,64 @@
+﻿@model List<OnlineShop.Models.CardItem>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section jsFooter{
+    <script src="~/Scripts/Custom/cart.js"></script>
+}
+
+<div class="container">
+    <h4>Giỏ hàng</h4>
+    @if (Model.Count > 0)
+    {
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th><b>Mã sản phẩm</b></th>
+                    <th><b>Sản phẩm</b></th>
+                    <th><b>Số lượng</b></th>
+                    <th><b>Đơn giá</b></th>
+                    <th><b>Thành tiền</b></th>
+                    <th><b>Thao tác</b></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Product.Code</td>
+                        <td class="row">
+                            @*<img class="img-responsive img-product img-circle img-thumbnail pull-left" src="@item.Product.Image" alt="@item.Product.Name" />*@
+                            &nbsp;&nbsp;
+                            <span class="">@item.Product.Name</span>
+                        </td>
+
+                        <td>
+                            <div class="form-group">
+                                <input type="number" data-id="@item.Product.ID" class="form-control txtQuantity" value="@item.Quantity">
+                            </div>
+                        </td>
+                        <td>@item.Product.Price.GetValueOrDefault(0)</td>
+                        <td>@(item.Product.Price.GetValueOrDefault(0) * item.Quantity)</td>
+                        <td>
+                            <button type="button" class="btn btn-danger btn-delete" data-id="@item.Product.ID">Xóa</button>
+                        </td>
+                    </tr>
+
+                }
+
+
+            </tbody>
+        </table>
+            <button type="button" class="btn btn-success pull-right" id="btn-payment">Thanh toán</button>
+            <button type="button" id="btnContinue" class="btn btn-primary pull-right" style="margin-right: 10px;">Tiếp tục mua</button>
+            <button type="button" id="btnDeleteAll" class="btn btn-primary pull-right" style="margin-right: 10px;">Xóa giỏ hàng</button>
+            <button type="button" id="btnUpdate" class="btn btn-primary pull-right" style="margin-right: 10px;">Cập nhật</button>
+
+    }
+    else
+    {
+        <h4 class="text-warning text-center">Chưa có sản phẩm trong giỏ hàng!</h4>
+    }
+</div>
