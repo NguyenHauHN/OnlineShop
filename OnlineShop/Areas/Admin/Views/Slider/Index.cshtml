@@ -1,0 +1,112 @@
+﻿@model PagedList.IPagedList<Model.EF.Slide>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Quản lý Slider - OnlineShop";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section breadcrumb {
+    <section class="content-header">
+        <h4>Quản lý Slide</h4>
+        <ol class="breadcrumb">
+            <li><a href="/Admin/Home"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+            <li class="active">Quản lý Slide</li>
+        </ol>
+    </section>
+}
+<div class="clearfix"></div>
+<section class="content">
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title"> Danh sách Slide</h3>
+            <div class="box-tools">
+                @using (Html.BeginForm("Index", "Slider", FormMethod.Get))
+                {
+                    <div class="input-group input-group-sm" style="width: 150px;">
+                        <input type="text" id="txtSearch" class="form-control pull-right" value="@ViewBag.Keyword" placeholder="Nhập từ khóa..." name="keyword">
+
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- /.box-header -->
+        <div class="box-body no-padding">
+            <table class="table">
+
+                <tbody>
+                    <tr>
+                        <th style="width: 10px">#</th>
+                        <th>Ảnh</th>
+                        <th>Thứ tự săp xếp</th>
+                        <th>Tiêu đề</th>
+                        <th>Mô tả</th>
+                        <th>Trạng thái</th>
+                        <th>Action</th>
+                    </tr>
+                    @for (int i = 0; i < Model.Count(); i++)
+                    {
+                        var idx = (int)(@ViewBag.Page - 1) * 10 + i + 1;
+                        <tr id="row_@Model[i].ID">
+                            <td>@idx</td>
+                            <td>
+                                <div class="row col-lg-12">
+                                    <div class="wrap-avatar">
+                                        @if (!string.IsNullOrEmpty(Model[i].Image))
+                                        {
+                                            <img class="img-avatar img-responsive img-circle" src="@Url.Content(Model[i].Image)" />
+                                        }
+                                        else
+                                        {
+                                            <img class="img-avatar img-responsive img-circle" src='@Url.Content("~/Images/user.png")' />
+                                        }
+
+                                    </div>
+                                </div>
+
+
+                            </td>
+                            <td>@Model[i].DisplayOrder </td>
+                            <td>@Model[i].Title</td>
+                            <td>@Model[i].Description</td>
+                            <td>@(Model[i].Status == 1 ? "Đang hoạt động" : "Bị khóa")</td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="/Admin/Slider/Edit/@Model[i].ID" class="btn btn-info btn-flat btn-action-first"><i class="fa fa-pencil"></i></a>
+                                    @Ajax.ActionLink(" ", "Delete", new { @ID = Model[i].ID }, new AjaxOptions
+                               {
+                                   Confirm = "Bạn chắc chắn muốn xóa thông tin Slider có tiêu đề " + @Model[i].Title + " ?",
+                                   OnComplete = "$('#row_" + @Model[i].ID + "').remove()",
+                                   HttpMethod = "Delete"
+                               },
+                               new { @class = "btn btn-danger btn-flat glyphicon glyphicon-trash  btn-action-second" })
+                                </div>
+
+                            </td>
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+            <div class="pull-left">
+                <a href="/Admin/Slider/Create" class="btn btn-primary">Thêm mới</a>
+            </div>
+            <div class="pull-right">
+                @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, @keyword = @ViewBag.Keyword }))
+            </div>
+
+
+        </div>
+    </div>
+
+</section>
+
+

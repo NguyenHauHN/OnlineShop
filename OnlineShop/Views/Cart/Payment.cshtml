@@ -1,0 +1,88 @@
+﻿@model List<OnlineShop.Models.CardItem>
+@{
+    ViewBag.Title = "Payment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="ak-container">
+    <div class="section group">
+        @if (Model.Count > 0)
+        {
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th><b>Mã sản phẩm</b></th>
+                    <th><b>Sản phẩm</b></th>
+                    <th><b>Số lượng</b></th>
+                    <th><b>Đơn giá</b></th>
+                    <th><b>Thành tiền</b></th>
+                    <th><b>Thao tác</b></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Product.Code</td>
+                        <td class="row">
+                            @*<img class="img-responsive img-product img-circle img-thumbnail pull-left" src="@item.Product.Image" alt="@item.Product.Name" />*@
+                            &nbsp;&nbsp;
+                            <span class="">@item.Product.Name</span>
+                        </td>
+
+                        <td>
+                            <div class="form-group">
+                                <input type="number" data-id="@item.Product.ID" class="form-control txtQuantity" value="@item.Quantity">
+                            </div>
+                        </td>
+                        <td>@item.Product.Price.GetValueOrDefault(0)</td>
+                        <td>@(item.Product.Price.GetValueOrDefault(0) * item.Quantity)</td>
+                        <td>
+                            <button type="button" class="btn btn-danger btn-delete" data-id="@item.Product.ID">Xóa</button>
+                        </td>
+                    </tr>
+
+                    }
+
+
+            </tbody>
+        </table>
+        }
+
+
+
+    </div>
+    <div class="section group">
+        @using (Html.BeginForm("Payment", "Cart", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Người nhận</label>
+            <div class="col-sm-10">
+                <input class="form-control" name="CustomerName" id="customer-name" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Số điện thoại</label>
+            <div class="col-sm-10">
+                <input class="form-control" name="CustomerPhone" id="customer-phone" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Email</label>
+            <div class="col-sm-10">
+                <input class="form-control" name="CustomerEmail" id="customer-email" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Địa chỉ</label>
+            <div class="col-sm-10">
+                <input class="form-control" name="CustomerAddress" id="customer-address" type="text">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary pull-right" style="margin-right: 10px;">Gửi đơn hàng</button>
+        }
+    </div>
+</div>
+
+
+
