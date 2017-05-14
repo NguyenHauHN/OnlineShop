@@ -15,7 +15,7 @@ namespace OnlineShop.Areas.Admin.Controllers
 {
     public class AdminManageController : BaseController
     {
-        
+
         // GET: Admin/AdminManage
         public ActionResult Index(string keyword, int page = 1, int pageSize = 10)
         {
@@ -29,26 +29,16 @@ namespace OnlineShop.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            if (TempData["pathImage"] != null)
-            {
-                Session["avatarUpload"] = TempData["pathImage"];
-                ViewBag.srcImg = TempData["pathImage"];
-            }
-            else
-            {
-                ViewBag.srcImg = "~/Images/plus.png";
-            }
-            
             return View();
         }
 
         [HttpPost]
-        public ActionResult Create(User admin)
+        public ActionResult Create(User admin, string singleImage)
         {
 
             if (ModelState.IsValid)
             {
-                admin.Avatar = Session["avatarUpload"].ToString();
+                admin.Avatar = singleImage;
                 if (!string.IsNullOrEmpty(admin.Password))
                 {
                     admin.Password = Encrypt.MD5Hash(admin.Password);
@@ -60,45 +50,29 @@ namespace OnlineShop.Areas.Admin.Controllers
                 }
                 else if (result == -1)
                 {
-                    ModelState.AddModelError("", "Tên đăng nhập đã được sử dụng, thêm mới không thành công!");
+                    TempData["CreateError"] = "Tên đăng nhập đã được sử dụng, thêm mới không thành công!";
                 }
             }
-            return View("Index");
+            return RedirectToAction("Create", "AdminManage");
         }
 
         [HttpGet]
         public ActionResult Edit(int ID)
         {
             var admin = new UserDAO().GetByID(ID);
-            if (TempData["pathImageEdit"] != null)
-            {
-                Session["avatarUploadEdit"] = TempData["pathImageEdit"];
-                ViewBag.srcImgEdit = TempData["pathImageEdit"];
-            }
-            else if(!string.IsNullOrEmpty(admin.Avatar))
-            {
-                
-                ViewBag.srcImgEdit = admin.Avatar;
-                Session["avatarUploadEdit"] = admin.Avatar;
-            }
-            else
-            {
-                ViewBag.srcImgEdit = "~/Images/plus.png";
-            }
-
             return View(admin);
         }
 
         [HttpPost]
-        public ActionResult Edit(User admin)
+        public ActionResult Edit(User admin, string singleImage)
         {
             if (ModelState.IsValid)
             {
-                if(Session["avatarUploadEdit"] != null)
+                if (!string.IsNullOrEmpty(singleImage))
                 {
-                    admin.Avatar = Session["avatarUploadEdit"].ToString();
+                    admin.Avatar = singleImage;
                 }
-                
+
                 Regex rgx = new Regex(@"^[0-9a-f]{32}$");
                 if (!rgx.IsMatch(admin.Password))
                 {
@@ -112,10 +86,10 @@ namespace OnlineShop.Areas.Admin.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Đã xảy ra lỗi, Cập nhật không thành công!");
-                 }
+                    TempData["EditError"] = "Đã xảy ra lỗi, Cập nhật không thành công!";
+                }
             }
-            return View("Index");
+            return RedirectToAction("Edit", "AdminManage");
         }
 
         [HttpDelete]
@@ -125,43 +99,27 @@ namespace OnlineShop.Areas.Admin.Controllers
             return View();
         }
 
-
         [HttpPost]
-        public ActionResult UploadImageCreate(HttpPostedFileBase file)
+        public ActionResult UploadSingleImage()
         {
-            var path = "";
-            if(file != null && file.ContentLength > 0)
+            try
             {
-                // check extension of file
-                if(Path.GetExtension(file.FileName).ToLower() == ".jpg" || Path.GetExtension(file.FileName).ToLower() == ".png"
-                   || Path.GetExtension(file.FileName).ToLower() == ".gif" || Path.GetExtension(file.FileName).ToLower() == ".jpeg" ||
-                   Path.GetExtension(file.FileName).ToLower() == ".svg")
+                var path = "";
+                if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any())
                 {
-                    path = Path.Combine(Server.MapPath("~/Images"), file.FileName);
-                    file.SaveAs(path);
-                    TempData["pathImage"] = "~/Images/" + file.FileName;
+                    var pic = System.Web.HttpContext.Current.Request.Files["HelpSectionImages"];
+                    HttpPostedFileBase filebase = new HttpPostedFileWrapper(pic);
+                    var fileName = Path.GetFileName(filebase.FileName);
+                    path = Path.Combine(Server.MapPath("~/Images/"), fileName);
+                    filebase.SaveAs(path);
+                    return Json(new { name = "/Images/" + fileName });
                 }
+                else { return Json(new { name = "~/Images/plus.png" }); }
             }
-            return RedirectToAction("Create", "AdminManage");
-        }
-
-        [HttpPost]
-        public ActionResult UploadImageEdit(HttpPostedFileBase file, int ID)
-        {
-            var path = "";
-            if (file != null && file.ContentLength > 0)
+            catch (Exception ex)
             {
-                // check extension of file
-                if (Path.GetExtension(file.FileName).ToLower() == ".jpg" || Path.GetExtension(file.FileName).ToLower() == ".png"
-                   || Path.GetExtension(file.FileName).ToLower() == ".gif" || Path.GetExtension(file.FileName).ToLower() == ".jpeg" ||
-                   Path.GetExtension(file.FileName).ToLower() == ".svg")
-                {
-                    path = Path.Combine(Server.MapPath("~/Images"), file.FileName);
-                    file.SaveAs(path);
-                    TempData["pathImageEdit"] = "~/Images/" + file.FileName;
-                }
+                return Json("Error While Saving.");
             }
-            return RedirectToAction("Edit", "AdminManage", new { ID = ID });
         }
     }
 }

@@ -45,5 +45,11 @@ namespace Model.EF
         public long? ChangeBy { get; set; }
 
         public long? CategoryID { get; set; }
+
+        [StringLength(250)]
+        public string MainImage { get; set; }
+
+        [Column(TypeName = "xml")]
+        public string GalleryImage { get; set; }
     }
 }

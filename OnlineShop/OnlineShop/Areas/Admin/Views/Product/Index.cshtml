@@ -1,4 +1,4 @@
-﻿@model PagedList.IPagedList<Model.ViewModels.ProductDisplay>
+﻿@model PagedList.IPagedList<Model.EF.Product>
 @using PagedList.Mvc
 @{
     ViewBag.Title = "Quản lý Sản phẩm - OnlineShop";
@@ -13,6 +13,9 @@
             <li class="active">Quản lý Sản phẩm</li>
         </ol>
     </section>
+}
+@section jsFooter{
+    <script src="/Scripts/Custom/uploadGalleryImage.js"></script>
 }
 <div class="clearfix"></div>
 <section class="content">
@@ -35,7 +38,7 @@
 
         <!-- /.box-header -->
         <div class="box-body no-padding">
-            <table class="table">
+            <table class="table table-bordered">
 
                 <tbody>
                     <tr>
@@ -44,56 +47,45 @@
                         <th>Sản phẩm</th>
                         <th>Giá</th>
                         <th>Sale(%)</th>
-                        <th>Meta Title</th>
-                        <th>Mô tả</th>
-                        <th>Tag</th>
                         <th>Trạng thái</th>
                         <th>Action</th>
                     </tr>
                     @for (int i = 0; i < Model.Count(); i++)
                     {
-                        var idx = (int)(@ViewBag.Page - 1) * 10 + i + 1;
-                        <tr id="row_@Model[i].Product.ID">
+                        var idx = (int)(@ViewBag.Page - 1) * 5 + i + 1;
+                        <tr id="row_@Model[i].ID">
                             <td>@idx</td>
-                            <td>@Model[i].Product.Code</td>
+                            <td>@Model[i].Code</td>
                             <td>
                                 <div class="row col-lg-12">
                                     <div class="col-lg-3 wrap-avatar">
-                                        @foreach (var item in Model[i].ListImage)
+                                        @if (!string.IsNullOrEmpty(Model[i].MainImage))
                                         {
-                                            if (item.Type == 1)
-                                            {
-                                                if (!string.IsNullOrEmpty(item.Src))
-                                                {
-                                                    <img class="img-avatar img-responsive img-circle" src="@Url.Content(item.Src)" />
-                                                }
-                                                else
-                                                {
-                                                    <img class="img-avatar img-responsive img-circle" src='@Url.Content("~/Images/user.png")' />
-                                                }
-                                            }
+                                            <img src="@Url.Content(Model[i].MainImage)" class="avatar-product img-responsive img-thumbnail" />
                                         }
+                                        else
+                                        {
+                                            @*<img src="@Url.Content(Model[i].MainImage)" class="avatar-product img-responsive img-thumbnail" />*@
+                                        }
+
                                     </div>
                                     <div class="col-lg-9">
-                                        <span>@Model[i].Product.Name</span>
+                                        <span>@Model[i].Name</span>
                                     </div>
                                 </div>
 
 
                             </td>
-                            <td>@Model[i].Product.Price</td>
-                            <td>@Model[i].Product.Sale.ToString()%</td>
-                            <td>@Model[i].Product.MetaTitle</td>
-                            <td>@Model[i].Product.Description</td>
-                            <td>@Model[i].Product.Tag</td>
-                            <td>@(Model[i].Product.Status == 1 ? "Đang bán" : "Hết hàng")</td>
+                            <td>@Model[i].Price</td>
+                            <td>@Model[i].Sale.ToString()%</td>
+                            <td>@(Model[i].Status == 1 ? "Đang bán" : "Hết hàng")</td>
                             <td>
                                 <div class="btn-group">
-                                    <a href="/Admin/Product/Edit/@Model[i].Product.ID" class="btn btn-info btn-flat btn-action-first"><i class="fa fa-pencil"></i></a>
-                                    @Ajax.ActionLink(" ", "Delete", new { @ID = Model[i].Product.ID }, new AjaxOptions
+                                    <a href="/Admin/Product/Edit/@Model[i].ID" class="btn btn-info btn-flat btn-action-first"><i class="fa fa-pencil"></i></a>
+                                    @Ajax.ActionLink(" ", "Delete", new { @ID = Model[i].ID }, new AjaxOptions
                                {
-                                   Confirm = "Bạn chắc chắn muốn xóa thông tin sản phẩm " + @Model[i].Product.Name + " ?",
-                                   OnComplete = "$('#row_" + @Model[i].Product.ID + "').remove()",
+                                   Confirm = "Bạn chắc chắn muốn xóa thông tin sản phẩm " + @Model[i].Name + " ?",
+                                   OnComplete = "$('#row_" + @Model[i].ID + "').remove()",
                                    HttpMethod = "Delete"
                                },
                                new { @class = "btn btn-danger btn-flat glyphicon glyphicon-trash  btn-action-second" })

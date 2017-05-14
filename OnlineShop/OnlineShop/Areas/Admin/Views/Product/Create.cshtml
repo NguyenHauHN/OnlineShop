@@ -1,6 +1,7 @@
-﻿@model Model.ViewModels.ProductDisplay
+﻿@model Model.EF.Product
+
 @{
-    ViewBag.Title = "Thêm mới Sản phẩm - OnlineShop";
+    ViewBag.Title = "Create";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
     var urlImage = Url.Content(ViewBag.srcImg);
 }
@@ -8,11 +9,27 @@
     <section class="content-header">
         <h4>Quản lý Sản phẩm</h4>
         <ol class="breadcrumb">
-            <li><a href="/"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+            <li><a href="/Admin/Home"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
             <li><a href="/Admin/Product/Index">Quản lý Sản phẩm</a></li>
             <li class="active">Thêm mới</li>
         </ol>
     </section>
+}
+@section jsFooter{
+    
+    <script type="text/javascript">
+
+        $("#imageUploadProduct").change(function () {
+            var fileName = "~/Images/" + $(this).val().split('/').pop().split('\\').pop();
+            if ($(this).val().length > 0) {
+                alert($(this).val());
+                $('#btnUploadProduct').click();
+            }
+
+
+        });
+    
+    </script>
 }
 <section class="content">
     <div class="box box-primary">
@@ -27,84 +44,113 @@
                     <div class="wrap-image">
                         <img class="img-responsive img-thumbnail avatar" src="@urlImage" />
                     </div>
-                    @using (Html.BeginForm("UploadSingleImage", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    @using (Html.BeginForm("UploadImageMainImage", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
 
-                        <div class="wrap-button-upload">
-                            <input type="file" id="imageUpload" accept="image/*" name="file" class="hide" />
-                            <label for="imageUpload" class="button-style btn btn-primary">Chọn ảnh</label>
+                    <div class="wrap-button-upload">
+                        <input type="file" id="imageUploadProduct" accept="image/*" name="file" class="hide" />
+                        <label for="imageUploadProduct" class="button-style btn btn-primary">Ảnh đại diện</label>
 
-                            <button type="submit" class="btn btn-success">Upload ảnh</button>
-                        </div>
+                        <a href="/Admin/Product/UploadGalleryImage" class="btn btn-info" id="btnUploadGallery">Ảnh mô tả</a>
+
+                        <button type="submit" class="btn btn-success hide" id="btnUploadProduct">Upload ảnh</button>
+                    </div>
                     }
                 </div>
                 <div class="col-lg-9">
                     @using (Html.BeginForm("Create", "Product", FormMethod.Post))
-                    {
-                        @Html.AntiForgeryToken()
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            {
+                    @Html.AntiForgeryToken()
 
-                        <div class="row">
-
-                            <fieldset>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label>Mã sản phẩm</label>
-                                        @Html.EditorFor(model => model.Product.Code, new { htmlAttributes = new { @class = "form-control", @placeholder = "Mã sản phẩm", @autofocus = "autofocus" } })
-                                        @Html.ValidationMessageFor(model => model.Product.Code, "", new { @class = "text-danger" })
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Tên sản phẩm</label>
-                                        @Html.EditorFor(model => model.Product.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Tên sản phẩm", @autofocus = "autofocus" } })
-                                        @Html.ValidationMessageFor(model => model.Product.Name, "", new { @class = "text-danger" })
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Meta Title</label>
-                                        @Html.EditorFor(model => model.Product.MetaTitle, new { htmlAttributes = new { @class = "form-control", @placeholder = "MetaTitle" } })
-                                        @Html.ValidationMessageFor(model => model.Product.MetaTitle, "", new { @class = "text-danger" })
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Mô tả</label>
-                                        @Html.EditorFor(model => model.Product.Description, new { htmlAttributes = new { @class = "form-control", @placeholder = "Mô tả" } })
-                                        @Html.ValidationMessageFor(model => model.Product.Description, "", new { @class = "text-danger" })
-                                    </div>
-                                   
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label>Giá</label>
-                                        @Html.EditorFor(model => model.Product.Price, new { htmlAttributes = new { @class = "form-control", @placeholder = "Mô tả", @type = "number" } })
-                                        @Html.ValidationMessageFor(model => model.Product.Price, "", new { @class = "text-danger" })
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Khuyến mãi (%)</label>
-                                        @Html.EditorFor(model => model.Product.Sale, new { htmlAttributes = new { @class = "form-control", @placeholder = "Khuyến mãi" } })
-                                        @Html.ValidationMessageFor(model => model.Product.Sale, "", new { @class = "text-danger" })
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Tag</label>
-                                        @Html.EditorFor(model => model.Product.Tag, new { htmlAttributes = new { @class = "form-control", @placeholder = "Tag" } })
-                                        @Html.ValidationMessageFor(model => model.Product.Tag, "", new { @class = "text-danger" })
+                    <div class="form-horizontal">
+                        <h4>Product</h4>
+                        <hr />
+                        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                        <div class="row col-lg-12">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Tên sản phẩm</label>
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-                            </fieldset>
 
+                                <div class="form-group">
+                                    <label>Mã sản phẩm</label>
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Meta Title</label>
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.MetaTitle, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.MetaTitle, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Mô tả</label>
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Đơn giá</label>
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Khuyến mãi</label>
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.Sale, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Sale, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Tag</label>
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.Tag, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Tag, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1">Trạng thái</label>
+                                    <div class="row col-lg-12">
+                                        <div class="radio col-lg-5">
+                                            @Html.RadioButtonFor(model => model.Status, "1", new { @checked = true })
+                                            @Html.Label("Hoạt động")
+
+                                        </div>
+                                        <div class="radio col-lg-5 radio-second">
+                                            @Html.RadioButtonFor(model => model.Status, "0", false)
+                                            @Html.Label("Ẩn")
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="row wrap-button-add">
-                            <button type="submit" class="btn btn-primary pull-right">Thêm mới</button>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Create" class="btn btn-default" />
+                            </div>
                         </div>
+                    </div>
                     }
                 </div>
-
             </div>
-
         </div>
-
-
-        <!-- /.box-body -->
-
-
     </div>
 </section>
-
 

@@ -33,6 +33,7 @@
         public string Phone { get; set; }
 
         [StringLength(50)]
+        [Required(ErrorMessage = "Bạn không được để trống trường này!")]
         public string Email { get; set; }
 
         public int Status { get; set; }

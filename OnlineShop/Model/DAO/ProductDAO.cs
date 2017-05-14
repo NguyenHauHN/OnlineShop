@@ -17,6 +17,22 @@ namespace Model.DAO
             db = new OnlineShopDbContext();
         }
 
+        public IEnumerable<Product> ListAllproduct(string keyword, ref int totalProduct, int page = 1, int pageSize = 5)
+        {
+            IQueryable<Product> model = db.Products;
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                model = model.Where(x => x.Status != 0 && (x.Name.Contains(keyword) || x.Code.Contains(keyword) || x.Description.Contains(keyword)));
+            }
+            else
+            {
+                model = model.Where(x => x.Status != 0);
+            }
+
+            totalProduct = model.Count();
+            return model.OrderByDescending(x => x.CreateDate).ToPagedList(page, pageSize);
+        }
+
         public List<Product> ListAll()
         {
             return db.Products.Where(x => x.Status != 0).ToList();
@@ -55,6 +71,22 @@ namespace Model.DAO
             }
         }
 
+        public int SaveGalleryImage(long ID, string listImage)
+        {
+            try
+            {
+                var product = new ProductDAO().GetByID(ID);
+                product.GalleryImage = listImage;
+                db.SaveChanges();
+                return 1;
+            }
+            catch (Exception)
+            {
+                return -1;
+            }
+            
+        }
+
         public int Update(Product product)
         {
             try
@@ -70,6 +102,8 @@ namespace Model.DAO
                 prod.Status = product.Status;
                 prod.Type = product.Type;
                 prod.LastChange = DateTime.Now;
+                prod.MainImage = product.MainImage;
+                prod.GalleryImage = product.GalleryImage;
                 //prod.ChangeBy = IDAdminChange;
                 db.SaveChanges();
                 return 1;

@@ -34,8 +34,7 @@ namespace Model.EF
         public long? ChangeBy { get; set; }
 
         [Key]
-        [Column(Order = 9)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Column(Order = 2)]
         public long OrderID { get; set; }
     }
 }

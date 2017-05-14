@@ -226,7 +226,6 @@
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-    <script src="~/Scripts/Custom/activeMenu.js"></script>
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
   $.widget.bridge('uibutton', $.ui.button);
@@ -255,13 +254,15 @@
     <script src="/Assets/Admin/plugins/slimScroll/jquery.slimscroll.min.js"></script>
     <!-- FastClick -->
     <script src="/Assets/Admin/plugins/fastclick/fastclick.js"></script>
+    <!--CKFinder-->
+    <script src="/Assets/Admin/plugins/ckfinder/ckfinder.js"></script>
     <!-- AdminLTE App -->
     <script src="/Assets/Admin/dist/js/app.min.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="/Assets/Admin/dist/js/pages/dashboard.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="/Assets/Admin/dist/js/demo.js"></script>
-   
-    
+   @RenderSection("jsFooter", required:false)
+    @RenderSection("jsUploadImage", required:false)
 </body>
 </html>

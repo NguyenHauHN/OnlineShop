@@ -13,7 +13,6 @@ namespace Model.EF
         }
 
         public virtual DbSet<Category> Categories { get; set; }
-        public virtual DbSet<ImageProduct> ImageProducts { get; set; }
         public virtual DbSet<OrderProduct> OrderProducts { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Slide> Slides { get; set; }

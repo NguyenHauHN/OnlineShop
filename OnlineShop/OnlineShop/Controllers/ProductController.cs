@@ -18,10 +18,10 @@ namespace OnlineShop.Controllers
         [HttpGet]
         public ActionResult ViewDetail(int ID)
         {
-            var product = new ProductDisplayDAO().GetByProductID(ID);
-            var listRelateProduct = new ProductDisplayDAO().GetListRelateProduct(product.Product.CategoryID);
-            ViewBag.ListRelate = listRelateProduct;
-            return View(product);
+            //var product = new ProductDisplayDAO().GetByProductID(ID);
+            //var listRelateProduct = new ProductDisplayDAO().GetListRelateProduct(product.Product.CategoryID);
+            //ViewBag.ListRelate = listRelateProduct;
+            return View();
         }
     }
 }
