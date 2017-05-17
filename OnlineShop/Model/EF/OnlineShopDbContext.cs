@@ -13,23 +13,31 @@ namespace Model.EF
         }
 
         public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderProduct> OrderProducts { get; set; }
         public virtual DbSet<Product> Products { get; set; }
-        public virtual DbSet<Slide> Slides { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Order>()
+                .Property(e => e.CustomerPhone)
+                .IsUnicode(false);
+
             modelBuilder.Entity<OrderProduct>()
                 .Property(e => e.Price)
                 .HasPrecision(18, 0);
 
-            modelBuilder.Entity<Product>()
-                .Property(e => e.Code)
-                .IsUnicode(false);
+            modelBuilder.Entity<OrderProduct>()
+                .Property(e => e.Sale)
+                .HasPrecision(18, 0);
+
+            modelBuilder.Entity<OrderProduct>()
+                .Property(e => e.TotalMoney)
+                .HasPrecision(18, 0);
 
             modelBuilder.Entity<Product>()
-                .Property(e => e.MetaTitle)
+                .Property(e => e.Code)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Product>()
@@ -46,10 +54,6 @@ namespace Model.EF
 
             modelBuilder.Entity<User>()
                 .Property(e => e.Phone)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<User>()
-                .Property(e => e.Email)
                 .IsUnicode(false);
         }
     }

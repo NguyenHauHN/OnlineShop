@@ -11,11 +11,9 @@ namespace Model.EF
     {
         public long ID { get; set; }
 
-        [Required]
         [StringLength(250)]
         public string Name { get; set; }
 
-        [Required]
         [StringLength(50)]
         public string Code { get; set; }
 
@@ -51,5 +49,8 @@ namespace Model.EF
 
         [Column(TypeName = "xml")]
         public string GalleryImage { get; set; }
+
+        [StringLength(100)]
+        public string GroupID { get; set; }
     }
 }

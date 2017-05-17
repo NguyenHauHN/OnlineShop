@@ -25,10 +25,10 @@ namespace Model.EF
 
         public long? CreateBy { get; set; }
 
-        [StringLength(250)]
+        [StringLength(300)]
         public string Description { get; set; }
 
-        [StringLength(50)]
+        [StringLength(250)]
         public string Tag { get; set; }
 
         public int? Status { get; set; }

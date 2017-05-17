@@ -1,4 +1,4 @@
-﻿namespace Model.EF
+namespace Model.EF
 {
     using System;
     using System.Collections.Generic;
@@ -10,15 +10,13 @@
     public partial class User
     {
         public long ID { get; set; }
-        [Required(ErrorMessage = "Bạn không được để trống trường này!")]
+
         [StringLength(250)]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Bạn không được để trống trường này!")]
         [StringLength(250)]
         public string Username { get; set; }
 
-        [Required(ErrorMessage = "Bạn không được để trống trường này!")]
         [StringLength(50)]
         public string Password { get; set; }
 
@@ -32,11 +30,10 @@
         [StringLength(50)]
         public string Phone { get; set; }
 
-        [StringLength(50)]
-        [Required(ErrorMessage = "Bạn không được để trống trường này!")]
+        [StringLength(250)]
         public string Email { get; set; }
 
-        public int Status { get; set; }
+        public int? Status { get; set; }
 
         public int? Type { get; set; }
 

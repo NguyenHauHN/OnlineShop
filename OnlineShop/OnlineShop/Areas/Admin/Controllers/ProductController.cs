@@ -5,7 +5,6 @@ using System.Web;
 using System.Web.Mvc;
 using PagedList;
 using Model.DAO;
-using Model.ViewModels;
 using System.IO;
 using Model.EF;
 using System.Threading.Tasks;
@@ -15,7 +14,7 @@ using System.Xml.Linq;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
-    public class ProductController : Controller
+    public class ProductController : BaseController
     {
         // GET: Admin/Product
         public ActionResult Index(string keyword, int page = 1, int pageSize = 5)
@@ -43,12 +42,13 @@ namespace OnlineShop.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Product product)
+        public ActionResult Create(Product product, string amountProduct)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
+                   
                     if (TempData["ListGalleryImage"] != null)
                     {
                         product.GalleryImage = TempData["ListGalleryImage"].ToString();
@@ -57,7 +57,29 @@ namespace OnlineShop.Areas.Admin.Controllers
                     {
                         product.MainImage = Session["avatarUploadProduct"].ToString();
                     }
-                    var result = new ProductDAO().Insert(product);
+                   
+                    var listProduct = new List<Product>();
+                    var groupID = new ProductDAO().ConvertToTimestamp(DateTime.Now);
+                    int number = Convert.ToInt32(amountProduct);
+                    for (int i = 0; i < number; i++)
+                    {
+                        var newProduct = new Product();
+
+                        newProduct.Name = product.Name;
+                        newProduct.MetaTitle = product.MetaTitle;
+                        newProduct.MainImage = product.MainImage;
+                        newProduct.GalleryImage = product.GalleryImage;
+                        newProduct.Description = product.Description;
+                        newProduct.Tag = product.Tag;
+                        newProduct.Price = product.Price;
+                        newProduct.Sale = product.Sale;
+                        newProduct.CategoryID = product.CategoryID;
+                        newProduct.Code = "SP" + groupID + "_" +  (i + 1).ToString();
+                        newProduct.GroupID = groupID;
+                        newProduct.Status = 1;
+                        listProduct.Add(newProduct);
+                    }
+                    var result = new ProductDAO().Insert(listProduct);
                     if (result > 0)
                     {
                         return RedirectToAction("Index", "Product");
@@ -146,7 +168,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult UploadImageGalleryImage()
+        public ActionResult UploadImage()
         {
             try
             {

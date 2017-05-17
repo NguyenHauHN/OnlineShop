@@ -15,7 +15,7 @@
 
                 if (files.length > 0) { data.append("HelpSectionImages", files[0]); }
                 $.ajax({
-                    url: "/Admin/Product/UploadImageGalleryImage/",
+                    url: "/Admin/Product/UploadImage/",
                     type: "POST",
                     processData: false,
                     data: data,

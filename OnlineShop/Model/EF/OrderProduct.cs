@@ -9,32 +9,20 @@ namespace Model.EF
     [Table("OrderProduct")]
     public partial class OrderProduct
     {
-        [Key]
-        [Column(Order = 0)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public long ProductID { get; set; }
+        public long ID { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public long ReceiverID { get; set; }
+        public long? OrderID { get; set; }
 
-        public int? Amount { get; set; }
+        public long? ProductID { get; set; }
+
+        public long? Amount { get; set; }
 
         public decimal? Price { get; set; }
 
+        public decimal? Sale { get; set; }
+
         public int? Status { get; set; }
 
-        public DateTime? CreateDate { get; set; }
-
-        public long? CreateBy { get; set; }
-
-        public DateTime? LastChange { get; set; }
-
-        public long? ChangeBy { get; set; }
-
-        [Key]
-        [Column(Order = 2)]
-        public long OrderID { get; set; }
+        public decimal? TotalMoney { get; set; }
     }
 }

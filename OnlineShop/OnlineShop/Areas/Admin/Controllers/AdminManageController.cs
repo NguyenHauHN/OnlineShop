@@ -64,7 +64,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(User admin, string singleImage)
+        public ActionResult Edit(User admin, string singleImage, string srcAvatar)
         {
             if (ModelState.IsValid)
             {
@@ -72,7 +72,10 @@ namespace OnlineShop.Areas.Admin.Controllers
                 {
                     admin.Avatar = singleImage;
                 }
-
+                else if (!string.IsNullOrEmpty(srcAvatar))
+                {
+                    admin.Avatar = srcAvatar;
+                }
                 Regex rgx = new Regex(@"^[0-9a-f]{32}$");
                 if (!rgx.IsMatch(admin.Password))
                 {

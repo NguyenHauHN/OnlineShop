@@ -1,0 +1,10 @@
+LIST_TYPE_USER = {
+	1: Admin,
+	0: Customer
+}
+LIST_STATUS_PRODUCT={
+	1: New,
+	2: Saling,
+	3: Out of Stock,
+	4: Deleted
+}
