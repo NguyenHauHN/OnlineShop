@@ -1,0 +1,62 @@
+﻿@model OnlineShop.Common.UserLogin
+<header class="main-header">
+    <!-- Logo -->
+    <a href="index2.html" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"><b>Z</b>KS</span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"><b>ZORKA</b> SHOP</span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+        </a>
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                <li class="dropdown user user-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        @if (Model.Avatar != null)
+                        {
+                            <img src="@Url.Content(Model.Avatar)" class="user-image" alt="User Image">
+                        }
+                        else
+                        {
+                            <img src=@Url.Content("~/Images/user.png") class="user-image" alt="User Image">
+                        }
+
+                        <span class="hidden-xs">@Model.Name</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <!-- User image -->
+                        <li class="user-header">
+                           @if (Model.Avatar != null)
+                           {
+                            <img src="@Url.Content(Model.Avatar)" class="img-circle" alt="User Image">
+                           }
+                           else
+                           {
+                            <img src=@Url.Content("~/Images/user.png") class="img-circle" alt="User Image">
+                           }
+                            <p>
+                                @Model.Name
+                                <small>@Model.JoinDate</small>
+                            </p>
+                        </li>
+                        <!-- Menu Footer-->
+                        <li class="user-footer">
+                            <div class="pull-left">
+                                <a href="/Admin/AdminManage/ChangePassword" class="btn btn-default btn-flat">Đổi mật khẩu</a>
+                            </div>
+                            <div class="pull-right">
+                                <a href="/Admin/Home/Logout" class="btn btn-default btn-flat">Đăng xuất</a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+               
+            </ul>
+        </div>
+    </nav>
+</header>

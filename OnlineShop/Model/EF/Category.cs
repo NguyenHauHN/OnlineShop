@@ -32,5 +32,7 @@ namespace Model.EF
         public string Tag { get; set; }
 
         public int? Status { get; set; }
+
+        public int? Type { get; set; }
     }
 }

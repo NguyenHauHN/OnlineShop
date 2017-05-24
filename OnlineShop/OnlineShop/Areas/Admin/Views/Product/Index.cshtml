@@ -47,6 +47,7 @@
                         <th>Sản phẩm</th>
                         <th>Giá</th>
                         <th>Sale(%)</th>
+                        <th>Số lượng</th>
                         <th>Trạng thái</th>
                         <th>Action</th>
                     </tr>
@@ -78,6 +79,7 @@
                             </td>
                             <td>@Model[i].Price</td>
                             <td>@Model[i].Sale.ToString()%</td>
+                            <td>@Model[i].Amount</td>
                             <td>@(Model[i].Status == 1 ? "Đang bán" : "Hết hàng")</td>
                             <td>
                                 <div class="btn-group">

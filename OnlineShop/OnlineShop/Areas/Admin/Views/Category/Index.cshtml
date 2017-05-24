@@ -43,9 +43,6 @@
                         <th>Tên</th>
                         <th>Meta Title</th>
                         <th>Mô tả</th>
-                        <th>Thứ tự hiển thị</th>
-                        <th>Tag</th>
-                        <th>Danh mục cha</th>
                         <th>Trạng thái</th>
                         <th style="min-width: 100px;">Action</th>
                     </tr>
@@ -57,9 +54,6 @@
                             <td>@Model[i].Name </td>
                             <td>@Model[i].MetaTitle </td>
                             <td>@Model[i].Description</td>
-                            <td>@Model[i].DisplayOrder</td>
-                            <td>@Model[i].Tag</td>
-                            <td>@Model[i].ParentID</td>
                             <td>@(Model[i].Status == 1 ? "Đang hoạt động" : "Bị khóa")</td>
                             <td style="min-width: 100px;">
                                 <div class="btn-group">

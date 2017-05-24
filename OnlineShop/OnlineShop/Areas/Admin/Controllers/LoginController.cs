@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
@@ -30,6 +31,11 @@ namespace OnlineShop.Areas.Admin.Controllers
                     // gan session
                     userLogin.Username = user.Username;
                     userLogin.UserID = user.ID;
+                    userLogin.Avatar = user.Avatar;
+                    userLogin.Name = user.Name;
+                    userLogin.Password = user.Password;
+                    userLogin.Email = user.Email;
+                    userLogin.JoinDate = user.JoinDate;
 
                     Session.Add(CommonConstant.USER_SESSION, userLogin);
                     return RedirectToAction("Index", "AdminManage");
@@ -50,5 +56,7 @@ namespace OnlineShop.Areas.Admin.Controllers
             }
             return View("Index");
         }
+
+        
     }
 }

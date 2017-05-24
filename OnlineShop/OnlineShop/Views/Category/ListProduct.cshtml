@@ -1,0 +1,218 @@
+﻿@model PagedList.IPagedList<Model.EF.Product>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var categoryInfo = (Model.EF.Category)ViewBag.CategoryInfo;
+    var listCategoryMen = (List<Model.EF.Category>)ViewBag.ListcategoryMen;
+    var listCategoryWomen = (List<Model.EF.Category>)ViewBag.ListcategoryWomen;
+    var listCategoryKid = (List<Model.EF.Category>)ViewBag.ListcategoryKid;
+    var listProductTopRate = (List<Model.EF.Product>)ViewBag.ListProductTopRate;
+}
+@section jsFooter{
+    <script type="text/javascript" src="~/Assets/Client/customJs/changeSortProduct.js"></script>
+}
+
+<section class="page-title-wrapper page-title-shop-wrapper dark page-title-image" style="background-image: url(@Url.Content("~/Images/shop-page-title-bg.jpg"));">
+    <div class="page-title-inner">
+        <div class="container">
+            <h1>@categoryInfo.Name</h1>
+        </div>
+    </div>
+</section>
+<main role="main" class="site-content-product-archive">
+    <div class="container clearfix">
+        <div class="row clearfix">
+            <div class="col-md-9 col-md-push-3">
+                <div class="product-wrapper clearfix">
+                    <div class="category-filter clearfix">
+                        <p class="woocommerce-result-count">
+                            Hiển thị 1&ndash;9 of @ViewBag.TotalProduct sản phẩm
+                        </p>
+                        <div class="woocommerce-ordering">
+                            <select id="sortProduct" name="valueSelectSort" class="orderby">
+                                <option value="1">Theo ngày nhập</option>
+                                <option value="2">Theo rating</option>
+                                <option value="3">Sản phẩm được mua nhiều nhất</option>
+                                <option value="4">Theo giá: thấp -> cao</option>
+                                <option value="5">Theo giá: cao ->thấp</option>
+                            </select>
+                            <input type="hidden" id="categoryID" name="categoryID" value="@categoryInfo.ID">
+                        </div>
+                    </div>
+                    <div id="wrap-product-category">
+                        <div class="product-listing woocommerce row clearfix">
+                            @foreach (var item in Model)
+                            {
+                                <div class="product type-product status-publish has-post-thumbnail product-item-wrapper col-md-4  col-sm-4 col-xs-6 taxable shipping-taxable purchasable product-type-simple product-cat-autumn-collection product-cat-boys product-cat-hanbags-wallets product-cat-hoodies product-cat-jean-men product-cat-jewelry product-cat-jewelry-diamond product-cat-posters product-cat-shoes product-tag-coach product-tag-products product-tag-shop product-tag-veston instock">
+                                    <div class="product-item-inner">
+                                        <div class="product-thumb">
+                                            <div class="product-item-feature">
+                                                @if (item.Sale > 0)
+                                                {
+                                                    <div class="on-sale"><span>-@item.Sale%</span></div>
+                                                }
+
+                                            </div>
+                                            <div class="product-images-hover change-images">
+                                                <div class="product-thumb-primary">
+                                                    <img width="390" height="520" src=@Url.Content(item.MainImage) class="attachment-shop_catalog wp-post-image" alt="product-07">
+                                                </div>
+                                                <div class="product-thumb-secondary">
+                                                    <img width="390" height="520" src=@Url.Content(item.MainImage) class="attachment-shop_catalog" alt="product-05">
+                                                </div>
+                                            </div>
+                                            <a data-toggle="tooltip" title="Quick view" class="product-quick-view" data-product_id="193" href="http://themes.g5plus.net/zorka/shop/black-white-grid-skirt/"><i class="pe-7s-search"></i></a>
+                                            <a class="product-link" href="/san-pham/@item.MetaTitle/@item.ID"></a>
+                                        </div>
+
+                                        <a class="product-name" href="/san-pham/@item.MetaTitle/@item.ID">@item.Name</a>
+                                        <div class="star-rating" title="Rated 4.5 out of 5"><span style="width:90%"><strong class="rating">4.5</strong> out of 5</span></div>
+                                        <span class="price">
+                                            @if (item.Sale > 0)
+                                            {
+                                                <ins><span class="amount">&dollar;@(item.Price * (100 - item.Sale) / 100)</span></ins>
+                                            }
+
+                                            <del><span class="amount">&dollar;@item.Price</span></del>
+                                        </span>
+                                        <div class="product-button clearfix">
+                                            <div class="product-button-inner">
+                                                <div class="yith-wcwl-add-to-wishlist add-to-wishlist-193">
+                                                    <div class="yith-wcwl-add-button show" style="display:block">
+                                                        <a href="index-9.htm?add_to_wishlist=193" rel="nofollow" data-product-id="193" data-product-type="simple" class="add_to_wishlist">
+                                                            Add to Wishlist
+                                                        </a>
+                                                        <img src="http://themes.g5plus.net/zorka/wp-admin/images/wpspin_light.gif" class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden">
+                                                    </div>
+                                                    <div class="yith-wcwl-wishlistaddedbrowse hide" style="display:none;">
+                                                        <span class="feedback">Product added!</span>
+                                                        <a href="http://themes.g5plus.net/zorka/wishlist/view/?lang=en">
+                                                            Browse Wishlist
+                                                        </a>
+                                                    </div>
+                                                    <div class="yith-wcwl-wishlistexistsbrowse hide" style="display:none">
+                                                        <span class="feedback">The product is already in the wishlist!</span>
+                                                        <a href="http://themes.g5plus.net/zorka/wishlist/view/?lang=en">
+                                                            Browse Wishlist
+                                                        </a>
+                                                    </div>
+                                                    <div style="clear:both"></div>
+                                                    <div class="yith-wcwl-wishlistaddresponse"></div>
+                                                </div>
+                                                <div class="clear"></div>
+                                                <a rel="nofollow" href="http://themes.g5plus.net/zorka/shop/black-white-grid-skirt/" data-quantity="1" data-product_id="193" data-product_sku="" class="button product_type_simple ajax_add_to_cart">Add to cart</a><a href="/zorka/product-category/clothing/hoodies/?add_to_wishlist=217&amp;action=yith-woocompare-add-product&amp;id=193&amp;_wpnonce=3967e53f03" class="compare button" data-product_id="193">Compare</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <div class="text-center wrap-pagination">
+                            @Html.PagedListPager(Model, page => Url.Action("ListProduct", new { page }))
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div id="secondary" class="shop-sidebar col-md-3 col-md-pull-9 hidden-sm hidden-xs" role="complementary">
+                <aside id="woocommerce_product_search-2" class="widget woocommerce widget_product_search">
+                    <div class="zorka-search-form">
+                        <div class="form-group has-feedback">
+                            <input type="text" name="searchProduct" id="searchProduct" placeholder="Nhập từ khóa...">
+                            <i class="pe-7s-search form-control-feedback"></i>
+                        </div>
+                        @*<input type="text" name="searchProduct" id="searchProduct" placeholder="Nhập từ khóa...">
+                        <button type="submit"><i class="pe-7s-search"></i></button>*@
+                    </div>
+                </aside>
+                <aside id="woocommerce_price_filter-2" class="widget woocommerce widget_price_filter">
+                    <h4 class="widget-title"><span>Lọc theo giá</span></h4>
+                    <div class="price_slider_wrapper">
+                        <div class="price_slider" style="display:none;"></div>
+                        <div class="price_slider_amount">
+                            <div class="wrap-min-price">
+                                <input type="number" id="min_price" name="min_price" value="" data-min="12" placeholder="Min price">
+                            </div>
+                            
+                            <div class="wrap-max-price">
+                                <input type="number" id="max_price" name="max_price" value="" data-max="546" placeholder="Max price">
+                            </div>
+                            
+                            <button type="submit" id="filterPrice" class="button">Lọc</button>
+                            
+                            <div class="price_label" style="display:none;">
+                                Giá: <span class="from"></span> &mdash; <span class="to"></span>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </aside>
+                <aside id="woocommerce_product_categories-2" class="widget woocommerce widget_product_categories">
+                    <h4 class="widget-title"><span>Danh mục</span></h4>
+                    <ul class="product-categories">
+                        <li class="cat-item cat-item-78 cat-parent">
+                            <a href="">Thời trang nam</a>
+                            <ul class='children'>
+                                @foreach (var item in listCategoryMen)
+                                {
+                                    <li class="cat-item">
+                                        <a href="/danh-muc/@item.MetaTitle/@item.ID">@item.Name</a>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                        <li class="cat-item cat-item-30 cat-parent current-cat-parent">
+                            <a href="">Thời trang nữ</a>
+                            <ul class='children'>
+                                @foreach (var item in listCategoryWomen)
+                                {
+                                    <li class="cat-item">
+                                        <a href="/danh-muc/@item.MetaTitle/@item.ID">@item.Name</a>
+                                    </li>
+                                }
+
+                            </ul>
+                        </li>
+                        <li class="cat-item cat-item-32 cat-parent">
+                            <a href="">Thời trang trẻ em</a>
+                            <ul class='children'>
+                                @foreach (var item in listCategoryKid)
+                                {
+                                    <li class="cat-item">
+                                        <a href="/danh-muc/@item.MetaTitle/@item.ID">@item.Name</a>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    </ul>
+                </aside>
+                <aside id="woocommerce_top_rated_products-2" class="widget woocommerce widget_top_rated_products">
+                    <h4 class="widget-title"><span>Sản phẩm Top đầu</span></h4>
+                    <ul class="product_list_widget">
+                        @foreach (var item in listProductTopRate)
+                        {
+                            <li>
+                                <a href="/san-pham/@item.MetaTitle/@item.ID" title="@item.Name">
+                                    <img width="180" height="180" src=@Url.Content(item.MainImage) class="attachment-shop_thumbnail wp-post-image" alt="product-15">
+                                    <span class="product-title">@item.Name</span>
+                                </a>
+                                <div class="star-rating" title="Rated 5 out of 5"><span style="width:100%"><strong class="rating">5</strong> out of 5</span></div>
+                                <span class="amount">&dollar;@item.Price</span>
+                            </li>
+                        }
+                    </ul>
+                </aside>
+                <aside id="woocommerce_product_tag_cloud-2" class="widget woocommerce widget_product_tag_cloud">
+                    <h4 class="widget-title"><span>Tags sản phẩm</span></h4>
+                    <div class="tagcloud">
+                        @foreach (var item in Model)
+                        {
+                            <a href='/san-pham/@item.MetaTitle/@item.ID' class='tag-link-52' title='@item.Name'>@item.Tag</a>
+                        }
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+</main>

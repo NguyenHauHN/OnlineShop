@@ -124,5 +124,46 @@ namespace OnlineShop.Areas.Admin.Controllers
                 return Json("Error While Saving.");
             }
         }
+
+        public ActionResult ChangePassword()
+        {
+            var user = Session[CommonConstant.USER_SESSION];
+            return View(user);
+        }
+
+        [HttpPost]
+        public ActionResult ChangePassword(UserLogin user, string newPassword, string reNewPassword)
+        {
+            if (newPassword.Equals(reNewPassword))
+            {
+                var userTemp = new User();
+                userTemp.Email = user.Email;
+                userTemp.Username = user.Username;
+                userTemp.Password = user.Password;
+                userTemp.Password = Encrypt.MD5Hash(newPassword);
+                var result = new UserDAO().ResetPassword(userTemp);
+                if (result == 1)
+                {
+                    TempData["Success"] = "Đổi mật khẩu thành công!";
+                }
+                else if (result == -1)
+                {
+                    TempData["ErrorReset"] = "Có lỗi xảy ra!";
+                }
+                else if (result == -2)
+                {
+                    TempData["ErrorReset"] = "Tên đăng nhập không tồn tại!";
+                }
+                else if (result == -3)
+                {
+                    TempData["ErrorReset"] = "Email không chính xác!";
+                }
+            }
+            else
+            {
+                TempData["ErrorReset"] = "Mật khẩu mới nhập lại không khớp!";
+            }
+            return RedirectToAction("ChangePassword", "AdminManage");
+        }
     }
 }

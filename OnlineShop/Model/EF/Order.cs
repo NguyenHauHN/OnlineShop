@@ -25,6 +25,14 @@ namespace Model.EF
         [StringLength(50)]
         public string CustomerEmail { get; set; }
 
+        public DateTime? CreateDate { get; set; }
+
+        public long? CreateBy { get; set; }
+
+        public long? ChangeBy { get; set; }
+
+        public DateTime? LastChange { get; set; }
+
         public int? Status { get; set; }
     }
 }

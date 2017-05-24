@@ -1,24 +1,300 @@
 ﻿@model List<OnlineShop.Models.CardItem>
+@{
+    var totalMoney = ViewBag.TotalMoney;
+}
 
-<div class="header">
-    <div class="header-top-strip">
+<header class="main-header header-6 ">
+    <div class="site-top ">
         <div class="container">
-            <div class="header-top-left">
-                <ul>
-                    <li><a href="account.html"><span class="glyphicon glyphicon-user"> </span>Login</a></li>
-                    <li><a href="register.html"><span class="glyphicon glyphicon-lock"> </span>Create an Account</a></li>
-                </ul>
-            </div>
-            <div class="header-right">
-                <div class="cart box_1">
-                    <a href="checkout.html">
-                        <h3> <span class="simpleCart_total"> $@(Model.Sum(x => x.Product.Price * x.Quantity)) </span> (<span id="simpleCart_quantity" class="simpleCart_quantity"> @Model.Count</span>)<img src="/Assets/Client/images/bag.png" alt=""></h3>
-                    </a>
-                   
-                    <div class="clearfix"> </div>
+            <div class="site-top-left">
+                <div class="zorka-login-link">
+                    Welcome Guest! <a class="zorka-login-link-sign-in" href="#">Log In</a>
+                    Or <a class="zorka-login-link-sign-up" href="#">Register</a>
                 </div>
             </div>
-            <div class="clearfix"> </div>
+            <div class="site-top-right">
+                <ul class="my-setting">
+                    <li>
+                        <span>My Settings <i class="fa fa-angle-down"></i></span>
+                        <ul>
+                            <li><a href="http://themes.g5plus.net/zorka/my-account/"><i class="fa fa-user"></i> My Account</a></li>
+                            <li><a href="http://themes.g5plus.net/zorka/wishlist/view/?lang=en"><i class="fa fa-heart"></i> Wish List</a></li>
+                            <li><a href="http://themes.g5plus.net/zorka/cart/"><i class="fa fa-shopping-cart"></i> Shopping Cart</a></li>
+                            <li><a href="http://themes.g5plus.net/zorka/checkout/"><i class="fa fa-share"></i> Checkout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="language-selector">
+                    <li>
+                        <span>Language</span> <i class="fa fa-angle-down"></i>
+                        <div id="lang_sel_list" class="lang_sel_list_vertical">
+                            <ul>
+                                <li class="icl-en">
+                                    <a href="index.htm" class="lang_sel_sel">
+                                        <img class="iclflag" src="http://themes.g5plus.net/zorka/wp-content/plugins/sitepress-multilingual-cms/res/flags/en.png" alt="en" title="English">&nbsp;
+                                        English
+                                    </a>
+                                </li>
+                                <li class="icl-fr">
+                                    <a href="http://themes.g5plus.net/zorka?lang=fr" class="lang_sel_other">
+                                        <img class="iclflag" src="http://themes.g5plus.net/zorka/wp-content/plugins/sitepress-multilingual-cms/res/flags/fr.png" alt="fr" title="Français">&nbsp;
+                                        Français
+                                    </a>
+                                </li>
+                                <li class="icl-de">
+                                    <a href="http://themes.g5plus.net/zorka?lang=de" class="lang_sel_other">
+                                        <img class="iclflag" src="http://themes.g5plus.net/zorka/wp-content/plugins/sitepress-multilingual-cms/res/flags/de.png" alt="de" title="Deutsch">&nbsp;
+                                        Deutsch
+                                    </a>
+                                </li>
+                                <li class="icl-it">
+                                    <a href="http://themes.g5plus.net/zorka?lang=it" class="lang_sel_other">
+                                        <img class="iclflag" src="http://themes.g5plus.net/zorka/wp-content/plugins/sitepress-multilingual-cms/res/flags/it.png" alt="it" title="Italiano">&nbsp;
+                                        Italiano
+                                    </a>
+                                </li>
+                                <li class="icl-es">
+                                    <a href="http://themes.g5plus.net/zorka?lang=es" class="lang_sel_other">
+                                        <img class="iclflag" src="http://themes.g5plus.net/zorka/wp-content/plugins/sitepress-multilingual-cms/res/flags/es.png" alt="es" title="Español">&nbsp;
+                                        Español
+                                    </a>
+                                </li>
+                                <li class="icl-ko">
+                                    <a href="http://themes.g5plus.net/zorka?lang=ko" class="lang_sel_other">
+                                        <img class="iclflag" src="http://themes.g5plus.net/zorka/wp-content/plugins/sitepress-multilingual-cms/res/flags/ko.png" alt="ko" title="한국어">&nbsp;
+                                        한국어
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
-</div>
+    <div class="header-mobile">
+        <div class="header-logo">
+            <a href="http://themes.g5plus.net/zorka/" title="Zorka &#8211; An intuitive fashion WordPress theme - Just another WordPress site" rel="home">
+                <img src="http://themes.g5plus.net/zorka/wp-content/themes/zorka/assets/images/logo.png" alt="Zorka &#8211; An intuitive fashion WordPress theme - Just another WordPress site">
+            </a>
+        </div>
+    </div>
+    <div class="header">
+        <nav class="zorka-navbar" role="navigation">
+            <div class="container">
+                <div class="zorka-navbar-header">
+                    <div class="header-logo">
+                        <a href="http://themes.g5plus.net/zorka/" title="Zorka &#8211; An intuitive fashion WordPress theme - Just another WordPress site" rel="home">
+                            <img src="http://themes.g5plus.net/zorka/wp-content/themes/zorka/assets/images/logo.png" alt="Zorka &#8211; An intuitive fashion WordPress theme - Just another WordPress site">
+                        </a>
+                    </div>
+                    <div class="search-header-wrapper">
+                        <div class="search-header-inner">
+                            <div class="custom-content-header">
+                                <ul>
+                                    <li><i class="fa fa-phone"></i>(+100) 6666 8888</li>
+                                    <li><i class="fa fa-envelope-o"></i>info@domain.com</li>
+                                    <li><i class="fa fa-map-marker"></i>99 Collins Street, London, UK.</li>
+                                </ul>
+                            </div>
+                            <div class="product-category">
+                                <span data-id="-1">Category</span>
+                                <ul>
+                                    <li><span data-id="-1">All Category</span></li>
+                                    <li>
+                                        <span data-id="78">Boys</span>
+                                        <ul>
+                                            <li>
+                                                <span data-id="80">Clothings</span>
+                                                <ul></ul>
+                                            </li>
+                                            <li>
+                                                <span data-id="79">Shoes</span>
+                                                <ul></ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <span data-id="30">Clothing</span>
+                                        <ul>
+                                            <li>
+                                                <span data-id="31">Hoodies</span>
+                                                <ul></ul>
+                                            </li>
+                                            <li>
+                                                <span data-id="61">Jean Men</span>
+                                                <ul></ul>
+                                            </li>
+                                            <li>
+                                                <span data-id="35">T-shirts</span>
+                                                <ul></ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <span data-id="32">Fashion</span>
+                                        <ul>
+                                            <li>
+                                                <span data-id="62">Autumn Collection</span>
+                                                <ul></ul>
+                                            </li>
+                                            <li>
+                                                <span data-id="36">Collections</span>
+                                                <ul></ul>
+                                            </li>
+                                            <li>
+                                                <span data-id="34">Singles</span>
+                                                <ul></ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <span data-id="84">Fashion Waist Packs</span>
+                                        <ul>
+                                            <li>
+                                                <span data-id="85">Laptop bags</span>
+                                                <ul></ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <span data-id="74">Kids</span>
+                                        <ul>
+                                            <li>
+                                                <span data-id="75">Clothing</span>
+                                                <ul></ul>
+                                            </li>
+                                            <li>
+                                                <span data-id="76">Hat</span>
+                                                <ul></ul>
+                                            </li>
+                                            <li>
+                                                <span data-id="77">Shoes</span>
+                                                <ul></ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <span data-id="81">LUGGAGE &amp; TRAVEL GEAR</span>
+                                        <ul>
+                                            <li>
+                                                <span data-id="82">BackPacks</span>
+                                                <ul></ul>
+                                            </li>
+                                            <li>
+                                                <span data-id="83">Briefcase</span>
+                                                <ul></ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <span data-id="70">Men</span>
+                                        <ul>
+                                            <li>
+                                                <span data-id="72">Accessories</span>
+                                                <ul></ul>
+                                            </li>
+                                            <li>
+                                                <span data-id="71">Boat Shoes</span>
+                                                <ul></ul>
+                                            </li>
+                                            <li>
+                                                <span data-id="73">Brand Watch</span>
+                                                <ul></ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <span data-id="33">Posters</span>
+                                        <ul>
+                                            <li>
+                                                <span data-id="58">Accessories</span>
+                                                <ul></ul>
+                                            </li>
+                                            <li>
+                                                <span data-id="59">Hanbags &amp; Wallets</span>
+                                                <ul></ul>
+                                            </li>
+                                            <li>
+                                                <span data-id="63">Jewelry Diamond</span>
+                                                <ul></ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <span data-id="66">Women</span>
+                                        <ul>
+                                            <li>
+                                                <span data-id="69">Jewelry</span>
+                                                <ul></ul>
+                                            </li>
+                                            <li>
+                                                <span data-id="67">Shoes</span>
+                                                <ul></ul>
+                                            </li>
+                                            <li>
+                                                <span data-id="68">Watches</span>
+                                                <ul></ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <input class="seach-header-input" type="text" placeholder="Let&#039;s Search">
+                            <i class="fa fa-search"></i>
+                            <div class="search-header-result"></div>
+                        </div>
+                    </div>
+                    <div class="shopping-cart-wrapper">
+                        <div class="widget_shopping_cart_content">
+                            <div class="widget_shopping_cart_icon">
+                                <span class="pe-7s-cart"></span>
+                                <span class="amount-product">@Model.Count()</span>
+                            </div>
+                            <div class="cart_list_wrapper has-cart ">
+                                <div class="wrap-list-item-cart">
+                                    <ul class="cart_list product_list_widget " id="list-cart-item">
+                                        @foreach (var item in Model)
+                                        {
+                                            <li id="item-cart-@item.Product.ID">
+                                                <a href="/san-pham/@item.Product.MetaTitle/@item.Product.ID">
+                                                    <img width="180" height="180" src=@Url.Content(item.Product.MainImage) class="attachment-shop_thumbnail wp-post-image" alt="@item.Product.Name">
+                                                    @item.Product.Name
+                                                </a>
+                                                <span class="quantity">@item.Amount &times; <span class="amount">&dollar;@(item.Product.Price * (100 - item.Product.Sale) / 100)</span></span>
+                                                @*<a data-id="@item.Product.ID" class="mini-cart-remove remove-item-cart" title="Remove this item"><span class="pe-7s-close-circle"></span></a>
+                                                    <a data-id="@item.Product.ID" class="remove-item-cart btn btn-primary">Click!</a>*@
+                                            </li>
+                                        }
+                                        @if (Model.Count() <= 0)
+                                        {
+                                            <li class="empty">
+                                                <h4>Giỏ hàng rỗng!</h4>
+                                                <p>Bạn hãy mua thêm sản phẩm.</p>
+                                            </li>
+                                        }
+
+                                    </ul>
+                                </div>
+                               
+                                @if (Model.Count() > 0)
+                                {
+                                    <p class="total"><strong>Tổng tiền:</strong> <span class="amount">&dollar;@totalMoney</span></p>
+                                    <p class="buttons">
+                                        <a href="/Cart/Index" class="button wc-forward">Giỏ hàng</a>
+                                        <a href="http://themes.g5plus.net/zorka/checkout/" class="button checkout wc-forward">Đơn hàng</a>
+                                    </p>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Menu-->
+            @{
+                Html.RenderAction("Menu", "HomeClient");
+            }
+        </nav>
+    </div>
+</header>

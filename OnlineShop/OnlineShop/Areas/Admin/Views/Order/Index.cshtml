@@ -1,0 +1,109 @@
+﻿@model PagedList.IPagedList<Model.EF.Order>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var listStatusOrder = (List<Model.ViewModels.StatusViewModel>)ViewBag.ListStatusOrder;
+}
+
+@section breadcrumb {
+    <section class="content-header">
+        <h4>Quản lý Đơn hàng</h4>
+        <ol class="breadcrumb">
+            <li><a href=""><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+            <li class="active">Quản lý Đơn hàng</li>
+        </ol>
+    </section>
+}
+<div class="clearfix"></div>
+<section class="content">
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title"> Danh sách Đơn hàng</h3>
+            <div class="box-tools">
+                @using (Html.BeginForm("Index", "Order", FormMethod.Get))
+                {
+                    <div class="input-group input-group-sm" style="width: 150px;">
+                        <input type="text" id="txtSearch" class="form-control pull-right" value="@ViewBag.Keyword" placeholder="Nhập từ khóa..." name="keyword">
+
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- /.box-header -->
+        <div class="box-body no-padding">
+            <table class="table">
+
+                <tbody>
+                    <tr>
+                        <th style="width: 10px">#</th>
+                        <th>Khách hàng</th>
+                        <th>Địa chỉ</th>
+                        <th>SĐT</th>
+                        <th>Ngày đặt</th>
+                        <th>Trạng thái</th>
+                        <th>Action</th>
+                    </tr>
+                    @for (int i = 0; i < Model.Count(); i++)
+                    {
+                        var idx = (int)(@ViewBag.Page - 1) * 10 + i + 1;
+                        <tr id="row_@Model[i].ID">
+                            <td>@idx</td>
+                            <td>@Model[i].CustomerName</td>
+                            <td>@Model[i].CustomerAddress</td>
+                            <td>@Model[i].CustomerPhone</td>
+                            <td>@Model[i].CreateDate</td>
+                            <td>@{ 
+                                var statusText = "";
+                                foreach (var item in listStatusOrder)
+                                {
+                                    if (item.Value == Model[i].Status)
+                                    {
+                                        statusText = item.Name;
+                                    }
+                                }
+                            }
+                                @statusText
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <a href="/Admin/Order/Edit/@Model[i].ID" class="btn btn-info btn-flat btn-action-first" data-toggle="tooltip" data-placement="top" title="Chi tiết đơn hàng">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <a href="/Admin/Order/ListProduct/@Model[i].ID" class="btn btn-success btn-flat" style="margin-top: 2px!important;" data-toggle="tooltip" data-placement="top" title="Danh sách sản phẩm">
+                                        <i class="fa fa-list"></i>
+                                    </a>
+                                    @Ajax.ActionLink(" ", "Delete", new { @ID = Model[i].ID }, new AjaxOptions
+                               {
+                                   Confirm = "Bạn chắc chắn muốn xóa thông tin đơn hàng của  " + @Model[i].CustomerName + " ?",
+                                   OnComplete = "$('#row_" + @Model[i].ID + "').remove()",
+                                   HttpMethod = "Delete"
+                               },
+                               new { @class = "btn btn-danger btn-flat glyphicon glyphicon-trash  btn-action-second" })
+                                </div>
+
+                            </td>
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+            <div class="pull-right">
+                @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, @keyword = @ViewBag.Keyword }))
+            </div>
+
+
+        </div>
+    </div>
+
+</section>
+

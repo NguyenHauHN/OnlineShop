@@ -1,299 +1,417 @@
-﻿
-<!DOCTYPE html>
-<html>
+﻿<!DOCTYPE html>
+<html lang="en-US">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link href="/Assets/Client/css/bootstrap.css" rel='stylesheet' type='text/css' />
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="/Assets/Client/js/jquery.min.js"></script>
-    <!-- Custom Theme files -->
-    <link href="/Assets/Client/css/style.css" rel="stylesheet" type="text/css" media="all" />
-    <!-- Custom Theme files -->
-    <script type="application/x-javascript">
-     addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); }
-     </script>
-    <!--webfont-->
-    <!-- for bootstrap working -->
-    <script type="text/javascript" src="/Assets/Client/js/bootstrap-3.1.1.min.js"></script>
-    <!-- //for bootstrap working -->
-    <!-- cart -->
-    @*<script src="/Assets/Client/js/simpleCart.min.js"> </script>*@
-    <script type="text/javascript" src="/Assets/Client/js/jquery.flexisel.js"></script>
-    <script src="/Assets/Client/js/responsiveslides.min.js"></script>
-    <script defer src="/Assets/Client/js/jquery.flexslider.js"></script>
-    <script src="/Assets/Client/js/imagezoom.js"></script>
-    <!-- cart -->
-    <link rel="stylesheet" href="/Assets/Client/css/flexslider.css" type="text/css" media="screen" />
-</head>
-<body>
-    <!-- header-section-starts -->
-    @{
-        Html.RenderAction("Header", "Home");
-    }
-    <div class="banner-top">
-        <div class="container">
-            <nav class="navbar navbar-default" role="navigation">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <div class="logo">
-                        <h1><a href="index.html"><span>E</span> -Shop</a></h1>
-                    </div>
-                </div>
-                <!--/.navbar-header-->
-
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li><a href="/Home">Home</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Men <b class="caret"></b></a>
-                            <ul class="dropdown-menu multi-column columns-3">
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <ul class="multi-column-dropdown">
-                                            <h6>NEW IN</h6>
-                                            <li><a href="products.html">New In Clothing</a></li>
-                                            <li><a href="products.html">New In Bags</a></li>
-                                            <li><a href="products.html">New In Shoes</a></li>
-                                            <li><a href="products.html">New In Watches</a></li>
-                                            <li><a href="products.html">New In Grooming</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <ul class="multi-column-dropdown">
-                                            <h6>CLOTHING</h6>
-                                            <li><a href="products.html">Polos & Tees</a></li>
-                                            <li><a href="products.html">Casual Shirts</a></li>
-                                            <li><a href="products.html">Casual Trousers</a></li>
-                                            <li><a href="products.html">Jeans</a></li>
-                                            <li><a href="products.html">Shorts & 3/4th</a></li>
-                                            <li><a href="products.html">Formal Shirts</a></li>
-                                            <li><a href="products.html">Formal Trousers</a></li>
-                                            <li><a href="products.html">Suits & Blazers</a></li>
-                                            <li><a href="products.html">Track Wear</a></li>
-                                            <li><a href="products.html">Inner Wear</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <ul class="multi-column-dropdown">
-                                            <h6>WATCHES</h6>
-                                            <li><a href="products.html">Analog</a></li>
-                                            <li><a href="products.html">Chronograph</a></li>
-                                            <li><a href="products.html">Digital</a></li>
-                                            <li><a href="products.html">Watch Cases</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">women <b class="caret"></b></a>
-                            <ul class="dropdown-menu multi-column columns-3">
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <ul class="multi-column-dropdown">
-                                            <h6>NEW IN</h6>
-                                            <li><a href="products.html">New In Clothing</a></li>
-                                            <li><a href="products.html">New In Bags</a></li>
-                                            <li><a href="products.html">New In Shoes</a></li>
-                                            <li><a href="products.html">New In Watches</a></li>
-                                            <li><a href="products.html">New In Beauty</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <ul class="multi-column-dropdown">
-                                            <h6>CLOTHING</h6>
-                                            <li><a href="products.html">Polos & Tees</a></li>
-                                            <li><a href="products.html">Casual Shirts</a></li>
-                                            <li><a href="products.html">Casual Trousers</a></li>
-                                            <li><a href="products.html">Jeans</a></li>
-                                            <li><a href="products.html">Shorts & 3/4th</a></li>
-                                            <li><a href="products.html">Formal Shirts</a></li>
-                                            <li><a href="products.html">Formal Trousers</a></li>
-                                            <li><a href="products.html">Suits & Blazers</a></li>
-                                            <li><a href="products.html">Track Wear</a></li>
-                                            <li><a href="products.html">Inner Wear</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <ul class="multi-column-dropdown">
-                                            <h6>WATCHES</h6>
-                                            <li><a href="products.html">Analog</a></li>
-                                            <li><a href="products.html">Chronograph</a></li>
-                                            <li><a href="products.html">Digital</a></li>
-                                            <li><a href="products.html">Watch Cases</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">kids <b class="caret"></b></a>
-                            <ul class="dropdown-menu multi-column columns-2">
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <ul class="multi-column-dropdown">
-                                            <h6>NEW IN</h6>
-                                            <li><a href="products.html">New In Boys Clothing</a></li>
-                                            <li><a href="products.html">New In Girls Clothing</a></li>
-                                            <li><a href="products.html">New In Boys Shoes</a></li>
-                                            <li><a href="products.html">New In Girls Shoes</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <ul class="multi-column-dropdown">
-                                            <h6>ACCESSORIES</h6>
-                                            <li><a href="products.html">Bags</a></li>
-                                            <li><a href="products.html">Watches</a></li>
-                                            <li><a href="products.html">Sun Glasses</a></li>
-                                            <li><a href="products.html">Jewellery</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </ul>
-                        </li>
-                        <li><a href="/Contact">CONTACT</a></li>
-                    </ul>
-                </div>
-                <!--/.navbar-collapse-->
-            </nav>
-            <!--/.navbar-->
-        </div>
-    </div>
-    @RenderSection("slider", required: false)
-    <!-- header-section-ends -->
-    @RenderBody()
-    <div class="footer">
-        <div class="container">
-            <div class="footer_top">
-                <div class="span_of_4">
-                    <div class="col-md-3 span1_of_4">
-                        <h4>Shop</h4>
-                        <ul class="f_nav">
-                            <li><a href="#">new arrivals</a></li>
-                            <li><a href="#">men</a></li>
-                            <li><a href="#">women</a></li>
-                            <li><a href="#">accessories</a></li>
-                            <li><a href="#">kids</a></li>
-                            <li><a href="#">brands</a></li>
-                            <li><a href="#">trends</a></li>
-                            <li><a href="#">sale</a></li>
-                            <li><a href="#">style videos</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-3 span1_of_4">
-                        <h4>help</h4>
-                        <ul class="f_nav">
-                            <li><a href="#">frequently asked  questions</a></li>
-                            <li><a href="#">men</a></li>
-                            <li><a href="#">women</a></li>
-                            <li><a href="#">accessories</a></li>
-                            <li><a href="#">kids</a></li>
-                            <li><a href="#">brands</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-3 span1_of_4">
-                        <h4>account</h4>
-                        <ul class="f_nav">
-                            <li><a href="account.html">login</a></li>
-                            <li><a href="register.html">create an account</a></li>
-                            <li><a href="#">create wishlist</a></li>
-                            <li><a href="checkout.html">my shopping bag</a></li>
-                            <li><a href="#">brands</a></li>
-                            <li><a href="#">create wishlist</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-md-3 span1_of_4">
-                        <h4>popular</h4>
-                        <ul class="f_nav">
-                            <li><a href="#">new arrivals</a></li>
-                            <li><a href="#">men</a></li>
-                            <li><a href="#">women</a></li>
-                            <li><a href="#">accessories</a></li>
-                            <li><a href="#">kids</a></li>
-                            <li><a href="#">brands</a></li>
-                            <li><a href="#">trends</a></li>
-                            <li><a href="#">sale</a></li>
-                            <li><a href="#">style videos</a></li>
-                            <li><a href="#">login</a></li>
-                            <li><a href="#">brands</a></li>
-                        </ul>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-            <div class="cards text-center">
-                <img src="/Assets/client/images/cards.jpg" alt="" />
-            </div>
-            <div class="copyright text-center">
-                <p>© 2015 Eshop. All Rights Reserved | Design by   <a href="http://w3layouts.com">  W3layouts</a></p>
-            </div>
-        </div>
-    </div>
-    <script>
-			    // You can also use "$(window).load(function() {"
-			    $(function () {
-			      // Slideshow 4
-			      $("#slider4").responsiveSlides({
-			        auto: true,
-			        pager:true,
-			        nav:false,
-			        speed: 500,
-			        namespace: "callbacks",
-			        before: function () {
-			          $('.events').append("<li>before event fired.</li>");
-			        },
-			        after: function () {
-			          $('.events').append("<li>after event fired.</li>");
-			        }
-			      });
-
-			    });
-    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/Assets/Client/zorka/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/Assets/Client/zorka/images/favicon.ico" type="image/x-icon">
+    <script type="text/javascript">document.documentElement.className = document.documentElement.className + ' yes-js js_active js'</script>
+    <title>Home 1 | Zorka &#8211; An intuitive fashion WordPress theme</title>
+    <link rel="stylesheet" href="/Assets/Client/zorka/sitepress-multilingual-cms/res/css/language-selector.css" type="text/css" media="all">
+    <style>
+        .wishlist_table .add_to_cart, a.add_to_wishlist.button.alt {
+            border-radius: 16px;
+            -moz-border-radius: 16px;
+            -webkit-border-radius: 16px;
+        }
+    </style>
+    <link rel='stylesheet' href='/Assets/Client/zorka/zorka-shortcode/vc-extend/animation.min.css' type='text/css' media='all'>
+    <link rel='stylesheet' href='/Assets/Client/zorka/contact-form-7/includes/styles.css' type='text/css' media='all'>
+    <link rel='stylesheet' href='/Assets/Client/zorka/revslider/rs-plugin/css/settings.css' type='text/css' media='all'>
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Montserrat%3A400%2C700' type='text/css' media='all'>
+    <link rel='stylesheet' href='/Assets/Client/zorka/woocommerce/assets/css/woocommerce-layout.css' type='text/css' media='all'>
+    <link rel='stylesheet' href='/Assets/Client/zorka/woocommerce/assets/css/woocommerce-smallscreen.css' type='text/css' media='only screen and (max-width: 768px)'>
+    <link rel='stylesheet' href='/Assets/Client/zorka/woocommerce/assets/css/woocommerce.css' type='text/css' media='all'>
+    <link rel='stylesheet' href='/Assets/Client/zorka/xmenu/assets/css/amination.css' type='text/css' media='all'>
+    <link rel='stylesheet' href='/Assets/Client/zorka/xmenu/assets/css/style.css' type='text/css' media='all'>
+    <link rel='stylesheet' href='/Assets/Client/zorka/xmenu/assets/css/fonts-awesome/css/font-awesome.min.css' type='text/css' media='all'>
+    <link rel='stylesheet' href='/Assets/Client/zorka/yith-woocommerce-compare/assets/css/colorbox.css' type='text/css' media='all'>
+    <link rel='stylesheet' href='/Assets/Client/zorka/woocommerce/assets/css/prettyPhoto.css' type='text/css' media='all'>
+    <link rel='stylesheet' href='/Assets/Client/zorka/yith-woocommerce-wishlist/assets/css/jquery.selectBox.css' type='text/css' media='all'>
+    <link rel='stylesheet' href='/Assets/Client/zorka/yith-woocommerce-wishlist/assets/css/style.css' type='text/css' media='all'>
+    <link rel='stylesheet' href='/Assets/Client/zorka/mailchimp-for-wp/assets/css/checkbox.min.css' type='text/css' media='all'>
+    <link rel='stylesheet' href='/Assets/Client/zorka/mailchimp-for-wp/assets/css/form.min.css' type='text/css' media='all'>
+    <link rel='stylesheet' href='/Assets/Client/zorka/js_composer/assets/css/js_composer.css' type='text/css' media='all'>
+    <link rel='stylesheet' href='/Assets/Client/zorka/zorka-shortcode/portfolio/assets/css/prettyPhoto.css' type='text/css' media='all'>
+    <link rel='stylesheet' href='/Assets/Client/zorka/assets/plugins/bootstrap/css/bootstrap.min.css' type='text/css' media='all'>
+    <link rel='stylesheet' href='/Assets/Client/zorka/assets/plugins/fonts-awesome/css/font-awesome-animation.min.css' type='text/css' media='all'>
+    <link rel='stylesheet' href='/Assets/Client/zorka/assets/css/pe-icon-7-stroke.css' type='text/css' media='all'>
+    <link rel='stylesheet' href='/Assets/Client/zorka/assets/css/font-icon.css' type='text/css' media='all'>
+    <link rel='stylesheet' href='/Assets/Client/zorka/assets/plugins/owl-carousel/owl.carousel.min.css' type='text/css' media='all'>
+    <link rel='stylesheet' href='/Assets/Client/zorka/assets/plugins/owl-carousel/owl.theme.min.css' type='text/css' media='all'>
+    <link rel='stylesheet' href='/Assets/Client/zorka/assets/plugins/owl-carousel/owl.transitions.css' type='text/css' media='all'>
+    <link rel='stylesheet' href='/Assets/Client/zorka/assets/css/style.min.css' type='text/css' media='all'>
+    <script type='text/javascript' src='/Assets/Client/zorka/assets/js/jquery/jquery.js'></script>
+    <script type='text/javascript' src='/Assets/Client/zorka/assets/js/jquery/jquery-migrate.min.js'></script>
+    <script type='text/javascript' src='/Assets/Client/zorka/revslider/rs-plugin/js/jquery.themepunch.tools.min.js'></script>
+    <script type='text/javascript' src='/Assets/Client/zorka/revslider/rs-plugin/js/jquery.themepunch.revolution.min.js'></script>
+    <script type='text/javascript' src='/Assets/Client/zorka/woocommerce/assets/js/frontend/add-to-cart.min.js'></script>
+    <script type='text/javascript' src='/Assets/Client/zorka/js_composer/assets/js/vendors/woocommerce-add-to-cart.js'></script>
+    <script type='text/javascript' src='/Assets/Client/zorka/zorka-shortcode/portfolio/assets/js/prettyPhoto/jquery.prettyPhoto.js'></script>
+    <script type='text/javascript' src='/Assets/Client/zorka/zorka-shortcode/portfolio/assets/js/isotope/isotope.pkgd.min.js'></script>
+    <script type='text/javascript' src='/Assets/Client/zorka/zorka-shortcode/portfolio/assets/js/hoverdir/modernizr.js'></script>
+    <script type='text/javascript' src='/Assets/Client/zorka/zorka-shortcode/portfolio/assets/js/hoverdir/jquery.hoverdir.js'></script>
+    <script type='text/javascript' src='/Assets/Client/zorka/zorka-shortcode/portfolio/assets/js/ajax-action.min.js'></script>
+    <script type='text/javascript' src='/Assets/Client/zorka/zorka-shortcode/products/assets/js/trending.min.js'></script>
     <script type="text/javascript">
-					 $(window).load(function() {
-						$("#flexiselDemo3").flexisel({
-							visibleItems: 4,
-							animationSpeed: 1000,
-							autoPlay: true,
-							autoPlaySpeed: 3000,
-							pauseOnHover: true,
-							enableResponsiveBreakpoints: true,
-					    	responsiveBreakpoints: {
-					    		portrait: {
-					    			changePoint:480,
-					    			visibleItems: 1
-					    		},
-					    		landscape: {
-					    			changePoint:640,
-					    			visibleItems: 2
-					    		},
-					    		tablet: {
-					    			changePoint:768,
-					    			visibleItems: 3
-					    		}
-					    	}
-					    });
+         jQuery(document).ready(function() {
+         	// CUSTOM AJAX CONTENT LOADING FUNCTION
+         	var ajaxRevslider = function(obj) {
 
-					});
+         		// obj.type : Post Type
+         		// obj.id : ID of Content to Load
+         		// obj.aspectratio : The Aspect Ratio of the Container / Media
+         		// obj.selector : The Container Selector where the Content of Ajax will be injected. It is done via the Essential Grid on Return of Content
+
+         		var content = "";
+
+         		data = {};
+
+         		data.action = 'revslider_ajax_call_front';
+         		data.client_action = 'get_slider_html';
+         		data.token = '1241775180';
+         		data.type = obj.type;
+         		data.id = obj.id;
+         		data.aspectratio = obj.aspectratio;
+
+         		// SYNC AJAX REQUEST
+         		jQuery.ajax({
+         			type:"post",
+         			url:"http://themes.g5plus.net/zorka/wp-admin/admin-ajax.php",
+         			dataType: 'json',
+         			data:data,
+         			async:false,
+         			success: function(ret, textStatus, XMLHttpRequest) {
+         				if(ret.success == true)
+         					content = ret.data;
+         			},
+         			error: function(e) {
+         				console.log(e);
+         			}
+         		});
+
+         		 // FIRST RETURN THE CONTENT WHEN IT IS LOADED !!
+         		 return content;
+         	};
+
+         	// CUSTOM AJAX FUNCTION TO REMOVE THE SLIDER
+         	var ajaxRemoveRevslider = function(obj) {
+         		return jQuery(obj.selector+" .rev_slider").revkill();
+         	};
+
+         	// EXTEND THE AJAX CONTENT LOADING TYPES WITH TYPE AND FUNCTION
+         	var extendessential = setInterval(function() {
+         		if (jQuery.fn.tpessential != undefined) {
+         			clearInterval(extendessential);
+         			if(typeof(jQuery.fn.tpessential.defaults) !== 'undefined') {
+         				jQuery.fn.tpessential.defaults.ajaxTypes.push({type:"revslider",func:ajaxRevslider,killfunc:ajaxRemoveRevslider,openAnimationSpeed:0.3});
+         				// type:  Name of the Post to load via Ajax into the Essential Grid Ajax Container
+         				// func: the Function Name which is Called once the Item with the Post Type has been clicked
+         				// killfunc: function to kill in case the Ajax Window going to be removed (before Remove function !
+         				// openAnimationSpeed: how quick the Ajax Content window should be animated (default is 0.3)
+         			}
+         		}
+         	},30);
+         });
     </script>
-    <script>
-						// Can also be used with $(document).ready()
-						$(window).load(function() {
-						  $('.flexslider').flexslider({
-							animation: "slide",
-							controlNav: "thumbnails"
-						  });
-						});
+    <meta name="generator" content="WPML ver:3.1.9 stt:1,4,3,27,2,29;0">
+    <style type="text/css">
+        .recentcomments a {
+            display: inline !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+    </style>
+    <style type="text/css">
+        .mc4wp-form input[name="_mc4wp_required_but_not_really"] {
+            display: none !important;
+        }
+    </style>
+    <style type="text/css" data-type="vc_shortcodes-custom-css">
+        .vc_custom_1427700579120 {
+            padding-top: 40px !important;
+            padding-bottom: 40px !important;
+            background-color: #fafafa !important;
+        }
+
+        .vc_custom_1444360272531 {
+            background-image: url(http://themes.g5plus.net/zorka/wp-content/uploads/2015/03/bg-mailchimp.jpg?id=1291) !important;
+            background-position: center;
+            background-repeat: no-repeat !important;
+            background-size: cover !important;
+        }
+    </style>
+    <style type="text/css" data-type="vc_shortcodes-custom-css">
+        .vc_custom_1442214739341 {
+            margin-top: -20px !important;
+        }
+
+        .vc_custom_1444361040267 {
+            background-image: url("/Images/bg-counter.jpg") !important;
+            background-position: center;
+            background-repeat: no-repeat !important;
+            background-size: cover !important;
+        }
+    </style>
+    <noscript>
+        <style>
+            .wpb_animate_when_almost_visible {
+                opacity: 1;
+            }
+        </style>
+    </noscript>
+    <link href="~/Content/Custom/styleClient.css" rel="stylesheet" />
+</head>
+<body class="page page-id-37 page-template-default header-6 woocommerce wpb-js-composer js-comp-ver-4.7.4 vc_responsive">
+    <div id="wrapper" class="clearfix animsition">
+        <!--Header-->
+        @{
+            Html.RenderAction("Header", "HomeClient");
+        }
+        <!--Search-->
+        <div id="zorka-modal-search" tabindex="-1" role="dialog" aria-hidden="false" class="modal fade">
+            <div class="modal-backdrop fade in"></div>
+            <div class="zorka-modal-dialog zorka-modal-search fade in">
+                <div data-dismiss="modal" class="zorka-dismiss-modal"><span class="pe-7s-close"></span></div>
+                <div class="zorka-search-wrapper">
+                    <input id="search-ajax" type="search" placeholder="Search...">
+                    <button><i class="ajax-search-icon icon-search"></i></button>
+                </div>
+                <div class="ajax-search-result"></div>
+            </div>
+        </div>
+
+        <div id="wrapper-content">
+            <main role="main" class="site-content">
+                <div id="post-37" class="post-37 page type-page status-publish hentry">
+                    <div class="entry-content">
+                        @RenderBody()
+                    </div>
+                </div>
+            </main>
+        </div>
+        <footer class="main-footer light">
+            <div class="footer_inner clearfix">
+                <div class="footer_top_holder col-3">
+                    <div class="container">
+                        <div class="row footer-top-col-3">
+                            <div class="col-sm-4">
+                                <aside id="zorka-footer-logo-2" class="widget widget-footer-logo">
+                                    <div class="footer-logo ">
+                                        <a href="http://themes.g5plus.net/zorka"><img src="http://themes.g5plus.net/zorka/wp-content/themes/zorka/assets/images/logo.png" alt="Zorka logo"></a>
+                                        <div class="sub-description">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in velit a nibh ullamcorper dictum a malesuada ex. Donec sit amet volutpat nunc.
+                                        </div>
+                                    </div>
+                                </aside>
+                                <aside id="text-3" class="widget widget_text">
+                                    <div class="textwidget">
+                                        <span class="social">
+                                            <a data-toggle="tooltip" title="facebook" href="http://facebook.com">
+                                                <i class="fa fa-facebook"></i>
+                                            </a>
+                                            <a data-toggle="tooltip" title="twitter" href="http://twitter.com">
+                                                <i class="fa fa-twitter"></i>
+                                            </a>
+                                            <a data-toggle="tooltip" title="instagram" href="http://instagram.com">
+                                                <i class="fa fa-instagram"></i>
+                                            </a>
+                                            <a data-toggle="tooltip" title="vk" href="http://vk.com">
+                                                <i class="fa fa-vk"></i>
+                                            </a>
+                                            <a data-toggle="tooltip" title="behance" href="http://behance.com">
+                                                <i class="fa fa-behance"></i>
+                                            </a>
+                                        </span>
+                                    </div>
+                                </aside>
+                            </div>
+                            <div class="col-sm-4">
+                                <aside id="nav_menu-5" class="widget widget_nav_menu">
+                                    <h4 class="widget-title"><span>Quick link</span></h4>
+                                    <div class="menu-quick-link-container">
+                                        <ul id="menu-quick-link" class="menu">
+                                            <li id="menu-item-894" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-894"><a href="#">About Us</a></li>
+                                            <li id="menu-item-895" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-895"><a href="#">Our Office</a></li>
+                                            <li id="menu-item-896" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-896"><a href="#">Deliver</a></li>
+                                            <li id="menu-item-897" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-897"><a href="#">Store</a></li>
+                                            <li id="menu-item-898" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-898"><a href="#">Guarantee</a></li>
+                                            <li id="menu-item-899" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-899"><a href="#">Buy Gift card</a></li>
+                                            <li id="menu-item-900" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-900"><a href="#">Track your order</a></li>
+                                            <li id="menu-item-901" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-901"><a href="#">Term</a></li>
+                                            <li id="menu-item-902" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-902"><a href="#">Conditions</a></li>
+                                            <li id="menu-item-903" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-903"><a href="#">Contact Us</a></li>
+                                            <li id="menu-item-904" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-904"><a href="#">Manufactures</a></li>
+                                            <li id="menu-item-905" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-905"><a href="#">New brands</a></li>
+                                        </ul>
+                                    </div>
+                                </aside>
+                            </div>
+                            <div class="col-sm-4">
+                                <aside id="text-4" class="widget widget_text">
+                                    <h4 class="widget-title"><span>Location</span></h4>
+                                    <div class="textwidget">
+                                        <div>
+                                            <span class="address">
+                                                580, Broadway, 1002 - New York NY-U
+                                            </span>
+                                            <span class="telephone">
+                                                Tel: +1 212345321
+                                            </span>
+                                            <span class="email">
+                                                Email: info@zorka.com
+                                            </span>
+                                        </div>
+                                    </div>
+                                </aside>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer_bottom_holder col-3">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 copyright-text">
+                                Powered by <a href="http://wordpress.org">WordPress</a>. Built on the <a href="http://g5plus.net">G5Plus</a>.
+                            </div>
+                            <div class="col-md-6 payment">
+                                <a class="payment-logo-wapper" href="http://www.visa.com">
+                                    <img width="51" height="32" alt="VISA" src="http://themes.g5plus.net/zorka/wp-content/themes/zorka/assets/images/payments/visa.png">
+                                </a>
+                                <a class="payment-logo-wapper" href="https://www.mastercard.us">
+                                    <img width="51" height="32" alt="MASTER CARD" src="http://themes.g5plus.net/zorka/wp-content/themes/zorka/assets/images/payments/mastercard.png">
+                                </a>
+                                <a class="payment-logo-wapper" href="https://www.paypal.com/">
+                                    <img width="51" height="32" alt="Paypal" src="http://themes.g5plus.net/zorka/wp-content/themes/zorka/assets/images/payments/paypal.png">
+                                </a>
+                                <a class="payment-logo-wapper" href="https://www.2co.com/">
+                                    <img width="51" height="32" alt="2CO" src="http://themes.g5plus.net/zorka/wp-content/themes/zorka/assets/images/payments/twoCO.png">
+                                </a>
+                                <a class="payment-logo-wapper" href="https://www.americanexpress.com/">
+                                    <img width="51" height="32" alt="American Express" src="http://themes.g5plus.net/zorka/wp-content/themes/zorka/assets/images/payments/american_express.png">
+                                </a>
+                                <a class="payment-logo-wapper" href="https://www.skrill.com/en/home/">
+                                    <img width="51" height="32" alt="Skrill" src="http://themes.g5plus.net/zorka/wp-content/themes/zorka/assets/images/payments/skrill.png">
+                                </a>
+                                <a class="payment-logo-wapper" href="https://www.google.com/wallet/">
+                                    <img width="51" height="32" alt="Google Wallet" src="http://themes.g5plus.net/zorka/wp-content/themes/zorka/assets/images/payments/google_wallet.png">
+                                </a>
+                                <a class="payment-logo-wapper" href="https://www.westernunion.com">
+                                    <img width="51" height="32" alt="Western Union" src="http://themes.g5plus.net/zorka/wp-content/themes/zorka/assets/images/payments/western_union.png">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <a class="gotop" href="javascript:;">
+        <i class="pe-7s-angle-up"></i>
+    </a>
+    <script type="text/javascript">
+        (function () {
+
+            function addSubmittedClass() {
+                var className = 'mc4wp-form-submitted';
+                (this.classList) ? this.classList.add(className) : this.className += ' ' + className;
+            }
+
+            var forms = document.querySelectorAll('.mc4wp-form');
+            for (var i = 0; i < forms.length; i++) {
+                (function (f) {
+
+                    // hide honeypot
+                    var honeypot = f.querySelector('input[name="_mc4wp_required_but_not_really"]');
+                    honeypot.style.display = 'none';
+                    honeypot.setAttribute('type', 'hidden');
+
+                    // add class on submit
+                    var b = f.querySelector('[type="submit"]');
+                    if (b.addEventListener) {
+                        b.addEventListener('click', addSubmittedClass.bind(f));
+                    } else {
+                        b.attachEvent('onclick', addSubmittedClass.bind(f));
+                    }
+
+                })(forms[i]);
+            }
+        })();
+
+
     </script>
+    <script type='text/javascript' src='/Assets/Client/zorka/contact-form-7/includes/js/jquery.form.min.js'></script>
+    <script type='text/javascript'>
+        /* <![CDATA[ */
+        var _wpcf7 = { "loaderUrl": "http:\/\/themes.g5plus.net\/zorka\/wp-content\/plugins\/contact-form-7\/images\/ajax-loader.gif", "sending": "Sending ...", "cached": "1" };
+        /* ]]> */
+    </script>
+    <script type='text/javascript' src='/Assets/Client/zorka/contact-form-7/includes/js/scripts.js'></script>
+    <script type='text/javascript' src='/Assets/Client/zorka/woocommerce/assets/js/jquery-blockui/jquery.blockUI.min.js'></script>
+    <script type='text/javascript'>
+        /* <![CDATA[ */
+        var woocommerce_params = { "ajax_url": "\/zorka\/wp-admin\/admin-ajax.php", "wc_ajax_url": "\/zorka\/home-1\/?wc-ajax=%%endpoint%%" };
+        /* ]]> */
+    </script>
+    <script type='text/javascript' src='/Assets/Client/zorka/woocommerce/assets/js/frontend/woocommerce.min.js'></script>
+    <script type='text/javascript' src='/Assets/Client/zorka/woocommerce/assets/js/jquery-cookie/jquery.cookie.min.js'></script>
+    <script type='text/javascript'>
+        /* <![CDATA[ */
+        var wc_cart_fragments_params = { "ajax_url": "\/zorka\/wp-admin\/admin-ajax.php", "wc_ajax_url": "\/zorka\/home-1\/?wc-ajax=%%endpoint%%", "fragment_name": "wc_fragments" };
+        /* ]]> */
+    </script>
+    <script type='text/javascript' src='/Assets/Client/zorka/woocommerce/assets/js/frontend/cart-fragments.min.js'></script>
+    <script type='text/javascript'>
+        /* <![CDATA[ */
+        var yith_woocompare = { "nonceadd": "c579aa135f", "nonceremove": "73b43391c3", "nonceview": "bfb8e559af", "ajaxurl": "http:\/\/themes.g5plus.net\/zorka\/wp-admin\/admin-ajax.php", "actionadd": "yith-woocompare-add-product", "actionremove": "yith-woocompare-remove-product", "actionview": "yith-woocompare-view-table", "added_label": "Added", "table_title": "Product Comparison", "auto_open": "yes" };
+        /* ]]> */
+    </script>
+    <script type='text/javascript' src='/Assets/Client/zorka/yith-woocommerce-compare/assets/js/woocompare.js'></script>
+    <script type='text/javascript' src='/Assets/Client/zorka/yith-woocommerce-compare/assets/js/jquery.colorbox-min.js'></script>
+    <script type='text/javascript' src='/Assets/Client/zorka/woocommerce/assets/js/prettyPhoto/jquery.prettyPhoto.min.js'></script>
+    <script type='text/javascript' src='/Assets/Client/zorka/woocommerce/assets/js/prettyPhoto/jquery.prettyPhoto.init.min.js'></script>
+    <script type='text/javascript' src='/Assets/Client/zorka/yith-woocommerce-wishlist/assets/js/jquery.selectBox.min.js'></script>
+    <script type='text/javascript'>
+        /* <![CDATA[ */
+        var yith_wcwl_l10n = { "ajax_url": "http:\/\/themes.g5plus.net\/zorka\/wp-admin\/admin-ajax.php", "redirect_to_cart": "no", "multi_wishlist": "", "hide_add_button": "1", "is_user_logged_in": "", "ajax_loader_url": "http:\/\/themes.g5plus.net\/zorka\/wp-content\/plugins\/yith-woocommerce-wishlist\/assets\/images\/ajax-loader.gif", "remove_from_wishlist_after_add_to_cart": "yes", "labels": { "cookie_disabled": "We are sorry, but this feature is available only if cookies are enabled on your browser." }, "actions": { "add_to_wishlist_action": "add_to_wishlist", "remove_from_wishlist_action": "remove_from_wishlist" } };
+        /* ]]> */
+    </script>
+    <script type='text/javascript' src='/Assets/Client/zorka/yith-woocommerce-wishlist/assets/js/jquery.yith-wcwl.js'></script>
+    <script type='text/javascript' src='/Assets/Client/zorka/assets/plugins/bootstrap/js/bootstrap.min.js'></script>
+    <script type='text/javascript' src='/Assets/Client/zorka/assets/js/plugins.js'></script>
+    <script type='text/javascript' src='/Assets/Client/zorka/assets/plugins/smoothscroll/SmoothScroll.min.js'></script>
+    <script type='text/javascript'>
+        /* <![CDATA[ */
+        var zorka_constant = { "product_compare": "Compare", "product_wishList": "WishList", "product_add_to_cart": "Add to cart", "product_view_cart": "View cart" };
+        var zorka_ajax_url = "http:\/\/themes.g5plus.net\/zorka\/wp-admin\/admin-ajax.php?activate-multi=true";
+        var zorka_theme_url = "http:\/\/themes.g5plus.net\/zorka\/wp-content\/themes\/zorka\/";
+        var zorka_site_url = "http:\/\/themes.g5plus.net\/zorka";
+        /* ]]> */
+    </script>
+    <script type='text/javascript' src='/Assets/Client/zorka/assets/js/app.min.js'></script>
+    <script type='text/javascript'>
+        /* <![CDATA[ */
+        var icl_vars = { "current_language": "en", "icl_home": "http:\/\/themes.g5plus.net\/zorka" };
+        /* ]]> */
+    </script>
+    <script type='text/javascript' src='/Assets/Client/zorka/sitepress-multilingual-cms/res/js/sitepress.js'></script>
+    <script type='text/javascript' src='/Assets/Client/zorka/js_composer/assets/js/js_composer_front.js'></script>
+    <script type='text/javascript' src='/Assets/Client/zorka/js_composer/assets/lib/bower/skrollr/dist/skrollr.min.js'></script>
+    <script type='text/javascript'>
+        /* <![CDATA[ */
+        var xmenu_meta = { "setting-responsive-breakpoint": "" };
+        var xmenu_meta_custom = [];
+        /* ]]> */
+    </script>
+    <script type='text/javascript' src='/Assets/Client/zorka/xmenu/assets/js/app.min.js'></script>
+
+    <link href="/Assets/Client/zorka/assets/css/styleIndex.css" rel="stylesheet" />
     @RenderSection("jsFooter", required: false)
+    <script>
+        jQuery(function ($) {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+    <script src="~/Assets/Client/customJs/activeMenu.js"></script>
 </body>
 </html>

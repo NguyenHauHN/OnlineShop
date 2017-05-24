@@ -1,0 +1,125 @@
+﻿@model Model.EF.Category
+@{ 
+    var listcategoryMen = (List<Model.EF.Category>)ViewBag.ListcategoryMen;
+    var listcategoryWomen = (List<Model.EF.Category>)ViewBag.ListcategoryWomen;
+    var listcategoryKid = (List<Model.EF.Category>)ViewBag.ListcategoryKid;
+}
+<div class="menu-wrapper">
+    <div class="container">
+        <div class="x-nav-menu-toggle">
+            <div class="x-nav-menu-toggle-inner" data-ref="menu-mainmenu">
+                <div class="x-nav-menu-toggle-icon"> <span></span></div>
+                <span>Menu</span>
+            </div>
+            <div class="toggle-inner-search"><a class="icon-search-menu" href="#"><span class="pe-7s-search"></span></a></div>
+        </div>
+        <ul id="menu-mainmenu" class="x-nav-menu x-nav-menu-horizontal x-nav-menu_mainmenu x-animate-slide-up x-menubar-center" data-breakpoint="991">
+            <li class="x-menu-item x-menu-item-logo">
+                <a href="" title="Zorka &#8211; An intuitive fashion WordPress theme - Just another WordPress site" rel="home">
+                    <img src="~/Images/logo.png" alt="Zorka &#8211; An intuitive fashion WordPress theme - Just another WordPress site">
+                </a>
+            </li>
+            <li id="menu-item-750" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-ancestor x-menu-item x-pos-full x-sub-menu-multi-column">
+                <a href="/HomeClient/Index" class="x-menu-a-text"><span class="x-menu-text">Trang chủ</span></a>
+                
+            </li>
+            <li id="menu-item-803" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children x-menu-item x-pos-full x-sub-menu-multi-column">
+                <a href="#" class="x-menu-a-text"><span class="x-menu-text">Danh mục</span><b class="x-caret"></b></a>
+                <ul class="x-sub-menu x-sub-menu-multi-column x-pos-full x-list-style-none">
+                    <li id="menu-item-804" class="menu-item menu-item-type-custom menu-item-object-custom x-menu-item x-disable-link x-widget-area x-sub-menu-standard x-col x-col-9-12">
+                        <a class="x-menu-a-text x-disable-menu-item"><span class="x-menu-text x-disable-text">Submenu</span></a>
+                        <div class="x-widget-area-wrapper">
+                            <div class="widget-product-wapper col-md-4">
+                                <aside id="widget-product-categories-2" class="widget widget-product-category">
+                                    <div class="widget-product-category ">
+                                        <h6>Thời trang nam</h6>
+                                        <div class="sub-description">
+                                            Thời trang dành cho nam giới
+                                        </div>
+                                        <div class="cate-info">
+                                            <div class="cate-img"><img width="70" height="93" alt="Clothing" src=@Url.Content("~/Images/product-03.jpg")></div>
+                                            <div class="sub-cate">
+                                                <ul>
+                                                    @foreach (var item in listcategoryMen)
+                                                    {
+                                                        <li><a href="/danh-muc/@item.MetaTitle/@item.ID">@item.Name</a></li>
+                                                    }
+                                                    
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </aside>
+                            </div>
+                            <div class="widget-product-wapper col-md-4">
+                                <aside id="widget-product-categories-3" class="widget widget-product-category">
+                                    <div class="widget-product-category ">
+                                        <h6>Thời trang phái đẹp</h6>
+                                        <div class="sub-description">
+                                            Váy, đầm, đồ công sở thời trang
+                                        </div>
+                                        <div class="cate-info">
+                                            <div class="cate-img"><img width="70" height="93" alt="Fashion" src=@Url.Content("~/Images/cat_2.png")></div>
+                                            <div class="sub-cate">
+                                                <ul>
+                                                    @foreach (var item in listcategoryWomen)
+                                                    {
+                                                        <li><a href="/danh-muc/@item.MetaTitle/@item.ID">@item.Name</a></li>
+                                                    }
+                                                  
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </aside>
+                            </div>
+                            <div class="widget-product-wapper col-md-4">
+                                <aside id="widget-product-categories-4" class="widget widget-product-category">
+                                    <div class="widget-product-category ">
+                                        <h6>Thời trang trẻ em</h6>
+                                        <div class="sub-description">
+                                            Quần áo, váy và đồ thể thao trẻ em
+                                        </div>
+                                        <div class="cate-info">
+                                            <div class="cate-img"><img width="70" height="93" alt="Posters" src=@Url.Content("~/Images/HM-Studio-1-1.jpg")></div>
+                                            <div class="sub-cate">
+                                                <ul>
+                                                    @foreach (var item in listcategoryKid)
+                                                    {
+                                                        <li><a href="/danh-muc/@item.MetaTitle/@item.ID">@item.Name</a></li>
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </aside>
+                            </div>
+                        </div>
+                    </li>
+                    <li id="menu-item-841" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat x-menu-item x-item-image x-image-layout x-image-layout-above x-sub-menu-standard x-col x-col-3-12 x-has-description">
+                        <a class="x-image" href="http://themes.g5plus.net/zorka/product-category/fashions/collections/"><img src="http://themes.g5plus.net/zorka/wp-content/uploads/2015/04/collections.jpg" alt=""></a>
+                        <a href="http://themes.g5plus.net/zorka/product-category/fashions/collections/" class="x-menu-a-text">
+                            <span class="x-menu-text">Cập nhật nhanh nhất</span><br />
+                            <span class="x-menu-feature x-feature-menu-not-float">Bán hàng tin cậy</span>
+                        </a>
+                        <p class="x-description">Sản phẩm mới từ Hàn Quốc</p>
+                    </li>
+                </ul>
+            </li>
+            <li class="menu-item menu-item-type-custom menu-item-object-custom x-menu-item x-pos-full x-sub-menu-multi-column">
+                <a href="/About/Index" class="x-menu-a-text"><span class="x-menu-text">Giới thiệu</span></a>
+            </li>
+            <li class="menu-item menu-item-type-custom menu-item-object-custom x-menu-item x-pos-full x-sub-menu-multi-column">
+                <a href="/Contact/Index" class="x-menu-a-text"><span class="x-menu-text">Liên hệ</span></a>
+            </li>
+            
+        </ul>
+        <ul class="social-link">
+            <li><a href="mailto:#" target="_top" data-toggle="tooltip" title="Email"><i class="fa fa-envelope-o"></i></a></li>
+            <li><a target="_blank" href="#" data-toggle="tooltip" title="Linked In"><i class="fa fa-linkedin"></i></a></li>
+            <li><a target="_blank" href="#" data-toggle="tooltip" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+            <li><a target="_blank" href="#" data-toggle="tooltip" title="Twitter"><i class="fa fa-twitter "></i></a></li>
+            <li><a target="_blank" href="#" data-toggle="tooltip" title="Dribbble"><i class="fa fa-dribbble"></i></a></li>
+        </ul>
+    </div>
+</div>

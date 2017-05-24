@@ -1,339 +1,432 @@
-﻿@model Model.ViewModels.ProductDisplay
+﻿@model Model.EF.Product
 @{
     ViewBag.Title = "Chi tiết Sản phẩm - OnlineShop";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var listRelateProduct = (List<Model.ViewModels.ProductDisplay>)ViewBag.ListRelate;
-    var mainImg = "";
+    var galleryImage = ViewBag.GalleryImage;
+    var listRelateProduct = (List<Model.EF.Product>)ViewBag.ListRelateProduct;
+    var category = (Model.EF.Category)ViewBag.Category;
 }
-<div class="container">
-    <div class="products-page">
-        <div class="products">
-            <div class="product-listy">
-                <h2>our Products</h2>
-                <ul class="product-list">
-                    <li><a href="">New Products</a></li>
-                    <li><a href="">Old Products</a></li>
-                    <li><a href="">T-shirts</a></li>
-                    <li><a href="">pants</a></li>
-                    <li><a href="">Dress</a></li>
-                    <li><a href="">Shorts</a></li>
-                    <li><a href="#">Shirts</a></li>
-                    <li><a href="register.html">Register</a></li>
+@section jsFooter{
+    <script src="~/Assets/Client/customJs/cart.js"></script>
+}
+<div class="breadcrumb-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <ul class="breadcrumbs">
+                    <li><a rel="v:url" href="/HomeClient/Index" class="home"><i class="fa fa-home"></i></a></li>
+                    <li><a rel="v:url" href="/HomeClient/Index">Zorka Shop</a></li>
+
+                    <li><a rel="v:url" href="/danh-muc/@category.MetaTitle/@category.ID">@category.Name</a></li>
+                    <li><span>@Model.Name</span></li>
                 </ul>
             </div>
-            <div class="latest-bis">
-                <img src="/Assets/Client/images/l4.jpg" class="img-responsive" alt="" />
-                <div class="offer">
-                    <p>40%</p>
-                    <small>Top Offer</small>
-                </div>
-            </div>
-            <div class="tags">
-                <h4 class="tag_head">Tags Widget</h4>
-                <ul class="tags_links">
-                    <li><a href="#">Kitesurf</a></li>
-                    <li><a href="#">Super</a></li>
-                    <li><a href="#">Duper</a></li>
-                    <li><a href="#">Theme</a></li>
-                    <li><a href="#">Men</a></li>
-                    <li><a href="#">Women</a></li>
-                    <li><a href="#">Equipment</a></li>
-                    <li><a href="#">Best</a></li>
-                    <li><a href="#">Accessories</a></li>
-                    <li><a href="#">Men</a></li>
-                    <li><a href="#">Apparel</a></li>
-                    <li><a href="#">Super</a></li>
-                    <li><a href="#">Duper</a></li>
-                    <li><a href="#">Theme</a></li>
-                    <li><a href="#">Responsive</a></li>
-                    <li><a href="#">Women</a></li>
-                    <li><a href="#">Equipment</a></li>
-                </ul>
-
-            </div>
-
         </div>
-        <div class="new-product">
-            <div class="col-md-5 zoom-grid">
-                <div class="flexslider">
-                    @foreach (var img in Model.ListImage)
-                    {
+    </div>
+</div>
+<main role="main" class="site-content-product-single">
+    <div class="container clearfix">
+        <div itemscope="" itemtype="http://schema.org/Product" id="product-213" class="post-213 product type-product status-publish has-post-thumbnail featured downloadable taxable shipping-taxable purchasable product-type-simple product-cat-accessories product-cat-boys product-cat-clothing product-cat-clothing-kid product-cat-clothings-boy product-cat-collections product-cat-fashions product-cat-fashion-waist-packs product-cat-hanbags-wallets product-cat-hat product-cat-jewelry product-cat-jewelry-diamond product-cat-laptop-bags product-cat-posters product-cat-shoes product-cat-shoes-boy product-cat-t-shirts product-cat-watches product-tag-fashion product-tag-men product-tag-men-clothes product-tag-short-jean product-tag-t-shirt instock">
+            <div class="single-product-info">
+                <div class="row">
+                    <div class="col-md-6 col-lg-6 col-sm-6">
+                        <div class="single-product-left-wrapper">
+                            <div class="single-product-image-wrapper">
+                                <div id="sync1" class="owl-carousel manual">
+                                    <div>
+                                        <a href=""
+                                           itemprop="image" class="woocommerce-main-image zoom" title="" data-rel="prettyPhoto[product-gallery]"
+                                           data-index="0">
+                                            <img width="570" height="760" src=@Url.Content(Model.MainImage)
+                                                 class="attachment-shop_single wp-post-image" alt="product-12" title="product-12">
+                                        </a>
+                                    </div>
+                                    @foreach (var item in galleryImage)
+                                    {
+                                        <div>
+                                            <a href=""
+                                               itemprop="image" class="woocommerce-main-image zoom" title="" data-rel="prettyPhoto[product-gallery]"
+                                               data-index="0">
+                                                <img width="570" height="760" src=@Url.Content(item)
+                                                     class="attachment-shop_single wp-post-image" alt="product-12" title="product-12">
+                                            </a>
+                                        </div>
+                                    }
 
-                        if(img.Type == 1)
-                        {
-                            mainImg = img.Src;
-                        }
-                    }
-                    <ul class="slides">
-                        <li data-thumb="@Url.Content(mainImg)">
-                            <div class="thumb-image"> <img src="@Url.Content(mainImg)" data-imagezoom="true" class="img-responsive" alt="" /> </div>
-                        </li>
-                        <li data-thumb="@Url.Content(mainImg)">
-                            <div class="thumb-image"> <img src="@Url.Content(mainImg)" data-imagezoom="true" class="img-responsive" alt="" /> </div>
-                        </li>
-                        <li data-thumb="@Url.Content(mainImg)">
-                            <div class="thumb-image"> <img src="@Url.Content(mainImg)" data-imagezoom="true" class="img-responsive" alt="" /> </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md-7 dress-info">
-                <div class="dress-name">
-                    <h3>@Model.Product.Name</h3>
-                    <span>$@Model.Product.Price</span>
-                    <div class="clearfix"></div>
-                    <p>@Model.Product.Description</p>
-                </div>
-                <div class="span span1">
-                    <p class="left">FABRIC ORIGIN</p>
-                    <p class="right">Japan</p>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="span span2">
-                    <p class="left">MADE IN</p>
-                    <p class="right">China</p>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="span span3">
-                    <p class="left">COLOR</p>
-                    <p class="right">White</p>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="span span4">
-                    <p class="left">SIZE</p>
-                    <p class="right">
-                        <span class="selection-box">
-                            <select class="domains valid" name="domains">
-                                <option>M</option>
-                                <option>L</option>
-                                <option>XL</option>
-                                <option>FS</option>
-                                <option>S</option>
-                            </select>
-                        </span>
-                    </p>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="purchase">
-                    <a href="/them-vao-gio?productID=@Model.Product.ID&quantity=1" class="btn btn-info">Add To Cart</a>
-                    <div class="social-icons">
-                        <ul>
-                            <li><a class="facebook1" href="#"></a></li>
-                            <li><a class="twitter1" href="#"></a></li>
-                            <li><a class="googleplus1" href="#"></a></li>
-                        </ul>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                
-               
-            </div>
-            <div class="clearfix"></div>
-            <div class="reviews-tabs">
-                <!-- Main component for a primary marketing message or call to action -->
-                <ul class="nav nav-tabs responsive hidden-xs hidden-sm" id="myTab">
-                    <li class="test-class active"><a class="deco-none misc-class" href="#how-to"> More Information</a></li>
-                    <li class="test-class"><a href="#features">Specifications</a></li>
-                    <li class="test-class"><a class="deco-none" href="#source">Reviews (7)</a></li>
-                </ul>
+                                </div>
+                                <div class="single-product-thumb-wrap product-image-total-2">
+                                    <div id="sync2" class="owl-carousel manual">
+                                        <div class="thumbnail-image">
+                                            <a href=@Url.Content(Model.MainImage)
+                                               itemprop="image" class="woocommerce-thumbnail-image" title="" data-index="0">
+                                                <img width="180" height="180" src=@Url.Content(Model.MainImage)
+                                                     class="attachment-shop_thumbnail wp-post-image" alt="product-12"
+                                                     title="product-12">
+                                            </a>
+                                        </div>
+                                        @foreach (var item in galleryImage)
+                                        {
+                                            <div class="thumbnail-image">
+                                                <a href=@Url.Content(item)
+                                                   itemprop="image" class="woocommerce-thumbnail-image" title="" data-index="0">
+                                                    <img width="180" height="180" src=@Url.Content(item)
+                                                         class="attachment-shop_thumbnail wp-post-image" alt="product-12"
+                                                         title="product-12">
+                                                </a>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <script type="text/javascript">
+                                            (function ($) {
+                                                "use strict";
+                                                $(document).ready(function () {
 
-                <div class="tab-content responsive hidden-xs hidden-sm">
-                    <div class="tab-pane active" id="how-to">
-                        <p class="tab-text">Maecenas mauris velit, consequat sit amet feugiat rit, elit vitaeert scelerisque elementum, turpis nisl accumsan ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry. and scrambled it to make a type specimen book. It has survived Auction your website on Flippa and you'll get the best price from serious buyers, dedicated support and a much better deal than you'll find with any website broker. Sell your site today I need a twitter bootstrap 3.0 theme for the full-calendar plugin. it would be great if the theme includes the add event; remove event, show event details. this must be RESPONSIVE and works on mobile devices. Also, I've seen so many bootstrap themes that comes up with the fullcalendar plugin. However these . </p>
+                                                    var sync1 = $("#sync1", ".single-product-image-wrapper");
+                                                    var sync2 = $("#sync2", ".single-product-image-wrapper");
+
+                                                    sync1.owlCarousel({
+                                                        singleItem: true,
+                                                        slideSpeed: 100,
+                                                        navigation: false,
+                                                        navigationText: ["<i class='fa fa-angle-left'></i>", "<i class='fa fa-angle-right'></i>"],
+                                                        pagination: false,
+                                                        afterAction: syncPosition,
+                                                        responsiveRefreshRate: 200
+                                                    });
+
+                                                    sync2.owlCarousel({
+                                                        items: 6,
+                                                        itemsDesktop: [1199, 6],
+                                                        itemsDesktopSmall: [980, 6],
+                                                        itemsTablet: [768, 4],
+                                                        itemsTabletSmall: false,
+                                                        itemsMobile: [479, 1],
+                                                        pagination: false,
+                                                        responsiveRefreshRate: 100,
+                                                        navigation: false,
+                                                        navigationText: ["<i class='fa fa-angle-left'></i>", "<i class='fa fa-angle-right'></i>"],
+                                                        afterInit: function (el) {
+                                                            el.find(".owl-item").eq(0).addClass("synced");
+                                                        }
+                                                    });
+
+                                                    function syncPosition(el) {
+                                                        var current = this.currentItem;
+                                                        $("#sync2")
+                                                            .find(".owl-item")
+                                                            .removeClass("synced")
+                                                            .eq(current)
+                                                            .addClass("synced")
+                                                        if ($("#sync2").data("owlCarousel") !== undefined) {
+                                                            center(current);
+                                                        }
+                                                    }
+
+                                                    $("#sync2").on("click", ".owl-item", function (e) {
+                                                        e.preventDefault();
+                                                        var number = $(this).data("owlItem");
+                                                        sync1.trigger("owl.goTo", number);
+                                                    });
+
+                                                    function center(number) {
+                                                        var sync2visible = sync2.data("owlCarousel").owl.visibleItems;
+                                                        var num = number;
+                                                        var found = false;
+                                                        for (var i in sync2visible) {
+                                                            if (num === sync2visible[i]) {
+                                                                var found = true;
+                                                            }
+                                                        }
+
+                                                        if (found === false) {
+                                                            if (num > sync2visible[sync2visible.length - 1]) {
+                                                                sync2.trigger("owl.goTo", num - sync2visible.length + 2)
+                                                            } else {
+                                                                if (num - 1 === -1) {
+                                                                    num = 0;
+                                                                }
+                                                                sync2.trigger("owl.goTo", num);
+                                                            }
+                                                        } else if (num === sync2visible[sync2visible.length - 1]) {
+                                                            sync2.trigger("owl.goTo", sync2visible[1])
+                                                        } else if (num === sync2visible[0]) {
+                                                            sync2.trigger("owl.goTo", num - 1)
+                                                        }
+                                                    }
+
+                                                    $(document).on('change', '.variations_form .variations select,.variations_form .variation_form_section select,div.select', function () {
+                                                        var variation_form = $(this).closest('.variations_form');
+                                                        var current_settings = {},
+                                                            reset_variations = variation_form.find('.reset_variations');
+                                                        variation_form.find('.variations select,.variation_form_section select').each(function () {
+                                                            // Encode entities
+                                                            var value = $(this).val();
+
+                                                            // Add to settings array
+                                                            current_settings[$(this).attr('name')] = jQuery(this).val();
+                                                        });
+
+                                                        variation_form.find('.variation_form_section div.select input[type="hidden"]').each(function () {
+                                                            // Encode entities
+                                                            var value = $(this).val();
+
+                                                            // Add to settings array
+                                                            current_settings[$(this).attr('name')] = jQuery(this).val();
+                                                        });
+
+                                                        var all_variations = variation_form.data('product_variations');
+
+                                                        var variation_id = 0;
+                                                        var match = true;
+
+                                                        for (var i = 0; i < all_variations.length; i++) {
+                                                            match = true;
+                                                            var variations_attributes = all_variations[i]['attributes'];
+                                                            for (var attr_name in variations_attributes) {
+                                                                var val1 = variations_attributes[attr_name];
+                                                                var val2 = current_settings[attr_name];
+                                                                if (val1 == undefined || val2 == undefined) {
+                                                                    match = false;
+                                                                    break;
+                                                                }
+                                                                if (val1.length == 0) {
+                                                                    continue;
+                                                                }
+
+                                                                if (val1 != val2) {
+                                                                    match = false;
+                                                                    break;
+                                                                }
+                                                            }
+                                                            if (match) {
+                                                                variation_id = all_variations[i]['variation_id'];
+                                                                break;
+                                                            }
+                                                        }
+
+                                                        if (variation_id > 0) {
+                                                            var index = parseInt($('a[data-variation_id="' + variation_id + '"]', '#sync1').data('index'), 10);
+                                                            if (!isNaN(index)) {
+                                                                sync1.trigger("owl.goTo", index);
+                                                            }
+                                                        }
+                                                    });
+                                                });
+                                            })(jQuery);
+                            </script>
+                        </div>
                     </div>
-                    <div class="tab-pane" id="features">
-                        <p class="tab-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nibh urna, euismod ut ornare non, volutpat vel tortor. Integer laoreet placerat suscipit. Sed sodales scelerisque commodo. Nam porta cursus lectus. Proin nunc erat, gravida a facilisis quis, ornare id lectus. Proin consectetur nibh quis urna gravida mollis.This tab has icon in consectetur adipiscing eliconse consectetur adipiscing elit. Vestibulum nibh urna, ctetur adipiscing elit. Vestibulum nibh urna, t.consectetur adipiscing elit. Vestibulum nibh urna,  Vestibulum nibh urna,it.</p>
-                        <p class="tab-text">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit,There are many variations of passages of Lorem Ipsum available,
-                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                        </p>
-                    </div>
-                    <div class="tab-pane" id="source">
-                        <div class="response">
-                            <div class="media response-info">
-                                <div class="media-left response-text-left">
-                                    <a href="#">
-                                        <img class="media-object" src="/Assets/Client/images/icon1.png" alt="" />
-                                    </a>
-                                    <h5><a href="#">Username</a></h5>
+                    <div class="col-md-6 col-lg-6 col-sm-6">
+                        <div class=" summary-product entry-summary">
+                            <h1 itemprop="name" class="product_title entry-title">@Model.Name</h1>
+                            <div class="woocommerce-product-rating" itemprop="aggregateRating" itemscope="" itemtype="http://schema.org/AggregateRating">
+                                <div class="star-rating" title="Rated 5 out of 5">
+                                    <span style="width:100%">
+                                        <strong itemprop="ratingValue" class="rating">5</strong> out of <span itemprop="bestRating">5</span>                                                based on <span itemprop="ratingCount" class="rating">1</span> customer rating
+                                    </span>
                                 </div>
-                                <div class="media-body response-text-right">
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit,There are many variations of passages of Lorem Ipsum available,
-                                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                    </p>
-                                    <ul>
-                                        <li>MARCH 21, 2015</li>
-                                        <li><a href="single.html">Reply</a></li>
-                                    </ul>
-                                </div>
-                                <div class="clearfix"> </div>
+                                <a href="#reviews" class="woocommerce-review-link" rel="nofollow">(<span itemprop="reviewCount" class="count">@Model.BuyAmount</span> khách hàng đã mua)</a>
                             </div>
-                            <div class="media response-info">
-                                <div class="media-left response-text-left">
-                                    <a href="#">
-                                        <img class="media-object" src="/Assets/Client/images/icon1.png" alt="" />
-                                    </a>
-                                    <h5><a href="#">Username</a></h5>
-                                </div>
-                                <div class="media-body response-text-right">
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit,There are many variations of passages of Lorem Ipsum available,
-                                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                    </p>
-                                    <ul>
-                                        <li>MARCH 26, 2054</li>
-                                        <li><a href="single.html">Reply</a></li>
-                                    </ul>
-                                </div>
-                                <div class="clearfix"> </div>
+                            <div itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
+                                <p class="price">&dollar;<span class="amount" id="price-product-@Model.ID">@Model.Price</span></p>
                             </div>
-                            <div class="media response-info">
-                                <div class="media-left response-text-left">
-                                    <a href="#">
-                                        <img class="media-object" src="/Assets/Client/images/icon1.png" alt="" />
-                                    </a>
-                                    <h5><a href="#">Username</a></h5>
-                                </div>
-                                <div class="media-body response-text-right">
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit,There are many variations of passages of Lorem Ipsum available,
-                                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                    </p>
-                                    <ul>
-                                        <li>MAY 25, 2015</li>
-                                        <li><a href="single.html">Reply</a></li>
-                                    </ul>
-                                </div>
-                                <div class="clearfix"> </div>
+                            <div class="product-single-short-description" itemprop="description">
+                                <p>
+                                    @Model.Description
+                                </p>
                             </div>
-                            <div class="media response-info">
-                                <div class="media-left response-text-left">
-                                    <a href="#">
-                                        <img class="media-object" src="/Assets/Client/images/icon1.png" alt="" />
-                                    </a>
-                                    <h5><a href="#">Username</a></h5>
+                            <div class="cart wrap-add-to-cart-detail">
+                                <div class="quantity pull-left wrap-input-detail">
+                                    <button class="btn-number btn-minus" data-type="minus">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                    <input data-id="@Model.ID" type="number" min="0" id="amount_@Model.ID" name="amount_@Model.ID" value="1" title="Qty" class="input-text qty text" size="4">
+                                    <button data-input="#amount_@Model.ID" class="btn-number btn-plus" data-type="plus">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
                                 </div>
-                                <div class="media-body response-text-right">
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit,There are many variations of passages of Lorem Ipsum available,
-                                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                    </p>
-                                    <ul>
-                                        <li>FEB 13, 2015</li>
-                                        <li><a href="single.html">Reply</a></li>
-                                    </ul>
-                                </div>
-                                <div class="clearfix"> </div>
+                                <button data-id="@Model.ID" data-amount="1" class="button product_type_simple add_to_cart_button ajax_add_to_cart btn-add-to-cart">
+                                    <span class="pull-left"><img id="loader-@Model.ID" class="loader-add-to-cart hide" src="~/Images/ajax-loader.gif" /></span>&nbsp;
+                                    <span> Add to cart</span>
+                                </button>
                             </div>
-                            <div class="media response-info">
-                                <div class="media-left response-text-left">
-                                    <a href="#">
-                                        <img class="media-object" src="/Assets/Client/images/icon1.png" alt="" />
-                                    </a>
-                                    <h5><a href="#">Username</a></h5>
+                            <div class="yith-wcwl-add-to-wishlist add-to-wishlist-213">
+                                <div class="yith-wcwl-add-button show" style="display:block">
+                                    <a href="index-3.htm?add_to_wishlist=213" rel="nofollow" data-product-id="213"
+                                       data-product-type="simple" class="add_to_wishlist">Add to Wishlist</a>
+                                    <img src="http://themes.g5plus.net/zorka/wp-admin/images/wpspin_light.gif"
+                                         class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden">
                                 </div>
-                                <div class="media-body response-text-right">
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit,There are many variations of passages of Lorem Ipsum available,
-                                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                    </p>
-                                    <ul>
-                                        <li>JAN 28, 2015</li>
-                                        <li><a href="single.html">Reply</a></li>
-                                    </ul>
-                                </div>
-                                <div class="clearfix"> </div>
+                                <div class="yith-wcwl-wishlistaddedbrowse hide" style="display:none;"> <span class="feedback">Product added!</span> <a href="http://themes.g5plus.net/zorka/wishlist/view/?lang=en"> Browse Wishlist </a></div>
+                                <div class="yith-wcwl-wishlistexistsbrowse hide" style="display:none"> <span class="feedback">The product is already in the wishlist!</span> <a href="http://themes.g5plus.net/zorka/wishlist/view/?lang=en"> Browse Wishlist </a></div>
+                                <div style="clear:both"></div>
+                                <div class="yith-wcwl-wishlistaddresponse"></div>
                             </div>
-                            <div class="media response-info">
-                                <div class="media-left response-text-left">
-                                    <a href="#">
-                                        <img class="media-object" src="/Assets/Client/images/icon1.png" alt="" />
-                                    </a>
-                                    <h5><a href="#">Username</a></h5>
-                                </div>
-                                <div class="media-body response-text-right">
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit,There are many variations of passages of Lorem Ipsum available,
-                                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                    </p>
-                                    <ul>
-                                        <li>APR 18, 2015</li>
-                                        <li><a href="single.html">Reply</a></li>
-                                    </ul>
-                                </div>
-                                <div class="clearfix"> </div>
+                            <div class="clear"></div>
+                            <a href="/zorka/shop/t-shirt-men/?action=yith-woocompare-add-product&amp;id=213&amp;_wpnonce=a5bdae12be" class="compare button"
+                               data-product_id="213">Compare</a>
+                            <div class="product_meta">
+                                <span class="product-stock-status-wrapper"><label>Trạng thái:</label> <span class="product-stock-status" itemprop="stock">Đang bán</span></span>
+                                <span class="posted_in"><label>Danh mục:</label> <a href="" rel="tag">@category.Name</a></span>
+                                <span class="posted_in"><label>Tag:</label> @Model.Tag</span>
                             </div>
-                            <div class="media response-info">
-                                <div class="media-left response-text-left">
-                                    <a href="#">
-                                        <img class="media-object" src="/Assets/Client/images/icon1.png" alt="" />
-                                    </a>
-                                    <h5><a href="#">Username</a></h5>
-                                </div>
-                                <div class="media-body response-text-right">
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit,There are many variations of passages of Lorem Ipsum available,
-                                        sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                    </p>
-                                    <ul>
-                                        <li>DEC 25, 2014</li>
-                                        <li><a href="single.html">Reply</a></li>
-                                    </ul>
-                                </div>
-                                <div class="clearfix"> </div>
+                            <div class="single-product-share">
+                                <label>Chia sẻ:</label>
+                                <a onclick="window.open('https://www.facebook.com/sharer.php?s=100&p[url]=http%3A%2F%2Fthemes.g5plus.net%2Fzorka%2Fshop%2Ft-shirt-men%2F','sharer', 'toolbar=0,status=0,width=620,height=280');"
+                                   data-toggle="tooltip" title="Share on Facebook" href="javascript:;"><i class="fa fa-facebook"></i></a>
+                                <a onclick="popUp=window.open('http://twitter.com/home?status=T-Shirt+For+Men http%3A%2F%2Fthemes.g5plus.net%2Fzorka%2Fshop%2Ft-shirt-men%2F','sharer','scrollbars=yes,width=800,height=400');popUp.focus();return false;"
+                                   data-toggle="tooltip" title="Share on Twitter" href="javascript:;"><i class="fa fa-twitter"></i></a>
+                                <a data-toggle="tooltip" title="Share on Google +1"
+                                   href="javascript:;" onclick="popUp=window.open('https://plus.google.com/share?url=http%3A%2F%2Fthemes.g5plus.net%2Fzorka%2Fshop%2Ft-shirt-men%2F','sharer','scrollbars=yes,width=800,height=400');popUp.focus();return false;">
+                                    <i class="fa fa-google-plus"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-        </div>
-        <div class="clearfix"></div>
-    </div>
-</div>
-<div class="other-products products-grid">
-    <div class="container">
-        <header>
-            <h3 class="like text-center">Related Products</h3>
-        </header>
-        @foreach (var item in listRelateProduct)
-        {
-            var srcImg = "";
-            foreach (var img in item.ListImage)
-            {
-                if (img.Type == 1)
-                {
-                    srcImg = img.Src;
-                    break;
-                }
-            }
-            <div class="col-md-4 product simpleCart_shelfItem text-center">
-                <a href="single.html">
-                    <img src="@Url.Content(srcImg)" alt="" />
-                </a>
-                <div class="mask">
-                    <a href="/Product/ViewDetail/@item.Product.ID">Quick View</a>
+            <div class="woocommerce-tabs wc-tabs-wrapper">
+                <ul class="tabs wc-tabs nav nav-tabs nav-stacked">
+                    <li class="active description_tab"><a data-toggle="tab" href="#tab-description">Mô tả sản phẩm</a></li>
+                    <li class="reviews_tab"><a data-toggle="tab" href="#tab-reviews">Reviews</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="panel entry-content wc-tab tab-pane fade in active" id="tab-description">
+                        <h2>Mô tả sản phẩm</h2>
+                        <p>
+                            @Model.Description
+                        </p>
+                    </div>
+                    <div class="panel entry-content wc-tab tab-pane fade" id="tab-reviews">
+                        <div id="reviews">
+                            <div id="comments">
+                                <h2>1 review for T-Shirt For Men</h2>
+                                <ol class="commentlist">
+                                    <li itemprop="review" itemscope="" itemtype="http://schema.org/Review" class="comment byuser comment-author-admin even thread-even depth-1"
+                                        id="li-comment-47">
+                                        <div id="comment-47" class="comment_container">
+                                            <img alt='' src='http://0.gravatar.com/avatar/2c1462f04f4c3faa3d4a08a78f4bb584?s=60&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D60&amp;r=G'
+                                                 class='avatar avatar-60 photo' height='60' width='60'>
+                                            <div class="comment-text">
+                                                <div itemprop="reviewRating" itemscope="" itemtype="http://schema.org/Rating" class="star-rating" title="Rated 5 out of 5">
+                                                    <span style="width:100%"><strong itemprop="ratingValue">5</strong> out of 5</span>
+                                                </div>
+                                                <p class="meta">
+                                                    <strong itemprop="author">admin</strong> &ndash;
+                                                    <time itemprop="datePublished"
+                                                          datetime="2015-04-22T16:22:36+00:00">April 22, 2015</time>:
+                                                </p>
+                                                <div itemprop="description" class="description">
+                                                    <p>Nice</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                            <div id="review_form_wrapper">
+                                <div id="review_form">
+                                    <div id="respond" class="comment-respond">
+                                        <h3 id="reply-title" class="comment-reply-title">Add a review <small><a rel="nofollow" id="cancel-comment-reply-link" href="index.htm#respond" style="display:none;">Cancel reply</a></small></h3>
+                                        <form action="http://themes.g5plus.net/zorka/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate="">
+                                            <p class="comment-form-author">
+                                                <label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" aria-required="true">
+                                            </p>
+                                            <p class="comment-form-email">
+                                                <label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="text" value="" size="30" aria-required="true">
+                                            </p>
+                                            <p class="comment-form-rating">
+                                                <label for="rating">Your Rating</label>
+                                                <select name="rating" id="rating">
+                                                    <option value="">Rate&hellip;
+                                                    <option value="5">Perfect
+                                                    <option value="4">Good
+                                                    <option value="3">Average
+                                                    <option value="2">Not that bad
+                                                    <option value="1">Very Poor
+                                                </select>
+                                            </p>
+                                            <p class="comment-form-comment">
+                                                <label for="comment">Your Review</label>
+                                                <textarea id="comment" name="comment"
+                                                          cols="45" rows="8" aria-required="true"></textarea>
+                                            </p>
+                                            <p class="form-submit"> <input name="submit" type="submit" id="submit" class="submit" value="Submit">                                                        <input type='hidden' name='comment_post_ID' value='213' id='comment_post_ID'>                                                        <input type='hidden' name='comment_parent' id='comment_parent' value='0'></p>
+                                            <input type="hidden" name="icl_comment_language" value="en">
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
                 </div>
-                <a class="product_name" href="/Product/ViewDetail/@item.Product.ID">@item.Product.Name</a>
-                <p><a class="item_add" href="/them-vao-gio?productID=@item.Product.ID&quantity=1"><i></i> <span class="item_price">$@item.Product.Price</span></a></p>
             </div>
-        }
-     
-        <div class="clearfix"></div>
-    </div>
-</div>
-<div class="news-letter">
-    <div class="container">
-        <div class="join">
-            <h6>JOIN OUR MAILING LIST</h6>
-            <div class="sub-left-right">
-                <form>
-                    <input type="text" value="Enter Your Email Here" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter Your Email Here';}">
-                    <input type="submit" value="SUBSCRIBE">
-                </form>
+            <div class="related products">
+                <h2>Sản phẩm liên quan</h2>
+                <div data-col="4" class="product-listing woocommerce row clearfix columns-4 product-slider">
+                    <div class="owl-carousel" data-plugin-options='{"items" :4,"pagination" : false, "navigation" : true}'>
+
+                        @foreach (var item in listRelateProduct)
+                        {
+                            <div class="product type-product status-publish has-post-thumbnail first product-item-wrapper taxable shipping-taxable purchasable product-type-variable product-cat-autumn-collection product-cat-collections product-cat-fashions product-cat-hanbags-wallets product-cat-jean-men product-cat-jewelry-diamond product-cat-singles product-tag-black-coach product-tag-coach product-tag-fashion product-tag-woman-clothes has-default-attributes has-children instock">
+                                <div class="product-item-inner">
+                                    <div class="product-thumb">
+                                        <div class="product-images-hover change-images">
+                                            <div class="product-thumb-primary">
+                                                <img width="390" height="520" src=@Url.Content(item.MainImage)
+                                                     class="attachment-shop_catalog wp-post-image" alt="product-13">
+                                            </div>
+                                            <div class="product-thumb-secondary">
+                                                <img width="390" height="520" src=@Url.Content(item.MainImage)
+                                                     class="attachment-shop_catalog" alt="product-07">
+                                            </div>
+                                        </div>
+                                        <a data-toggle="tooltip" title="Quick view" class="product-quick-view" data-product_id="214" href="http://themes.g5plus.net/zorka/shop/black-coach-women/"><i class="pe-7s-search"></i></a>
+                                        <a class="product-link" href="/san-pham/@item.MetaTitle/@item.ID"></a>
+                                    </div>
+                                    <a class="product-name" href="/san-pham/@item.MetaTitle/@item.ID">@item.Name</a>
+                                    <div class="star-rating" title="Rated 4 out of 5"><span style="width:80%"><strong class="rating">4</strong> out of 5</span></div>
+                                    <span class="price">
+                                        <span class="amount">&dollar;@item.Price</span>
+                                        @*<span class="amount">&pound;63.00</span>*@
+                                    </span>
+                                    <div class="product-button clearfix">
+                                        <div class="product-button-inner">
+                                            <div class="yith-wcwl-add-to-wishlist add-to-wishlist-214">
+                                                <div class="yith-wcwl-add-button show" style="display:block">
+                                                    <a href="index-9.htm?add_to_wishlist=214" rel="nofollow" data-product-id="214"
+                                                       data-product-type="variable" class="add_to_wishlist">Add to Wishlist</a>
+                                                    <img src="http://themes.g5plus.net/zorka/wp-admin/images/wpspin_light.gif"
+                                                         class="ajax-loading" alt="loading" width="16" height="16"
+                                                         style="visibility:hidden">
+                                                </div>
+                                                <div class="yith-wcwl-wishlistaddedbrowse hide" style="display:none;"> <span class="feedback">Product added!</span> <a href="http://themes.g5plus.net/zorka/wishlist/view/?lang=en"> Browse Wishlist </a></div>
+                                                <div class="yith-wcwl-wishlistexistsbrowse hide" style="display:none"> <span class="feedback">The product is already in the wishlist!</span>                                                            <a href="http://themes.g5plus.net/zorka/wishlist/view/?lang=en"> Browse Wishlist </a></div>
+                                                <div style="clear:both"></div>
+                                                <div class="yith-wcwl-wishlistaddresponse"></div>
+                                            </div>
+                                            <div class="clear"></div>
+                                            <button data-id="@item.ID" data-amount="1" id="btn-add-to-cart-@item.ID" class="button product_type_simple add_to_cart_button ajax_add_to_cart btn-add-to-cart">
+                                                <span class="pull-left"><img id="loader-@item.ID" class="loader-add-to-cart hide" src="~/Images/ajax-loader.gif" /></span>&nbsp;
+                                                <span> Add to cart</span>
+                                            </button>
+                                            <a href="/Cart/Index" id="view-cart-@item.ID" class="added_to_cart wc-forward view-cart hide" title="View Cart">
+                                                View Cart
+                                            </a>
+                                            <a href="/zorka/shop/t-shirt-men/?action=yith-woocompare-add-product&amp;id=214&amp;_wpnonce=a5bdae12be"
+                                               class="compare button" data-product_id="214">Compare</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
             </div>
-            <div class="clearfix"> </div>
+            <meta itemprop="url" content="http://themes.g5plus.net/zorka/shop/t-shirt-men/">
         </div>
     </div>
-</div>
+</main>

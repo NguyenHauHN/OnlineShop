@@ -129,5 +129,36 @@ namespace Model.DAO
             }
             
         }
+
+        public int ResetPassword(User user)
+        {
+            try
+            {
+                var userTemp = db.Users.Where(x => x.Username == user.Username).FirstOrDefault();
+                if (userTemp != null)
+                {
+                    if (userTemp.Email.Equals(user.Email))
+                    {
+                        userTemp.Password = user.Password;
+                        db.SaveChanges();
+                        return 1;
+                    }
+                    else
+                    {
+                        return -3;
+                    }
+
+                }
+                else
+                {
+                    return -2;
+                }
+
+            }
+            catch (Exception)
+            {
+                return -1;
+            }
+        }
     }
 }

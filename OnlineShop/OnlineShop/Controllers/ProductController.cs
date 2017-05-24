@@ -1,9 +1,13 @@
 ﻿using Model.DAO;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
+using System.Xml.Linq;
 
 namespace OnlineShop.Controllers
 {
@@ -16,12 +20,41 @@ namespace OnlineShop.Controllers
         }
 
         [HttpGet]
-        public ActionResult ViewDetail(int ID)
+        public ActionResult ViewDetail(long ID)
         {
-            //var product = new ProductDisplayDAO().GetByProductID(ID);
-            //var listRelateProduct = new ProductDisplayDAO().GetListRelateProduct(product.Product.CategoryID);
-            //ViewBag.ListRelate = listRelateProduct;
-            return View();
+            var product = new ProductDAO().GetByID(ID);
+            var galleryImage = new ProductController().LoadGalleryImage(ID).Data;
+            var json = JsonConvert.SerializeObject(galleryImage);
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            dynamic jsonObject = serializer.Deserialize<dynamic>(json);
+            dynamic x = jsonObject["data"];
+            ViewBag.GalleryImage = x;
+            ViewBag.Category = new CategoryDAO().GetByID(product.CategoryID);
+            ViewBag.ListRelateProduct = new ProductDAO().GetListRelateProduct(product.CategoryID);
+            return View(product);
         }
+
+
+        public JsonResult LoadGalleryImage(long id)
+        {
+            ProductDAO proDAO = new ProductDAO();
+            var product = proDAO.GetByID(id);
+            var listImage = product.GalleryImage;
+            List<string> listImageReturn = new List<string>();
+            if (!string.IsNullOrEmpty(listImage))
+            {
+                XElement xmlImg = XElement.Parse(listImage);
+                foreach (XElement element in xmlImg.Elements())
+                {
+                    listImageReturn.Add(element.Value);
+                }
+            }
+            return Json(new
+            {
+                data = listImageReturn
+            }, JsonRequestBehavior.AllowGet);
+
+        }
+
     }
 }

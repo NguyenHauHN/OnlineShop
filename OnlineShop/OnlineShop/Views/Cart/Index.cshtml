@@ -5,60 +5,141 @@
 }
 
 @section jsFooter{
-    <script src="~/Scripts/Custom/cart.js"></script>
+    <script src="~/Assets/Client/customJs/cart.js"></script>
 }
 
-<div class="container">
-    <h4>Giỏ hàng</h4>
-    @if (Model.Count > 0)
-    {
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th><b>Mã sản phẩm</b></th>
-                    <th><b>Sản phẩm</b></th>
-                    <th><b>Số lượng</b></th>
-                    <th><b>Đơn giá</b></th>
-                    <th><b>Thành tiền</b></th>
-                    <th><b>Thao tác</b></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@item.Product.Code</td>
-                        <td class="row">
-                            @*<img class="img-responsive img-product img-circle img-thumbnail pull-left" src="@item.Product.Image" alt="@item.Product.Name" />*@
-                            &nbsp;&nbsp;
-                            <span class="">@item.Product.Name</span>
-                        </td>
+<section class="page-title-wrapper dark page-title-image margin-bottom-50" style="background-image: url(http://themes.g5plus.net/zorka/wp-content/uploads/2015/04/bg-shop.jpg);">
+    <div class="page-title-inner">
+        <div class="container">
+            <h1>SHOPPING CART</h1>
+            <span>Nulla mattis mi quis elit porttitor gravida. Ut ut laoreet justo. Suspendisse nulla ligula, aliquet sed cursus ut, sodales sit amet metus. </span>
+        </div>
+    </div>
+</section>
+<main role="main" class="site-content site-content-page">
+    <div class="container clearfix">
+        <div class="row clearfix">
+            <div class="col-md-12">
+                <div class="page-content">
+                    <div id="post-136" class="post-136 page type-page status-publish hentry">
+                        <div class="entry-content">
+                            <div class="woocommerce">
+                                <div class="cart-form">
+                                    @if (Model.Count > 0)
+                                    {
+                                        <table class="shop_table cart" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th class="product-remove">&nbsp;</th>
+                                                    <th class="product-thumbnail">&nbsp;</th>
+                                                    <th class="product-name">Sản phẩm</th>
+                                                    <th class="product-price">Đơn giá</th>
+                                                    <th class="product-price">Sale</th>
+                                                    <th class="product-quantity">Số lượng</th>
+                                                    <th class="product-subtotal">Tổng tiền</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model)
+                                                {
+                                                    <tr class="cart_item" id="item-cart-@item.Product.ID">
+                                                        <td class="product-remove">
+                                                            <a data-id="@item.Product.ID" href="" class="remove remove-item-cart" title="Remove this item">&times;</a>
+                                                        </td>
+                                                        <td class="product-thumbnail">
+                                                            <a href="/san-pham/@item.Product.MetaTitle/@item.Product.ID">
+                                                                <img width="180" height="180" src=@Url.Content(item.Product.MainImage) class="attachment-shop_thumbnail wp-post-image" alt="@item.Product.Name">
+                                                            </a>
+                                                        </td>
+                                                        <td class="product-name">
+                                                            <a href="/san-pham/@item.Product.MetaTitle/@item.Product.ID">@item.Product.Name</a>
+                                                        </td>
+                                                        <td class="product-price">
+                                                            <span>&dollar;</span>
+                                                            <span class="amount">@item.Product.Price</span>
+                                                        </td>
+                                                        <td class="product-sale">
+                                                            <span class="dollar">&dollar;</span>
+                                                            <span class="amount">@item.Product.Sale</span>
+                                                            <span>(%)</span>
+                                                        </td>
+                                                        <td class="product-quantity">
+                                                            <div class="quantity">
+                                                                <button class="btn-number btn-minus" data-type="minus">
+                                                                    <i class="fa fa-minus"></i>
+                                                                </button>
+                                                                <input data-id="@item.Product.ID" type="number" min="0" id="amount_@item.Product.ID" name="amount_@item.Product.ID" value="@item.Amount" title="Qty" class="input-text qty text" size="4">
+                                                                <button data-input="#amount_@item.Product.ID" class="btn-number btn-plus" data-type="plus">
+                                                                    <i class="fa fa-plus"></i>
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                        <td class="product-subtotal">
+                                                            <span class="amount">&dollar;</span>
+                                                            <span class="money amount">@(item.Product.Price * ((100 - item.Product.Sale) / 100) * item.Amount)</span>
+                                                        </td>
+                                                    </tr>
+                                                }
 
-                        <td>
-                            <div class="form-group">
-                                <input type="number" data-id="@item.Product.ID" class="form-control txtQuantity" value="@item.Quantity">
+
+                                                <tr>
+                                                    <td colspan="7" class="actions zorka-actions">
+                                                        <button type="submit" class="button" id="btn-update-cart">Cập nhật</button>
+                                                        <a href="http://themes.g5plus.net/zorka/checkout/" class="checkout-button button alt wc-forward">
+                                                            Xem đơn hàng
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    }
+                                    else
+                                    {
+                                        <p class="cart-empty">
+                                            Giỏ hàng rỗng, hãy chọn thêm sản phẩm.
+                                        </p>
+                                    }
+                                    <p class="cart-empty cart-empty-second">
+                                        Giỏ hàng rỗng, hãy chọn thêm sản phẩm.
+                                    </p>
+
+                                </div>
+                                <div class="cart-collaterals">
+                                    <div class="cart_totals">
+                                        <div class="cart_totals_inner ">
+                                            <h2>Giá trị giỏ hàng</h2>
+                                            <table cellspacing="0">
+                                                <tr class="cart-subtotal">
+                                                    <th>Tổng tiền (chưa có VAT)</th>
+                                                    <td>
+                                                        <span>&dollar;</span>
+                                                        <span class="amount">@ViewBag.TotalMoneyCart</span>
+                                                    </td>
+                                                </tr>
+                                                <tr class="tax-total">
+                                                    <th>VAT</th>
+                                                    <td><span class="amount">&dollar;9.00</span></td>
+                                                </tr>
+                                                <tr class="order-total">
+                                                    <th>Thành tiền</th>
+                                                    <td>
+                                                        <strong>
+                                                            <span>&dollar;</span>
+                                                            <span class="amount">@ViewBag.TotalMoneyCartVAT</span>
+                                                        </strong>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <p><small>Ghi chú: Miễn phí vận chuyển khi mua đơn hàng giá trị từ 100$ trở lên.</small></p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </td>
-                        <td>@item.Product.Price.GetValueOrDefault(0)</td>
-                        <td>@(item.Product.Price.GetValueOrDefault(0) * item.Quantity)</td>
-                        <td>
-                            <button type="button" class="btn btn-danger btn-delete" data-id="@item.Product.ID">Xóa</button>
-                        </td>
-                    </tr>
-
-                }
-
-
-            </tbody>
-        </table>
-            <button type="button" class="btn btn-success pull-right" id="btn-payment">Thanh toán</button>
-            <button type="button" id="btnContinue" class="btn btn-primary pull-right" style="margin-right: 10px;">Tiếp tục mua</button>
-            <button type="button" id="btnDeleteAll" class="btn btn-primary pull-right" style="margin-right: 10px;">Xóa giỏ hàng</button>
-            <button type="button" id="btnUpdate" class="btn btn-primary pull-right" style="margin-right: 10px;">Cập nhật</button>
-
-    }
-    else
-    {
-        <h4 class="text-warning text-center">Chưa có sản phẩm trong giỏ hàng!</h4>
-    }
-</div>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

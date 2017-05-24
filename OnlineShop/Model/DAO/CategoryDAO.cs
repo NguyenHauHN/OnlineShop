@@ -1,4 +1,5 @@
 ﻿using Model.EF;
+using Model.ViewModels;
 using PagedList;
 using System;
 using System.Collections.Generic;
@@ -23,8 +24,26 @@ namespace Model.DAO
             {
                 model = model.Where(x => x.Description.Contains(keyword) || x.Name.Contains(keyword));
             }
-
             return model.OrderBy(x => x.DisplayOrder).ToPagedList(page, pageSize);
+        }
+
+        public List<Category> GetList()
+        {
+            return db.Categories.Where(x => x.Status == 1).ToList();
+        }
+
+        public List<Category> ListCategoryMen()
+        {
+            return db.Categories.Where(x => x.Type == 1 && x.Status == 1).OrderBy(x => x.DisplayOrder).Take(3).ToList();
+        }
+
+        public List<Category> ListCategoryWomen()
+        {
+            return db.Categories.Where(x => x.Type == 2 && x.Status == 1).OrderBy(x => x.DisplayOrder).Take(3).ToList();
+        }
+        public List<Category> ListCategoryKid()
+        {
+            return db.Categories.Where(x => x.Type == 3 && x.Status == 1).OrderBy(x => x.DisplayOrder).Take(3).ToList();
         }
 
         public List<Category> GetListAll()
@@ -32,7 +51,7 @@ namespace Model.DAO
             return db.Categories.Where(x => x.ParentID == null).ToList();
         }
 
-        public Category GetByID(long ID)
+        public Category GetByID(long? ID)
         {
             return db.Categories.Find(ID);
         }
@@ -60,7 +79,7 @@ namespace Model.DAO
                 var categoryTemp = db.Categories.Find(category.ID);
                 categoryTemp.Name = category.Name;
                 categoryTemp.MetaTitle = category.MetaTitle;
-                categoryTemp.ParentID = category.ParentID;
+                //categoryTemp.ParentID = category.ParentID;
                 categoryTemp.Description = category.Description;
                 categoryTemp.DisplayOrder = category.DisplayOrder;
                 categoryTemp.Tag = category.Tag;

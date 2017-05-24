@@ -8,3 +8,15 @@ LIST_STATUS_PRODUCT={
 	3: Out of Stock,
 	4: Deleted
 }
+LIST_STATUS_ORDER = {
+	1: New,
+	2: Delivering,
+	3: Paid,
+	4: Cancel,
+	5: Deleted
+}
+LIST_TYPE_PRODUCT = {
+	1: Men,
+	2: Women,
+	3: Kid
+}

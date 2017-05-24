@@ -14,7 +14,7 @@ namespace Model.EF
         [StringLength(250)]
         public string Name { get; set; }
 
-        [StringLength(50)]
+        [StringLength(100)]
         public string Code { get; set; }
 
         [StringLength(250)]
@@ -50,7 +50,13 @@ namespace Model.EF
         [Column(TypeName = "xml")]
         public string GalleryImage { get; set; }
 
-        [StringLength(100)]
+        [StringLength(50)]
         public string GroupID { get; set; }
+
+        public long? Amount { get; set; }
+
+        public int? Rate { get; set; }
+
+        public int? BuyAmount { get; set; }
     }
 }

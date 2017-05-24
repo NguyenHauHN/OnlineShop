@@ -29,20 +29,14 @@ namespace OnlineShop.Areas.Admin.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            if (TempData["pathImage"] != null)
-            {
-                Session["avatarUploadProduct"] = TempData["pathImage"];
-                ViewBag.srcImg = TempData["pathImage"];
-            }
-            else
-            {
-                ViewBag.srcImg = "~/Images/plus.png";
-            }
+            TempData["ListGalleryImage"] = null;
+            var listCategory = new CategoryDAO().GetList();
+            ViewBag.ListCategory = listCategory;
             return View();
         }
 
         [HttpPost]
-        public ActionResult Create(Product product, string amountProduct)
+        public ActionResult Create(Product product, string mainImageProduct)
         {
             if (ModelState.IsValid)
             {
@@ -53,40 +47,20 @@ namespace OnlineShop.Areas.Admin.Controllers
                     {
                         product.GalleryImage = TempData["ListGalleryImage"].ToString();
                     }
-                    if (Session["avatarUploadProduct"] != null)
+                    if (!string.IsNullOrEmpty(mainImageProduct))
                     {
-                        product.MainImage = Session["avatarUploadProduct"].ToString();
+                        product.MainImage = mainImageProduct;
                     }
-                   
-                    var listProduct = new List<Product>();
-                    var groupID = new ProductDAO().ConvertToTimestamp(DateTime.Now);
-                    int number = Convert.ToInt32(amountProduct);
-                    for (int i = 0; i < number; i++)
-                    {
-                        var newProduct = new Product();
-
-                        newProduct.Name = product.Name;
-                        newProduct.MetaTitle = product.MetaTitle;
-                        newProduct.MainImage = product.MainImage;
-                        newProduct.GalleryImage = product.GalleryImage;
-                        newProduct.Description = product.Description;
-                        newProduct.Tag = product.Tag;
-                        newProduct.Price = product.Price;
-                        newProduct.Sale = product.Sale;
-                        newProduct.CategoryID = product.CategoryID;
-                        newProduct.Code = "SP" + groupID + "_" +  (i + 1).ToString();
-                        newProduct.GroupID = groupID;
-                        newProduct.Status = 1;
-                        listProduct.Add(newProduct);
-                    }
-                    var result = new ProductDAO().Insert(listProduct);
+                    
+                    var result = new ProductDAO().Insert(product);
                     if (result > 0)
                     {
                         return RedirectToAction("Index", "Product");
                     }
                     else
                     {
-                        ModelState.AddModelError("", "Thêm mới sản phẩm không thành công!");
+                        TempData["CreateError"] = "Thêm mới sản phẩm không thành công!";
+                        return RedirectToAction("Create", "Product");
                     }
 
                 }
@@ -102,23 +76,31 @@ namespace OnlineShop.Areas.Admin.Controllers
         public ActionResult Edit(long ID)
         {
             var product = new ProductDAO().GetByID(ID);
-            ViewBag.Src = "abc";
+            TempData["SaveGalleryImage"] = product.GalleryImage;
+            var listCategory = new CategoryDAO().GetList();
+            ViewBag.ListCategory = listCategory;
+            var listStatusProduct = new ProductDAO().GetAllStatus();
+            ViewBag.ListStatusProduct = listStatusProduct;
             return View(product);
         }
 
         [HttpPost]
-        public ActionResult Edit(Product product, string saveMainImg)
+        public ActionResult Edit(Product product, string saveMainImage)
         {
             if (ModelState.IsValid)
             {
 
-                if (!string.IsNullOrEmpty(saveMainImg))
+                if (!string.IsNullOrEmpty(saveMainImage))
                 {
-                    product.MainImage = saveMainImg;
+                    product.MainImage = saveMainImage;
                 }
                 if (TempData["ListGalleryImage"] != null)
                 {
                     product.GalleryImage = product.GalleryImage + TempData["ListGalleryImage"].ToString();
+                }
+                else if(TempData["SaveGalleryImage"] != null)
+                {
+                    product.GalleryImage = TempData["SaveGalleryImage"].ToString();
                 }
                 try
                 {
@@ -140,33 +122,7 @@ namespace OnlineShop.Areas.Admin.Controllers
             }
             return View();
         }
-
-
-        public ActionResult UploadGalleryImage()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult UploadImageMainImage(HttpPostedFileBase file)
-        {
-            var path = "";
-            if (file != null && file.ContentLength > 0)
-            {
-                // check extension of file
-                if (Path.GetExtension(file.FileName).ToLower() == ".jpg" || Path.GetExtension(file.FileName).ToLower() == ".png"
-                   || Path.GetExtension(file.FileName).ToLower() == ".gif" || Path.GetExtension(file.FileName).ToLower() == ".jpeg" ||
-                   Path.GetExtension(file.FileName).ToLower() == ".svg")
-                {
-                    path = Path.Combine(Server.MapPath("~/Images"), file.FileName);
-                    file.SaveAs(path);
-                    TempData["pathImage"] = "~/Images/" + file.FileName;
-                }
-            }
-            return RedirectToAction("Create", "Product");
-
-        }
-
+      
         [HttpPost]
         public ActionResult UploadImage()
         {
@@ -190,7 +146,7 @@ namespace OnlineShop.Areas.Admin.Controllers
             }
         }
 
-        public JsonResult SaveGalleryImage(string id, string images)
+        public JsonResult SaveGalleryImage(string images)
         {
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             var listImage = serializer.Deserialize<List<string>>(images);
@@ -201,23 +157,13 @@ namespace OnlineShop.Areas.Admin.Controllers
             }
             try
             {
-                var result = new ProductDAO().SaveGalleryImage(Convert.ToInt32(id), xmlImage.ToString());
-                if (result > 0)
-                {
-                    TempData["ListGalleryImage"] = xmlImage;
-                    return Json(new
-                    {
-                        status = true
-                    });
-                }
-                else
-                {
-                    return Json(new
-                    {
-                        status = false
-                    });
-                }
+                TempData["ListGalleryImage"] = xmlImage;
 
+                return Json(new
+                {
+                    status = true
+                });
+              
             }
             catch (Exception)
             {
@@ -226,7 +172,6 @@ namespace OnlineShop.Areas.Admin.Controllers
                     status = false
                 });
             }
-
         }
 
         public JsonResult LoadGalleryImage(long id)
@@ -255,6 +200,14 @@ namespace OnlineShop.Areas.Admin.Controllers
             ViewBag.ProductID = ID;
             return View();
         }
+
+        [HttpDelete]
+        public ActionResult Delete(long ID)
+        {
+            var result = new ProductDAO().Delete(ID);
+            return RedirectToAction("Index", "Product");
+        }
+
 
 
     }

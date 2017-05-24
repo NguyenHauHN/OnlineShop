@@ -7,8 +7,10 @@
 .btn-action-second{
     margin-left: 5px !important;
 }
-.btn-action-first{
-    margin-top: 1px !important;
+.btn-action-first, 
+.btn-list-order-product{
+    margin-top: 2px !important;
+    margin-right: 8px;
 }
 .box-footer .pagination{
     margin: 0px !important;
@@ -19,6 +21,9 @@
     border-radius: 4px;
 }
 .wrap-button-upload{
+    margin-right: 10px;
+}
+.wrap-image-product .wrap-button-upload{
     margin-top: 10px;
 }
 .avatar{
@@ -40,4 +45,34 @@
 .avatar-product{
     width: 50px;
     height: 50px;
+}
+.wrap-gallery-image{
+    position: relative;
+    margin-right: 10px;
+}
+.wrap-gallery-image img{
+    width: 130px;
+    height:130px;
+    border: 1px solid #ccc;
+    border-radius:4px;
+}
+.delete-image{
+    width: 25px !important;
+    height: 25px !important;
+    position: absolute;
+    right:0;
+    top: 0;
+}
+.delete-image i{
+    line-height: 24px !important;
+    font-size: 1em !important;
+}
+.wrap-table-product-order{
+    border: 1px solid #ccc !important;
+    margin-right: 15px;
+    margin-left: 15px;
+}
+.alert-custom{
+    margin-top: 20px;
+    width: 50%;
 }
