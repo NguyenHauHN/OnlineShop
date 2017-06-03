@@ -21,19 +21,16 @@
 
         },
         searchProduct: function () {
-            $('#searchProduct').keypress(function (e) {
-                if (e.which == 13) {
-                    console.log($(this).val());
+            $('#searchProduct').keyup(function (e) {
                     $.get("/Category/ListProduct", {
                         ID: $('#categoryID').val(),
                         valueselectsort: $(this).val(),
                         searchProduct: $(this).val()
                     },
                     function (data, status, xhr) {
-                        $('.product-listing').html(data.list);
+                        $('.product-listing').html($(data).find('.product-listing').html());
                     }
                 )
-                }
             });
         },
         filterProductByPrice: function () {
@@ -46,7 +43,7 @@
                     maxPrice: $('#max_price').val()
                 },
                     function (data, status, xhr) {
-                        alert('ok');
+                        
                         $('.product-listing').html($(data).find('.product-listing').html());
                     }
                 )

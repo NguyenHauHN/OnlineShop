@@ -107,7 +107,7 @@ namespace Model.DAO
             IQueryable<OrderProduct> model = db.OrderProducts;
             if (!string.IsNullOrEmpty(keyword))
             {
-                model = model.Where(x => x.OrderID == orderID && (x.ProductName.Contains(keyword)));
+                //model = model.Where(x => x.OrderID == orderID && (x.ProductName.Contains(keyword)));
             }
             else
             {
@@ -117,6 +117,80 @@ namespace Model.DAO
 
             totalOrderProduct = model.Count();
             return model.OrderByDescending(x => x.ProductID).ToPagedList(page, pageSize);
+        }
+
+        public long InsertOrder(long customerID, string orderAddress, string Note)
+        {
+            try
+            {
+                var customer = db.Users.Find(customerID);
+                var order = new Order();
+                order.CustomerID = customer.ID;
+                order.CustomerName = customer.Name;
+                order.CustomerAddress = customer.Address;
+                order.CustomerEmail = customer.Email;
+                order.CustomerPhone = customer.Phone;
+                order.OrderAddress = orderAddress;
+                order.Note = Note;
+                order.Status = 1;
+                order.CreateDate = DateTime.Now;
+                db.Orders.Add(order);
+                db.SaveChanges();
+                return order.ID;
+            }
+            catch (Exception)
+            {
+                return -1;
+            }
+            
+        }
+
+        public int InsertOrderProduct(long orderID, List<OrderProduct> listOrderProduct)
+        {
+            try
+            {
+                foreach(var item in listOrderProduct)
+                {
+                    item.OrderID = orderID;
+                }
+                db.OrderProducts.AddRange(listOrderProduct);
+                db.SaveChanges();
+                return 1;
+            }
+            catch (Exception)
+            {
+                return -1;
+            }
+        }
+
+        public int PlaceOrder(long customerID, string orderAddress, string Note, List<OrderProduct> listOrderProduct)
+        {
+            try
+            {
+                var orderID = new OrderDAO().InsertOrder(customerID, orderAddress, Note);
+                if (orderID > 0)
+                {
+                    var result = new OrderDAO().InsertOrderProduct(orderID, listOrderProduct);
+                    if(result > 0)
+                    {
+                        return 1;
+                    }
+                    else
+                    {
+                        return -3;
+                    }
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+            catch (Exception)
+            {
+                return -2;
+            }
+
+            
         }
 
     }

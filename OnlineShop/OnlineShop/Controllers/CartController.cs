@@ -15,22 +15,24 @@ namespace OnlineShop.Controllers
         // GET: Cart
         public ActionResult Index()
         {
-            var listItem = new List<CardItem>();
+            var listItem = new List<CartItem>();
             ViewBag.TotalMoneyCart = 0;
             ViewBag.TotalMoneyCartVAT = 0;
             if (Session[CommonConstant.CardSession] != null)
             {
-                listItem = (List<CardItem>)Session[CommonConstant.CardSession];
+                listItem = (List<CartItem>)Session[CommonConstant.CardSession];
                 foreach(var item in listItem)
                 {
                     ViewBag.TotalMoneyCart += item.Product.Price * ((100 - item.Product.Sale) / 100) * item.Amount;
                 }
-                if(ViewBag.TotalMoneyCart > 0)
-                {
-                    ViewBag.TotalMoneyCartVAT = ViewBag.TotalMoneyCart + 9;
-                }
-                
+               
             }
+            if (Session[Common.CommonConstant.CLIENT_SESSION] != null)
+            {
+                var clientModel = Session[Common.CommonConstant.CLIENT_SESSION] as ClientModel;
+                ViewBag.ClientSession = clientModel.username;
+            }
+
             return View(listItem);
         }
 
@@ -42,14 +44,14 @@ namespace OnlineShop.Controllers
                 var product = new ProductDAO().GetByID(productID);
                 if (Session[CommonConstant.CardSession] != null)
                 {
-                    var listExistItem = (List<CardItem>)Session[CommonConstant.CardSession];
+                    var listExistItem = (List<CartItem>)Session[CommonConstant.CardSession];
                     if (listExistItem.Exists(x => x.Product.ID == productID))
                     {
                         listExistItem.Find(x => x.Product.ID == productID).Amount += amount;
                     }
                     else
                     {
-                        var item = new CardItem();
+                        var item = new CartItem();
                         item.Product = product;
                         item.Amount = amount;
                         listExistItem.Add(item);
@@ -59,10 +61,10 @@ namespace OnlineShop.Controllers
                 }
                 else
                 {
-                    var item = new CardItem();
+                    var item = new CartItem();
                     item.Product = product;
                     item.Amount = amount;
-                    var listNewItem = new List<CardItem>();
+                    var listNewItem = new List<CartItem>();
                     listNewItem.Add(item);
                     Session[CommonConstant.CardSession] = listNewItem;
                 }
@@ -87,8 +89,8 @@ namespace OnlineShop.Controllers
         }
         public JsonResult Update(string cardModel)
         {
-            var jsonCard = new JavaScriptSerializer().Deserialize<List<CardItem>>(cardModel);
-            var sessionCard = (List<CardItem>)Session[CommonConstant.CardSession];
+            var jsonCard = new JavaScriptSerializer().Deserialize<List<CartItem>>(cardModel);
+            var sessionCard = (List<CartItem>)Session[CommonConstant.CardSession];
             foreach (var item in sessionCard)
             {
                 var jsonItem = jsonCard.SingleOrDefault(x => x.Product.ID == item.Product.ID);
@@ -119,7 +121,7 @@ namespace OnlineShop.Controllers
         }
         public JsonResult Delete(long id)
         {
-            var sessionCard = (List<CardItem>)Session[CommonConstant.CardSession];
+            var sessionCard = (List<CartItem>)Session[CommonConstant.CardSession];
             sessionCard.RemoveAll(x => x.Product.ID == id);
             Session[CommonConstant.CardSession] = sessionCard;
             return Json(
@@ -134,10 +136,10 @@ namespace OnlineShop.Controllers
 
         public ActionResult Payment()
         {
-            var listItem = new List<CardItem>();
+            var listItem = new List<CartItem>();
             if (Session[CommonConstant.CardSession] != null)
             {
-                listItem = (List<CardItem>)Session[CommonConstant.CardSession];
+                listItem = (List<CartItem>)Session[CommonConstant.CardSession];
             }
             return View(listItem);
         }

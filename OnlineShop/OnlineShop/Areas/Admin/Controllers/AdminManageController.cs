@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using Model.EF;
 using Model.DAO;
 using System.Web.Services;
-using PagedList;
 using System.IO;
 using OnlineShop.Common;
 using System.Text.RegularExpressions;
@@ -17,12 +16,13 @@ namespace OnlineShop.Areas.Admin.Controllers
     {
 
         // GET: Admin/AdminManage
-        public ActionResult Index(string keyword, int page = 1, int pageSize = 10)
+        public ActionResult Index(string keyword, int page = 1, int pageSize = 1)
         {
             int totalAdmin = 0;
             var listAdmin = new UserDAO().ListAllAdmin(keyword, ref totalAdmin, page, pageSize);
             ViewBag.Keyword = keyword;
             ViewBag.Page = page;
+            ViewBag.TotalPage = (int)Math.Ceiling((double)totalAdmin/ pageSize);
             return View(listAdmin);
         }
 

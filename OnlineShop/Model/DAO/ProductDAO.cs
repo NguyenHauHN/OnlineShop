@@ -163,6 +163,18 @@ namespace Model.DAO
             return model.ToPagedList(page, pageSize);
         }
 
+        public List<Product> ResultSearch(string Keyword)
+        {
+            var listProduct = new List<Product>();
+            if (!string.IsNullOrEmpty(Keyword))
+            {
+
+                listProduct = db.Products.SqlQuery("select * from Product where Name like N'%" +
+                    Keyword + "%'").ToList();
+            }
+            return listProduct;
+        }
+
 
         public List<Product> GetListRelateProduct(long? categoryID)
         {

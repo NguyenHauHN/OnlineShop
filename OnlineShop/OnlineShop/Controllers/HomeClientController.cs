@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace OnlineShop.Controllers
 {
@@ -52,15 +53,21 @@ namespace OnlineShop.Controllers
         //[ChildActionOnly]
         public ActionResult Header()
         {
-            var listItem = new List<CardItem>();
+            var listItem = new List<CartItem>();
             double totalMoney = 0;
             if (Session[Common.CommonConstant.CardSession] != null)
             {
-                listItem = (List<CardItem>)Session[Common.CommonConstant.CardSession];
+                listItem = (List<CartItem>)Session[Common.CommonConstant.CardSession];
             }
             foreach (var item in listItem)
             {
                 totalMoney += (double)(item.Product.Price * (100 - item.Product.Sale) / 100);
+            }
+            if(Session[Common.CommonConstant.CLIENT_SESSION] != null)
+            {
+                var client = Session[Common.CommonConstant.CLIENT_SESSION] as ClientModel;
+                ViewBag.Username = client.username;
+
             }
             ViewBag.TotalMoney = totalMoney;
             return PartialView(listItem);
@@ -79,6 +86,13 @@ namespace OnlineShop.Controllers
             var listCategoryKid = new CategoryDAO().ListCategoryKid();
             ViewBag.ListcategoryKid = listCategoryKid;
             return PartialView();
+        }
+
+        public ActionResult LogOut()
+        {
+            FormsAuthentication.SignOut();
+            Session.Abandon();
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
 

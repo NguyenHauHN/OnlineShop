@@ -153,6 +153,7 @@
             background-size: cover !important;
         }
     </style>
+    
     <noscript>
         <style>
             .wpb_animate_when_almost_visible {
@@ -161,6 +162,7 @@
         </style>
     </noscript>
     <link href="~/Content/Custom/styleClient.css" rel="stylesheet" />
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
 </head>
 <body class="page page-id-37 page-template-default header-6 woocommerce wpb-js-composer js-comp-ver-4.7.4 vc_responsive">
     <div id="wrapper" class="clearfix animsition">
@@ -168,19 +170,6 @@
         @{
             Html.RenderAction("Header", "HomeClient");
         }
-        <!--Search-->
-        <div id="zorka-modal-search" tabindex="-1" role="dialog" aria-hidden="false" class="modal fade">
-            <div class="modal-backdrop fade in"></div>
-            <div class="zorka-modal-dialog zorka-modal-search fade in">
-                <div data-dismiss="modal" class="zorka-dismiss-modal"><span class="pe-7s-close"></span></div>
-                <div class="zorka-search-wrapper">
-                    <input id="search-ajax" type="search" placeholder="Search...">
-                    <button><i class="ajax-search-icon icon-search"></i></button>
-                </div>
-                <div class="ajax-search-result"></div>
-            </div>
-        </div>
-
         <div id="wrapper-content">
             <main role="main" class="site-content">
                 <div id="post-37" class="post-37 page type-page status-publish hentry">
@@ -190,121 +179,7 @@
                 </div>
             </main>
         </div>
-        <footer class="main-footer light">
-            <div class="footer_inner clearfix">
-                <div class="footer_top_holder col-3">
-                    <div class="container">
-                        <div class="row footer-top-col-3">
-                            <div class="col-sm-4">
-                                <aside id="zorka-footer-logo-2" class="widget widget-footer-logo">
-                                    <div class="footer-logo ">
-                                        <a href="http://themes.g5plus.net/zorka"><img src="http://themes.g5plus.net/zorka/wp-content/themes/zorka/assets/images/logo.png" alt="Zorka logo"></a>
-                                        <div class="sub-description">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in velit a nibh ullamcorper dictum a malesuada ex. Donec sit amet volutpat nunc.
-                                        </div>
-                                    </div>
-                                </aside>
-                                <aside id="text-3" class="widget widget_text">
-                                    <div class="textwidget">
-                                        <span class="social">
-                                            <a data-toggle="tooltip" title="facebook" href="http://facebook.com">
-                                                <i class="fa fa-facebook"></i>
-                                            </a>
-                                            <a data-toggle="tooltip" title="twitter" href="http://twitter.com">
-                                                <i class="fa fa-twitter"></i>
-                                            </a>
-                                            <a data-toggle="tooltip" title="instagram" href="http://instagram.com">
-                                                <i class="fa fa-instagram"></i>
-                                            </a>
-                                            <a data-toggle="tooltip" title="vk" href="http://vk.com">
-                                                <i class="fa fa-vk"></i>
-                                            </a>
-                                            <a data-toggle="tooltip" title="behance" href="http://behance.com">
-                                                <i class="fa fa-behance"></i>
-                                            </a>
-                                        </span>
-                                    </div>
-                                </aside>
-                            </div>
-                            <div class="col-sm-4">
-                                <aside id="nav_menu-5" class="widget widget_nav_menu">
-                                    <h4 class="widget-title"><span>Quick link</span></h4>
-                                    <div class="menu-quick-link-container">
-                                        <ul id="menu-quick-link" class="menu">
-                                            <li id="menu-item-894" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-894"><a href="#">About Us</a></li>
-                                            <li id="menu-item-895" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-895"><a href="#">Our Office</a></li>
-                                            <li id="menu-item-896" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-896"><a href="#">Deliver</a></li>
-                                            <li id="menu-item-897" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-897"><a href="#">Store</a></li>
-                                            <li id="menu-item-898" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-898"><a href="#">Guarantee</a></li>
-                                            <li id="menu-item-899" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-899"><a href="#">Buy Gift card</a></li>
-                                            <li id="menu-item-900" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-900"><a href="#">Track your order</a></li>
-                                            <li id="menu-item-901" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-901"><a href="#">Term</a></li>
-                                            <li id="menu-item-902" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-902"><a href="#">Conditions</a></li>
-                                            <li id="menu-item-903" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-903"><a href="#">Contact Us</a></li>
-                                            <li id="menu-item-904" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-904"><a href="#">Manufactures</a></li>
-                                            <li id="menu-item-905" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-905"><a href="#">New brands</a></li>
-                                        </ul>
-                                    </div>
-                                </aside>
-                            </div>
-                            <div class="col-sm-4">
-                                <aside id="text-4" class="widget widget_text">
-                                    <h4 class="widget-title"><span>Location</span></h4>
-                                    <div class="textwidget">
-                                        <div>
-                                            <span class="address">
-                                                580, Broadway, 1002 - New York NY-U
-                                            </span>
-                                            <span class="telephone">
-                                                Tel: +1 212345321
-                                            </span>
-                                            <span class="email">
-                                                Email: info@zorka.com
-                                            </span>
-                                        </div>
-                                    </div>
-                                </aside>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="footer_bottom_holder col-3">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-6 copyright-text">
-                                Powered by <a href="http://wordpress.org">WordPress</a>. Built on the <a href="http://g5plus.net">G5Plus</a>.
-                            </div>
-                            <div class="col-md-6 payment">
-                                <a class="payment-logo-wapper" href="http://www.visa.com">
-                                    <img width="51" height="32" alt="VISA" src="http://themes.g5plus.net/zorka/wp-content/themes/zorka/assets/images/payments/visa.png">
-                                </a>
-                                <a class="payment-logo-wapper" href="https://www.mastercard.us">
-                                    <img width="51" height="32" alt="MASTER CARD" src="http://themes.g5plus.net/zorka/wp-content/themes/zorka/assets/images/payments/mastercard.png">
-                                </a>
-                                <a class="payment-logo-wapper" href="https://www.paypal.com/">
-                                    <img width="51" height="32" alt="Paypal" src="http://themes.g5plus.net/zorka/wp-content/themes/zorka/assets/images/payments/paypal.png">
-                                </a>
-                                <a class="payment-logo-wapper" href="https://www.2co.com/">
-                                    <img width="51" height="32" alt="2CO" src="http://themes.g5plus.net/zorka/wp-content/themes/zorka/assets/images/payments/twoCO.png">
-                                </a>
-                                <a class="payment-logo-wapper" href="https://www.americanexpress.com/">
-                                    <img width="51" height="32" alt="American Express" src="http://themes.g5plus.net/zorka/wp-content/themes/zorka/assets/images/payments/american_express.png">
-                                </a>
-                                <a class="payment-logo-wapper" href="https://www.skrill.com/en/home/">
-                                    <img width="51" height="32" alt="Skrill" src="http://themes.g5plus.net/zorka/wp-content/themes/zorka/assets/images/payments/skrill.png">
-                                </a>
-                                <a class="payment-logo-wapper" href="https://www.google.com/wallet/">
-                                    <img width="51" height="32" alt="Google Wallet" src="http://themes.g5plus.net/zorka/wp-content/themes/zorka/assets/images/payments/google_wallet.png">
-                                </a>
-                                <a class="payment-logo-wapper" href="https://www.westernunion.com">
-                                    <img width="51" height="32" alt="Western Union" src="http://themes.g5plus.net/zorka/wp-content/themes/zorka/assets/images/payments/western_union.png">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
+        @Html.Partial("Footer")
     </div>
     <a class="gotop" href="javascript:;">
         <i class="pe-7s-angle-up"></i>
@@ -404,7 +279,8 @@
         /* ]]> */
     </script>
     <script type='text/javascript' src='/Assets/Client/zorka/xmenu/assets/js/app.min.js'></script>
-
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <script src="~/Assets/Client/customJs/search.js"></script>
     <link href="/Assets/Client/zorka/assets/css/styleIndex.css" rel="stylesheet" />
     @RenderSection("jsFooter", required: false)
     <script>
@@ -412,6 +288,8 @@
             $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
+    <script src="~/Assets/Client/customJs/checkout.js"></script>
     <script src="~/Assets/Client/customJs/activeMenu.js"></script>
+    <script src="~/Assets/Client/customJs/modal.js"></script>
 </body>
 </html>

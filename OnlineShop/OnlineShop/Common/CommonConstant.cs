@@ -9,5 +9,7 @@ namespace OnlineShop.Common
     {
         public static string USER_SESSION = "USER_SESSION";
         public static string CardSession = "CardSession";
+        public static string RememberMe = "RememberMe";
+        public static string CLIENT_SESSION = "CLIENT_SESSION";
     }
 }

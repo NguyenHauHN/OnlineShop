@@ -1,0 +1,118 @@
+﻿@model List<OnlineShop.Models.CartItem>
+@{
+    ViewBag.Title = "PlaceSuccess";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var order = (Model.EF.Order)ViewBag.Order;
+}
+
+<section class="page-title-wrapper dark page-title-image margin-bottom-50" style="background-image: url(http://themes.g5plus.net/zorka/wp-content/uploads/2015/04/bg-shop.jpg);">
+    <div class="page-title-inner">
+        <div class="container">
+            <h1>Đặt hàng thành công</h1>
+            <span>Cám ơn bạn đã tin tưởng và mua sản phẩm của Zorka Shop. </span>
+        </div>
+    </div>
+</section>
+<main role="main" class="site-content site-content-page">
+    <div class="container clearfix">
+        <div class="row clearfix">
+            <div class="col-md-12">
+                <div class="page-content">
+                    <div id="post-137" class="post-137 page type-page status-publish hentry">
+                        <div class="entry-content">
+                            <div class="woocommerce">
+                                <div class="woocommerce-message">
+                                    Cám ơn! Đơn hàng của bạn đã được ghi nhận, đơn vị chuyển phát sẽ giao hàng tận tay
+                                    bạn sau 1-2 ngày làm việc.
+                                </div>
+                                <ul class="woocommerce-thankyou-order-details order_details">
+                                    <li class="order">
+                                        Đơn hàng số: <strong>@ViewBag.OrderCode</strong>
+                                    </li>
+                                    <li class="date">
+                                        Ngày đặt hàng: <strong>@order.CreateDate</strong>
+                                    </li>
+                                    <li class="total">
+                                        Tổng tiền: <strong><span class="amount">&dollar;@ViewBag.TotalMoney</span></strong>
+                                    </li>
+                                    <li class="method">
+                                        Phương thức thanh toán: <strong>Chuyển phát nhanh</strong>
+                                    </li>
+                                </ul>
+                                <div class="clear"></div>
+                                <h2>Chi tiết đơn hàng</h2>
+                                <table class="shop_table order_details">
+                                    <thead>
+                                        <tr>
+                                            <th class="product-name">Sản phẩm</th>
+                                            <th class="product-total">Tổng tiền</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr class="order_item">
+                                                <td class="product-name">
+                                                    @item.Product.Name <strong class="product-quantity">&times; @item.Amount</strong>
+                                                </td>
+                                                <td class="product-total">
+                                                    <span class="amount">&dollar;@(item.Product.Price * (100 - item.Product.Sale)/100 * item.Amount)</span>
+                                                </td>
+                                            </tr>
+                                        }
+                                        
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th scope="row">Thành tiền:</th>
+                                            <td><span class="amount">&dollar;@ViewBag.TotalMoney</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Phí vận chuyển:</th>
+                                            <td>Miễn phí</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Hình thức thanh toán:</th>
+                                            <td>Chuyển phát nhanh</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                <header>
+                                    <h2>Thông tin khách hàng</h2>
+                                </header>
+                                <table class="shop_table customer_details">
+                                    <tr>
+                                        <th>Họ tên:</th>
+                                        <td>@order.CustomerName</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email:</th>
+                                        <td>@order.CustomerEmail</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Số điện thoại:</th>
+                                        <td>@order.CustomerPhone</td>
+                                    </tr>
+                                </table>
+                                <header>
+                                    <h2>Thông tin giao hàng</h2>
+                                </header>
+                                <table class="shop_table customer_details">
+                                    <tr>
+                                        <th>Địa chỉ giao hàng:</th>
+                                        <td>@order.OrderAddress</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Ghi chú:</th>
+                                        <td>@order.Note</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+

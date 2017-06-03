@@ -7,7 +7,7 @@ using System.Web;
 namespace OnlineShop.Models
 {
     [Serializable]
-    public class CardItem
+    public class CartItem
     {
 
         public Product Product { get; set; }

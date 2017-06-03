@@ -1,0 +1,110 @@
+﻿@model List<OnlineShop.Models.CartItem>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="woocommerce-checkout">
+    <section class="page-title-wrapper dark page-title-image margin-bottom-50" style="background-image: url(http://themes.g5plus.net/zorka/wp-content/uploads/2015/04/bg-shop.jpg);">
+        <div class="page-title-inner">
+            <div class="container">
+                <h1>Đặt hàng</h1>
+                <span>Nhanh chóng, dễ dàng, tin cậy. </span>
+            </div>
+        </div>
+    </section>
+    <main role="main" class="site-content site-content-page">
+        <div class="container clearfix">
+            <div class="row clearfix">
+                <div class="col-md-12">
+                    <div class="page-content">
+                        <div id="post-137" class="post-137 page type-page status-publish hentry">
+                            <div class="entry-content">
+                                <div class="woocommerce">
+                                    <form>
+                                        <div class="row">
+                                            <input id="save-account" name="save-account" type="hidden" value="@ViewBag.ClientSession" />
+                                            <div id="checkout-method" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading-checkout-method">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <div class="woocommerce-shipping-fields">
+                                                                <p class="form-row  form-row-wide address-field validate-required" id="billing_address_1_field">
+                                                                    <label for="billing_address_1" class="">Địa chỉ giao hàng<abbr class="required" title="required">*</abbr></label>
+                                                                    <input type="text" class="input-text " name="billing_address_1" id="order-address" placeholder="Nhập cụ thể đến số nhà, ngõ, đường, quận, huyện... để tránh đơn hàng bị hủy.">
+                                                                </p>
+                                                                <p class="form-row form-row notes" id="order_comments_field">
+                                                                    <label for="order_comments" class="">Ghi chú</label>
+                                                                    <textarea name="order_comments" class="input-text " id="order-note" placeholder="Ghi chú khi giao hàng." rows="2" cols="5"></textarea>
+                                                                </p>
+                                                            </div>
+                                                            <p class="text-danger text-center" id="notify-msg"></p>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <div id="order_review" class="woocommerce-checkout-review-order">
+                                                                @if (Model.Count > 0)
+                                                                {
+                                                                    <table class="shop_table woocommerce-checkout-review-order-table">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th class="product-name">Sản phẩm</th>
+                                                                                <th class="product-total">Số lượng</th>
+                                                                                <th class="product-total">Số tiền</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            @foreach (var item in Model)
+                                                                            {
+                                                                                <tr class="cart_item">
+                                                                                    <td class="product-name">
+                                                                                        @item.Product.Name
+                                                                                    </td>
+                                                                                    <td class="product-quantity">
+                                                                                        @item.Amount
+                                                                                    </td>
+                                                                                    <td class="product-total">
+                                                                                        <span class="amount">&dollar;@(item.Product.Price * ((100 - item.Product.Sale) / 100) * item.Amount)</span>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            }
+                                                                        </tbody>
+                                                                        <tfoot>
+                                                                            <tr class="cart-subtotal">
+                                                                                <th>Thành tiền</th>
+                                                                                <td></td>
+                                                                                <td><span class="amount">&dollar;@ViewBag.TotalMoneyCart</span></td>
+                                                                            </tr>
+                                                                           
+                                                                        </tfoot>
+                                                                    </table>
+                                                                            <div id="payment" class="woocommerce-checkout-payment">
+                                                                                <p class="text-center text-danger"></p>
+                                                                                <div class="form-row place-order">
+                                                                                    <input type="button" class="button alt" name="woocommerce_checkout_place_order" id="place-order" value="Đặt hàng">
+                                                                                    <input type="hidden" id="_wpnonce" name="_wpnonce" value="e3ee529a33"><input type="hidden" name="_wp_http_referer" value="/zorka/checkout/?add_to_wishlist=217">
+                                                                                </div>
+                                                                            </div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <p class="text-center text-danger">Bạn chưa mua sản phẩm nào!</p>
+                                                                }
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

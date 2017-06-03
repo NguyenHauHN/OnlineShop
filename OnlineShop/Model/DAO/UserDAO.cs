@@ -22,7 +22,7 @@ namespace Model.DAO
             var result = db.Users.SingleOrDefault(x => x.Username == Username);
             if (result == null)
             {
-                return 0;
+                return -2;
             }
             else
             {
@@ -41,6 +41,30 @@ namespace Model.DAO
             }
         }
 
+        public int Register(string Name, string Username, string Password, string Email, string PhoneNumber)
+        {
+            var result = db.Users.FirstOrDefault(x => x.Username == Username);
+            if(result == null)
+            {
+                var user = new User();
+                user.Name = Name;
+                user.Username = Username;
+                user.Password = Password;
+                user.Email = Email;
+                user.Phone = PhoneNumber;
+                user.JoinDate = DateTime.Now;
+                user.Status = 1;
+                user.Type = 0;
+                db.Users.Add(user);
+                db.SaveChanges();
+                return 1;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+
         public User GetByUsername(string username)
         {
             return db.Users.SingleOrDefault(x => x.Username == username);
@@ -51,21 +75,23 @@ namespace Model.DAO
             return db.Users.Find(ID);
         }
 
-        public IEnumerable<User> ListAllAdmin(string keyword, ref int totalAdmin, int page = 1, int pageSize = 10)
+        public List<User> ListAllAdmin(string keyword, ref int totalAdmin, int page = 1, int pageSize = 1)
         {
-            IQueryable<User> model = db.Users;
+            var model = new List<User>();
+            var offset = (page - 1) * pageSize;
+            totalAdmin = db.Users.Where(x => x.Type == 1).ToList().Count();
             if (!string.IsNullOrEmpty(keyword))
             {
-                model = model.Where(x => x.Type == 1 && (x.Name.Contains(keyword) || x.Username.Contains(keyword)));
+                model = db.Users.Where(x => x.Type == 1 && (x.Name.Contains(keyword) || x.Username.Contains(keyword))).OrderByDescending(x => x.JoinDate).Skip(offset).Take(pageSize).ToList();
             }
             else
             {
-                model = model.Where(x => x.Type == 1);
+                model = db.Users.Where(x => x.Type == 1).OrderByDescending(x => x.JoinDate).Skip(offset).Take(pageSize).ToList();
             }
            
-            totalAdmin = model.Count();
-            return model.OrderByDescending(x => x.JoinDate).ToPagedList(page, pageSize);
-         
+           
+            return model;
+
         }
 
         public List<User> ListAllUserOrder()

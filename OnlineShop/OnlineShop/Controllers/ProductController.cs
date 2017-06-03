@@ -1,4 +1,5 @@
 ﻿using Model.DAO;
+using Model.EF;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -34,6 +35,16 @@ namespace OnlineShop.Controllers
             return View(product);
         }
 
+        public JsonResult SearchProduct(string Keyword)
+        {
+            var listProduct = new List<Product>();
+            listProduct = new ProductDAO().ResultSearch(Keyword);
+            return Json(new
+            {
+                Status = true,
+                ListData = listProduct
+            }, JsonRequestBehavior.AllowGet);
+        }
 
         public JsonResult LoadGalleryImage(long id)
         {

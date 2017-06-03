@@ -1,4 +1,4 @@
-﻿@model List<OnlineShop.Models.CardItem>
+﻿@model List<OnlineShop.Models.CartItem>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -22,6 +22,7 @@
             <div class="col-md-12">
                 <div class="page-content">
                     <div id="post-136" class="post-136 page type-page status-publish hentry">
+                        <input id="save-account" name="save-account" type="hidden" value="@ViewBag.ClientSession" />
                         <div class="entry-content">
                             <div class="woocommerce">
                                 <div class="cart-form">
@@ -85,9 +86,9 @@
                                                 <tr>
                                                     <td colspan="7" class="actions zorka-actions">
                                                         <button type="submit" class="button" id="btn-update-cart">Cập nhật</button>
-                                                        <a href="http://themes.g5plus.net/zorka/checkout/" class="checkout-button button alt wc-forward">
-                                                            Xem đơn hàng
-                                                        </a>
+                                                        <button class="checkout-button button alt wc-forward btn-checkout">
+                                                            Đơn hàng
+                                                        </button>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -110,23 +111,10 @@
                                             <h2>Giá trị giỏ hàng</h2>
                                             <table cellspacing="0">
                                                 <tr class="cart-subtotal">
-                                                    <th>Tổng tiền (chưa có VAT)</th>
+                                                    <th>Tổng tiền</th>
                                                     <td>
                                                         <span>&dollar;</span>
                                                         <span class="amount">@ViewBag.TotalMoneyCart</span>
-                                                    </td>
-                                                </tr>
-                                                <tr class="tax-total">
-                                                    <th>VAT</th>
-                                                    <td><span class="amount">&dollar;9.00</span></td>
-                                                </tr>
-                                                <tr class="order-total">
-                                                    <th>Thành tiền</th>
-                                                    <td>
-                                                        <strong>
-                                                            <span>&dollar;</span>
-                                                            <span class="amount">@ViewBag.TotalMoneyCartVAT</span>
-                                                        </strong>
                                                     </td>
                                                 </tr>
                                             </table>

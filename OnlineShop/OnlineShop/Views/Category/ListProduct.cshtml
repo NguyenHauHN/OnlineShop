@@ -11,6 +11,7 @@
 }
 @section jsFooter{
     <script type="text/javascript" src="~/Assets/Client/customJs/changeSortProduct.js"></script>
+    <script src="~/Assets/Client/customJs/cart.js"></script>
 }
 
 <section class="page-title-wrapper page-title-shop-wrapper dark page-title-image" style="background-image: url(@Url.Content("~/Images/shop-page-title-bg.jpg"));">
@@ -32,7 +33,6 @@
                         <div class="woocommerce-ordering">
                             <select id="sortProduct" name="valueSelectSort" class="orderby">
                                 <option value="1">Theo ngày nhập</option>
-                                <option value="2">Theo rating</option>
                                 <option value="3">Sản phẩm được mua nhiều nhất</option>
                                 <option value="4">Theo giá: thấp -> cao</option>
                                 <option value="5">Theo giá: cao ->thấp</option>
@@ -56,18 +56,13 @@
                                             </div>
                                             <div class="product-images-hover change-images">
                                                 <div class="product-thumb-primary">
-                                                    <img width="390" height="520" src=@Url.Content(item.MainImage) class="attachment-shop_catalog wp-post-image" alt="product-07">
-                                                </div>
-                                                <div class="product-thumb-secondary">
-                                                    <img width="390" height="520" src=@Url.Content(item.MainImage) class="attachment-shop_catalog" alt="product-05">
+                                                    <img width="390" height="520" src=@Url.Content(item.MainImage) class="attachment-shop_catalog wp-post-image main-image-product" alt="product-07">
                                                 </div>
                                             </div>
-                                            <a data-toggle="tooltip" title="Quick view" class="product-quick-view" data-product_id="193" href="http://themes.g5plus.net/zorka/shop/black-white-grid-skirt/"><i class="pe-7s-search"></i></a>
                                             <a class="product-link" href="/san-pham/@item.MetaTitle/@item.ID"></a>
                                         </div>
 
                                         <a class="product-name" href="/san-pham/@item.MetaTitle/@item.ID">@item.Name</a>
-                                        <div class="star-rating" title="Rated 4.5 out of 5"><span style="width:90%"><strong class="rating">4.5</strong> out of 5</span></div>
                                         <span class="price">
                                             @if (item.Sale > 0)
                                             {
@@ -78,30 +73,14 @@
                                         </span>
                                         <div class="product-button clearfix">
                                             <div class="product-button-inner">
-                                                <div class="yith-wcwl-add-to-wishlist add-to-wishlist-193">
-                                                    <div class="yith-wcwl-add-button show" style="display:block">
-                                                        <a href="index-9.htm?add_to_wishlist=193" rel="nofollow" data-product-id="193" data-product-type="simple" class="add_to_wishlist">
-                                                            Add to Wishlist
-                                                        </a>
-                                                        <img src="http://themes.g5plus.net/zorka/wp-admin/images/wpspin_light.gif" class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden">
-                                                    </div>
-                                                    <div class="yith-wcwl-wishlistaddedbrowse hide" style="display:none;">
-                                                        <span class="feedback">Product added!</span>
-                                                        <a href="http://themes.g5plus.net/zorka/wishlist/view/?lang=en">
-                                                            Browse Wishlist
-                                                        </a>
-                                                    </div>
-                                                    <div class="yith-wcwl-wishlistexistsbrowse hide" style="display:none">
-                                                        <span class="feedback">The product is already in the wishlist!</span>
-                                                        <a href="http://themes.g5plus.net/zorka/wishlist/view/?lang=en">
-                                                            Browse Wishlist
-                                                        </a>
-                                                    </div>
-                                                    <div style="clear:both"></div>
-                                                    <div class="yith-wcwl-wishlistaddresponse"></div>
-                                                </div>
                                                 <div class="clear"></div>
-                                                <a rel="nofollow" href="http://themes.g5plus.net/zorka/shop/black-white-grid-skirt/" data-quantity="1" data-product_id="193" data-product_sku="" class="button product_type_simple ajax_add_to_cart">Add to cart</a><a href="/zorka/product-category/clothing/hoodies/?add_to_wishlist=217&amp;action=yith-woocompare-add-product&amp;id=193&amp;_wpnonce=3967e53f03" class="compare button" data-product_id="193">Compare</a>
+                                                <button data-id="@item.ID" data-amount="1" id="btn-add-to-cart-@item.ID" class="button product_type_simple add_to_cart_button ajax_add_to_cart btn-add-to-cart">
+                                                    <span class="pull-left"><img id="loader-@item.ID" class="loader-add-to-cart hide" src="~/Images/ajax-loader.gif" /></span>&nbsp;
+                                                    <span> Add to cart</span>
+                                                </button>
+                                                <a href="/Cart/Index" id="view-cart-@item.ID" class="added_to_cart wc-forward view-cart hide" title="View Cart">
+                                                    View Cart
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -122,8 +101,6 @@
                             <input type="text" name="searchProduct" id="searchProduct" placeholder="Nhập từ khóa...">
                             <i class="pe-7s-search form-control-feedback"></i>
                         </div>
-                        @*<input type="text" name="searchProduct" id="searchProduct" placeholder="Nhập từ khóa...">
-                        <button type="submit"><i class="pe-7s-search"></i></button>*@
                     </div>
                 </aside>
                 <aside id="woocommerce_price_filter-2" class="widget woocommerce widget_price_filter">
@@ -134,13 +111,13 @@
                             <div class="wrap-min-price">
                                 <input type="number" id="min_price" name="min_price" value="" data-min="12" placeholder="Min price">
                             </div>
-                            
+
                             <div class="wrap-max-price">
                                 <input type="number" id="max_price" name="max_price" value="" data-max="546" placeholder="Max price">
                             </div>
-                            
+
                             <button type="submit" id="filterPrice" class="button">Lọc</button>
-                            
+
                             <div class="price_label" style="display:none;">
                                 Giá: <span class="from"></span> &mdash; <span class="to"></span>
                             </div>
@@ -197,7 +174,6 @@
                                     <img width="180" height="180" src=@Url.Content(item.MainImage) class="attachment-shop_thumbnail wp-post-image" alt="product-15">
                                     <span class="product-title">@item.Name</span>
                                 </a>
-                                <div class="star-rating" title="Rated 5 out of 5"><span style="width:100%"><strong class="rating">5</strong> out of 5</span></div>
                                 <span class="amount">&dollar;@item.Price</span>
                             </li>
                         }

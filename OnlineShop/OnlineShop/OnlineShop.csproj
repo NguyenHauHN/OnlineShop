@@ -219,6 +219,7 @@
     <Compile Include="Areas\Admin\Controllers\ProductController.cs" />
     <Compile Include="Areas\Admin\Controllers\CustomerController.cs" />
     <Compile Include="Areas\Admin\Controllers\ResetPasswordController.cs" />
+    <Compile Include="Areas\Admin\Controllers\StatisticController.cs" />
     <Compile Include="Areas\Admin\Models\LoginModel.cs" />
     <Compile Include="Common\CommonConstant.cs" />
     <Compile Include="Common\Encrypt.cs" />
@@ -226,6 +227,8 @@
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\CheckoutController.cs" />
+    <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeClientController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
@@ -233,6 +236,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CartItem.cs" />
+    <Compile Include="Models\ClientModel.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
@@ -248,7 +252,9 @@
     <Content Include="Assets\Admin\bootstrap\js\bootstrap.min.js" />
     <Content Include="Assets\Admin\bootstrap\js\npm.js" />
     <Content Include="Assets\Admin\customJS\activeMenu.js" />
+    <Content Include="Assets\Admin\customJS\deleteItem.js" />
     <Content Include="Assets\Admin\customJS\loadGalleryImage.js" />
+    <Content Include="Assets\Admin\customJS\pagination.js" />
     <Content Include="Assets\Admin\customJS\uploadImage.js" />
     <Content Include="Assets\Admin\dist\css\AdminLTE.css" />
     <Content Include="Assets\Admin\dist\css\AdminLTE.min.css" />
@@ -1770,6 +1776,9 @@
     <Content Include="Assets\Client\customJs\activeMenu.js" />
     <Content Include="Assets\Client\customJs\cart.js" />
     <Content Include="Assets\Client\customJs\changeSortProduct.js" />
+    <Content Include="Assets\Client\customJs\checkout.js" />
+    <Content Include="Assets\Client\customJs\modal.js" />
+    <Content Include="Assets\Client\customJs\search.js" />
     <Content Include="Assets\Client\zorka\assets\css\font-icon.css" />
     <Content Include="Assets\Client\zorka\assets\css\pe-icon-7-stroke.css" />
     <Content Include="Assets\Client\zorka\assets\css\style.min.css" />
@@ -1912,6 +1921,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Custom\styleAdmin.css" />
     <Content Include="Content\Custom\styleClient.css" />
+    <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -2147,6 +2157,7 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -2180,11 +2191,15 @@
     <Content Include="Views\Category\ListProduct.cshtml" />
     <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\About\Index.cshtml" />
+    <Content Include="Views\Checkout\Index.cshtml" />
+    <Content Include="Views\Client\Register.cshtml" />
+    <Content Include="Views\Checkout\PlaceSuccess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\Base\" />
     <Folder Include="Areas\Admin\Views\Home\" />
+    <Folder Include="Areas\Admin\Views\Statistic\" />
     <Folder Include="Areas\Admin\Views\User\" />
     <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>

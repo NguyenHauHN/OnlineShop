@@ -25,14 +25,6 @@ namespace Model.EF
                 .IsUnicode(false);
 
             modelBuilder.Entity<OrderProduct>()
-                .Property(e => e.Price)
-                .HasPrecision(18, 0);
-
-            modelBuilder.Entity<OrderProduct>()
-                .Property(e => e.Sale)
-                .HasPrecision(18, 0);
-
-            modelBuilder.Entity<OrderProduct>()
                 .Property(e => e.TotalMoney)
                 .HasPrecision(18, 0);
 

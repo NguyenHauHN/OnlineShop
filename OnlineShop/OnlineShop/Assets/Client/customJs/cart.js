@@ -9,14 +9,12 @@
             cart.changeBtnCart();
         },
         initCart: function () {
-            console.log('init');
             var listItemCart = [];
             $.get("/HomeClient/GetProductCart",
                 {
 
                 },
                 function (data, status, xhr) {
-                    console.log(data);
                     listItemCart = data.listItem;
                     if (listItemCart != null) {
                         $.each(listItemCart, function (idx, item) {
@@ -61,7 +59,6 @@
                 var amount = 1;
                 if ($(parent).hasClass('cart')) {
                     amount = $(parent).find('input').val();
-                    console.log('amount:' + amount);
                 }
                 else {
                     amount = $(this).data("amount");

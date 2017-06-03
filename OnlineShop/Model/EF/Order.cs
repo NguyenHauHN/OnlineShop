@@ -33,6 +33,13 @@ namespace Model.EF
 
         public DateTime? LastChange { get; set; }
 
+        [StringLength(300)]
+        public string OrderAddress { get; set; }
+
+        [StringLength(400)]
+        public string Note { get; set; }
+
+
         public int? Status { get; set; }
     }
 }

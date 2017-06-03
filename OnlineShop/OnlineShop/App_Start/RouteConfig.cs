@@ -32,17 +32,18 @@ namespace OnlineShop
                 defaults: new { controller = "Cart", action = "Index", id = UrlParameter.Optional },
                 namespaces: new[] { "OnlineShop.Controllers" }
             );
+
             routes.MapRoute(
               name: "Category Product",
               url: "danh-muc/{metatitle}/{id}",
               defaults: new { controller = "Category", action = "ListProduct", id = UrlParameter.Optional },
               namespaces: new[] { "OnlineShop.Controllers" }
           );
-
+           
             routes.MapRoute(
                name: "Admin",
                url: "Admin/{controller}/{action}/{id}",
-               defaults: new { controller = "AdminManage", action = "Index", id = UrlParameter.Optional }
+               defaults: new { area = "Admin", controller = "AdminManage", action = "Index", id = UrlParameter.Optional }
            );
 
             routes.MapRoute(
