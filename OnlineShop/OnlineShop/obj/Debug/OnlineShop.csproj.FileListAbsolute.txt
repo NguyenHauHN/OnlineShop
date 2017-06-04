@@ -49,3 +49,5 @@ E:\Cong nghe web\Project\OnlineShop\OnlineShop\OnlineShop\bin\PagedList.Mvc.xml
 E:\Cong nghe web\Project\OnlineShop\OnlineShop\OnlineShop\obj\Debug\OnlineShop.csprojResolveAssemblyReference.cache
 E:\Cong nghe web\Project\OnlineShop\OnlineShop\OnlineShop\obj\Debug\OnlineShop.dll
 E:\Cong nghe web\Project\OnlineShop\OnlineShop\OnlineShop\obj\Debug\OnlineShop.pdb
+E:\Cong nghe web\Project\OnlineShop\OnlineShop\OnlineShop\bin\Common.dll
+E:\Cong nghe web\Project\OnlineShop\OnlineShop\OnlineShop\bin\Common.pdb

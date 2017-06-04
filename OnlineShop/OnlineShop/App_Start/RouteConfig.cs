@@ -33,18 +33,18 @@ namespace OnlineShop
                 namespaces: new[] { "OnlineShop.Controllers" }
             );
 
-            routes.MapRoute(
-              name: "Category Product",
-              url: "danh-muc/{metatitle}/{id}",
-              defaults: new { controller = "Category", action = "ListProduct", id = UrlParameter.Optional },
-              namespaces: new[] { "OnlineShop.Controllers" }
-          );
-           
+            //  routes.MapRoute(
+            //    name: "Category Product",
+            //    url: "danh-muc/{metatitle}/{id}",
+            //    defaults: new { controller = "Category", action = "ListProduct", id = UrlParameter.Optional },
+            //    namespaces: new[] { "OnlineShop.Controllers" }
+            //);
             routes.MapRoute(
                name: "Admin",
                url: "Admin/{controller}/{action}/{id}",
                defaults: new { area = "Admin", controller = "AdminManage", action = "Index", id = UrlParameter.Optional }
            );
+
 
             routes.MapRoute(
                 name: "Default",
@@ -52,6 +52,7 @@ namespace OnlineShop
                 defaults: new { controller = "HomeClient", action = "Index", id = UrlParameter.Optional },
                namespaces: new[] { "OnlineShop.Controllers" }
             );
+            
         }
     }
 }

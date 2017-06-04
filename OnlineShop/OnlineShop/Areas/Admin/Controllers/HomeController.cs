@@ -20,7 +20,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         public ActionResult Header()
         {
             var adminInfo = Session[CommonConstant.USER_SESSION];
-            return PartialView(adminInfo);
+            return PartialView("Header", adminInfo);
         }
 
         [ChildActionOnly]

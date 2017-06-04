@@ -12,19 +12,18 @@ namespace OnlineShop.Controllers
     public class CategoryController : Controller
     {
         // GET: Category
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        public ActionResult ListProduct(long id, int page = 1, int pageSize = 9, string valueSelectSort = null,
+        public ActionResult Index(long id, int page = 1, int pageSize = 9, string valueSelectSort = null,
             string searchProduct = null, double minPrice = 0, double maxPrice = 0)
-        {
+       {
+            
             int totalProduct = 0;
-            IEnumerable<Product> listProduct = new ProductDAO().GetByCategoryID(id, ref totalProduct, page, pageSize, valueSelectSort, 
+            List<Product> listProduct = new ProductDAO().GetByCategoryID(id, ref totalProduct, page, pageSize, valueSelectSort,
                 searchProduct, minPrice, maxPrice);
             ViewBag.Page = page;
             ViewBag.TotalProduct = totalProduct;
+            ViewBag.Keyword = searchProduct;
+            ViewBag.TotalPage = (int)Math.Ceiling((double)totalProduct / pageSize);
+            ViewBag.CategoryID = id;
             var category = new CategoryDAO().GetByID(id);
             ViewBag.CategoryInfo = category;
             // category product for men
@@ -42,13 +41,6 @@ namespace OnlineShop.Controllers
             return View(listProduct);
         }
 
-        public JsonResult GetResultSearch(string keyword)
-        {
-
-            return Json(new
-            {
-                status=false
-            });
-        }
+       
     }
 }

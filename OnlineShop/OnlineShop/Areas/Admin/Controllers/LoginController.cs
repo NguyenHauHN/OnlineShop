@@ -23,8 +23,8 @@ namespace OnlineShop.Areas.Admin.Controllers
             UserDAO userDAO = new UserDAO();
             if (ModelState.IsValid)
             {
-                var result = userDAO.Login(model.Username, Encrypt.MD5Hash(model.Password));
-                if(result == 1)
+                var result = userDAO.Login(model.Username, Encrypt.MD5Hash(model.Password), true);
+                if(result >0)
                 {
                     var user = userDAO.GetByUsername(model.Username);
                     var userLogin = new UserLogin();
@@ -36,7 +36,9 @@ namespace OnlineShop.Areas.Admin.Controllers
                     userLogin.Password = user.Password;
                     userLogin.Email = user.Email;
                     userLogin.JoinDate = user.JoinDate;
-
+                    userLogin.GroupID = user.GroupID;
+                    var listCredential = userDAO.GetListCredential(user.Username);
+                    Session.Add(CommonConstant.SESSION_CREDENTIAL, listCredential);
                     Session.Add(CommonConstant.USER_SESSION, userLogin);
                     return RedirectToAction("Index", "AdminManage");
                 }
@@ -52,9 +54,24 @@ namespace OnlineShop.Areas.Admin.Controllers
                 {
                     ModelState.AddModelError("", "Sai mật khẩu!");
                 }
-               
+                else if (result == -3)
+                {
+                    ModelState.AddModelError("", "Tài khoản của bạn không có quyền đăng nhập!");
+                }
+
             }
             return View("Index");
+        }
+
+        public ActionResult RedrectLogin(string Username, string Password)
+        {
+            var loginModel = new LoginModel();
+            loginModel.Username = Username;
+            loginModel.Password = Password;
+            return RedirectToAction("Login","Login", new {
+                Username = Username,
+                Password = Password
+            });
         }
 
         

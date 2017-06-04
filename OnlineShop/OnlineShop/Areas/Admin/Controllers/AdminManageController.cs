@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Model.EF;
 using Model.DAO;
+using PagedList;
 using System.Web.Services;
 using System.IO;
 using OnlineShop.Common;
@@ -16,29 +17,32 @@ namespace OnlineShop.Areas.Admin.Controllers
     {
 
         // GET: Admin/AdminManage
-        public ActionResult Index(string keyword, int page = 1, int pageSize = 1)
+        [HasCredential(RoleID ="ADMIN_MANAGE")]
+        public ActionResult Index(string keyword, int page = 1, int pageSize = 5)
         {
             int totalAdmin = 0;
             var listAdmin = new UserDAO().ListAllAdmin(keyword, ref totalAdmin, page, pageSize);
             ViewBag.Keyword = keyword;
             ViewBag.Page = page;
-            ViewBag.TotalPage = (int)Math.Ceiling((double)totalAdmin/ pageSize);
             return View(listAdmin);
         }
 
         [HttpGet]
+        [HasCredential(RoleID = "ADMIN_MANAGE")]
         public ActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [HasCredential(RoleID = "ADMIN_MANAGE")]
         public ActionResult Create(User admin, string singleImage)
         {
 
             if (ModelState.IsValid)
             {
                 admin.Avatar = singleImage;
+                admin.Type = 1;
                 if (!string.IsNullOrEmpty(admin.Password))
                 {
                     admin.Password = Encrypt.MD5Hash(admin.Password);
@@ -57,6 +61,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [HasCredential(RoleID = "ADMIN_MANAGE")]
         public ActionResult Edit(int ID)
         {
             var admin = new UserDAO().GetByID(ID);
@@ -64,6 +69,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [HasCredential(RoleID = "ADMIN_MANAGE")]
         public ActionResult Edit(User admin, string singleImage, string srcAvatar)
         {
             if (ModelState.IsValid)
@@ -95,13 +101,14 @@ namespace OnlineShop.Areas.Admin.Controllers
             return RedirectToAction("Edit", "AdminManage");
         }
 
-        [HttpDelete]
+        [HasCredential(RoleID = "ADMIN_MANAGE")]
         public ActionResult Delete(int ID)
         {
             var result = new UserDAO().Delete(ID);
             return View();
         }
 
+        [HasCredential(RoleID = "ADMIN_MANAGE")]
         [HttpPost]
         public ActionResult UploadSingleImage()
         {
@@ -124,7 +131,6 @@ namespace OnlineShop.Areas.Admin.Controllers
                 return Json("Error While Saving.");
             }
         }
-
         public ActionResult ChangePassword()
         {
             var user = Session[CommonConstant.USER_SESSION];

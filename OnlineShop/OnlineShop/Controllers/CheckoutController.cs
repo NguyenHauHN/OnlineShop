@@ -1,4 +1,5 @@
-﻿using Model.DAO;
+﻿using Common;
+using Model.DAO;
 using Model.EF;
 using OnlineShop.Common;
 using OnlineShop.Models;
@@ -41,6 +42,7 @@ namespace OnlineShop.Controllers
             var customer = new UserDAO().GetByUsername(Username);
             var listCartItem = new List<CartItem>();
             var listOrderProduct = new List<OrderProduct>();
+            double totalOrder = 0;
             if (Session[CommonConstant.CardSession] != null)
             {
                 listCartItem = (List<CartItem>)Session[CommonConstant.CardSession];
@@ -50,6 +52,7 @@ namespace OnlineShop.Controllers
                     orderProduct.ProductID = item.Product.ID;
                     orderProduct.Amount = item.Amount;
                     orderProduct.TotalMoney = item.Product.Price * ((100 - item.Product.Sale) / 100) * item.Amount;
+                    totalOrder = totalOrder +  (double)orderProduct.TotalMoney;
                     listOrderProduct.Add(orderProduct);
                 }
                 var result = new OrderDAO().PlaceOrder(customer.ID, AddressOrder, Note, listOrderProduct);
@@ -58,6 +61,15 @@ namespace OnlineShop.Controllers
                     TempData["listOrderProduct"] = listOrderProduct;
                     TempData["customer"] = customer;
                     TempData["AddressOrder"] = AddressOrder;
+                    string content = System.IO.File.ReadAllText(Server.MapPath("/Views/Shared/BodyEmail.cshtml"));
+
+                    content = content.Replace("{{CustomerName}}", customer.Name);
+                    content = content.Replace("{{CustomerEmail}}", customer.Email);
+                    content = content.Replace("{{CustomerPhone}}", customer.Phone);
+                    content = content.Replace("{{CustomerAddress}}", AddressOrder);
+                    content = content.Replace("{{Total}}", totalOrder.ToString());
+
+                    new MailHelper().SendMail(customer.Email, "Đơn hàng mới từ Zorka Shop", content);
                     return Json(new
                     {
                         status = true
@@ -78,24 +90,27 @@ namespace OnlineShop.Controllers
         {
             var listCartItem = new List<CartItem>();
             ViewBag.TotalMoney = 0;
+            var order = new Order();
             if (Session[CommonConstant.CardSession] != null)
             {
                 listCartItem = (List<CartItem>)Session[CommonConstant.CardSession];
+                var listOrderProduct = (List<OrderProduct>)TempData["listOrderProduct"];
+                long orderID = 0;
+                ViewBag.OrderCode = "ODZK-" + orderID;
+                foreach (var item in listOrderProduct)
+                {
+                    ViewBag.TotalMoney += item.TotalMoney;
+                    orderID = item.OrderID;
+                }
+                if (orderID > 0)
+                {
+                    order = new OrderDAO().GetByID(orderID);
+                   
+                }
+                Session.Remove(CommonConstant.CardSession);
             }
-            var listOrderProduct = (List<OrderProduct>)TempData["listOrderProduct"];
-            long orderID = 0;
-            ViewBag.OrderCode = "ODZK-" + orderID;
-            foreach (var item in listOrderProduct)
-            {
-                ViewBag.TotalMoney += item.TotalMoney;
-                orderID = item.OrderID;
-            }
-            if(orderID > 0)
-            {
-                var order = new OrderDAO().GetByID(orderID);
-                ViewBag.Order = order;
-            }
-            Session.Remove(CommonConstant.CardSession);
+            ViewBag.Order = order;
+
             return View(listCartItem);
         }
     }

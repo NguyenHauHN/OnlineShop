@@ -4,6 +4,8 @@ using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ComponentModel.DataAnnotations;
+
 namespace Model.DAO
 {
     public class ProductDAO
@@ -19,7 +21,9 @@ namespace Model.DAO
             IQueryable<Product> model = db.Products;
             if (!string.IsNullOrEmpty(keyword))
             {
-                model = model.Where(x => x.Status != 4 && (x.Name.Contains(keyword) || x.Code.Contains(keyword) || x.Description.Contains(keyword)));
+                var list = db.Products.SqlQuery("select * from [Product] where Status !=4 and ( Name like N'%" + keyword + "%' or Code like N'%" + keyword + "%' or Description like N'%"
+                    + keyword + "%')").AsQueryable<Product>();
+                model = list;
             }
             else
             {
@@ -122,45 +126,55 @@ namespace Model.DAO
             return db.Products.Where(x => x.Status == 2 && x.Type != 1).ToList();
         }
 
-        public IEnumerable<Product> GetByCategoryID(long categoryID, ref int totalProduct, int page = 1,
+        public List<Product> GetByCategoryID(long categoryID, ref int totalProduct, int page = 1,
             int pageSize = 9, string valueSelectSort = null, string searchProduct = null, double minPrice = 0, double maxPrice = 0)
         {
-            IQueryable<Product> model = db.Products;
-            model = model.Where(x => x.CategoryID == categoryID && x.Status != 3 && x.Status != 4).OrderByDescending(x => x.CreateDate);
+            var model = new List<Product>();
+            totalProduct = db.Products.Where(x => x.CategoryID == categoryID && x.Status != 3 && x.Status != 4).Count();
+            var offset = (page - 1) * pageSize;
+            model = db.Products.Where(x => x.CategoryID == categoryID && x.Status != 3 && x.Status != 4).OrderByDescending(x => x.CreateDate).Skip(offset).Take(pageSize).ToList();
             if (valueSelectSort == "1")
             {
-                model = model.Where(x => x.CategoryID == categoryID && x.Status != 3 && x.Status != 4).OrderByDescending(x => x.CreateDate);
+                model = db.Products.Where(x => x.CategoryID == categoryID && x.Status != 3 && x.Status != 4).OrderByDescending(x => x.CreateDate).Skip(offset).Take(pageSize).ToList();
+                totalProduct = db.Products.Where(x => x.CategoryID == categoryID && x.Status != 3 && x.Status != 4).OrderByDescending(x => x.CreateDate).Count();
             }
             else if (valueSelectSort == "2")
             {
-                model = model.Where(x => x.CategoryID == categoryID && x.Status != 3 && x.Status != 4).OrderByDescending(x => x.Rate);
+                model = db.Products.Where(x => x.CategoryID == categoryID && x.Status != 3 && x.Status != 4).OrderByDescending(x => x.Rate).Skip(offset).Take(pageSize).ToList();
+                totalProduct = db.Products.Where(x => x.CategoryID == categoryID && x.Status != 3 && x.Status != 4).OrderByDescending(x => x.Rate).Count();
             }
             else if (valueSelectSort == "3")
             {
-                model = model.Where(x => x.CategoryID == categoryID && x.Status != 3 && x.Status != 4).OrderByDescending(x => x.BuyAmount);
+                model = db.Products.Where(x => x.CategoryID == categoryID && x.Status != 3 && x.Status != 4).OrderByDescending(x => x.BuyAmount).Skip(offset).Take(pageSize).ToList();
+                totalProduct = db.Products.Where(x => x.CategoryID == categoryID && x.Status != 3 && x.Status != 4).OrderByDescending(x => x.BuyAmount).Count();
             }
             else if (valueSelectSort == "4")
             {
-                model = model.Where(x => x.CategoryID == categoryID && x.Status != 3 && x.Status != 4).OrderBy(x => x.Price);
+
+                model = db.Products.Where(x => x.CategoryID == categoryID && x.Status != 3 && x.Status != 4).OrderBy(x => x.Price).Skip(offset).Take(pageSize).ToList();
+                totalProduct = db.Products.Where(x => x.CategoryID == categoryID && x.Status != 3 && x.Status != 4).OrderBy(x => x.Price).Count();
             }
             else if (valueSelectSort == "5")
             {
-                model = model.Where(x => x.CategoryID == categoryID && x.Status != 3 && x.Status != 4).OrderByDescending(x => x.Price);
+                model = db.Products.Where(x => x.CategoryID == categoryID && x.Status != 3 && x.Status != 4).OrderByDescending(x => x.Price).Skip(offset).Take(pageSize).ToList();
+                totalProduct = db.Products.Where(x => x.CategoryID == categoryID && x.Status != 3 && x.Status != 4).OrderByDescending(x => x.Price).Count();
             }
             if (!string.IsNullOrEmpty(searchProduct))
             {
 
-                var list = db.Products.SqlQuery("select * from Product where CategoryID =" + categoryID + " and Name like N'%" + 
-                    searchProduct + "%' or Description like N'%" + searchProduct + "%' or Price like N'%"+ searchProduct + "%'").AsQueryable<Product>();
-                model = list;
+                model = db.Products.SqlQuery("select * from Product where CategoryID =" + categoryID + " and Name like N'%" + 
+                    searchProduct + "%' or Description like N'%" + searchProduct + "%' or Price like N'%"+ searchProduct + "%'").OrderByDescending(x => x.CreateDate).Skip(offset).Take(pageSize).ToList();
+                totalProduct = db.Products.SqlQuery("select * from Product where CategoryID =" + categoryID + " and Name like N'%" +
+                    searchProduct + "%' or Description like N'%" + searchProduct + "%' or Price like N'%" + searchProduct + "%'").OrderByDescending(x => x.CreateDate).Count();
             }
 
             if (minPrice > 0 && maxPrice > 0 && minPrice<= maxPrice)
             {
-               model = model.Where(x => x.CategoryID == categoryID && x.Status != 3 && x.Status != 4 && (double)x.Price >= minPrice && (double)x.Price <= maxPrice).OrderByDescending(x => x.Price);
+               model = db.Products.Where(x => x.CategoryID == categoryID && x.Status != 3 && x.Status != 4 && (double)x.Price >= minPrice && (double)x.Price <= maxPrice).OrderByDescending(x => x.Price).Skip(offset).Take(pageSize).ToList();
+                totalProduct = db.Products.Where(x => x.CategoryID == categoryID && x.Status != 3 && x.Status != 4 && (double)x.Price >= minPrice && (double)x.Price <= maxPrice).OrderByDescending(x => x.Price).Count();
             }
-            totalProduct = model.Count();
-            return model.ToPagedList(page, pageSize);
+            
+            return model;
         }
 
         public List<Product> ResultSearch(string Keyword)

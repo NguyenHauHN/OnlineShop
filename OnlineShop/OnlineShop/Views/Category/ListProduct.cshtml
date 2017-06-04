@@ -87,9 +87,12 @@
                                 </div>
                             }
                         </div>
-                        <div class="text-center wrap-pagination">
-                            @Html.PagedListPager(Model, page => Url.Action("ListProduct", new { page }))
-                        </div>
+                        
+                            <div class="text-center wrap-pagination">
+                                @Html.PagedListPager(Model, page => Url.Action("ListProduct", new { page }))
+                            </div>
+                        
+                        
                     </div>
 
                 </div>

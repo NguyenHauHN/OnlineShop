@@ -16,6 +16,7 @@
 }
 @section jsFooter{
     <script src="/Scripts/Custom/uploadGalleryImage.js"></script>
+<script src="~/Assets/Admin/customJS/deleteItem.js"></script>
 }
 <div class="clearfix"></div>
 <section class="content">
@@ -27,10 +28,6 @@
                 {
                     <div class="input-group input-group-sm" style="width: 150px;">
                         <input type="text" id="txtSearch" class="form-control pull-right" value="@ViewBag.Keyword" placeholder="Nhập từ khóa..." name="keyword">
-
-                        <div class="input-group-btn">
-                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                        </div>
                     </div>
                 }
             </div>
@@ -84,13 +81,14 @@
                             <td>
                                 <div class="btn-group">
                                     <a href="/Admin/Product/Edit/@Model[i].ID" class="btn btn-info btn-flat btn-action-first"><i class="fa fa-pencil"></i></a>
-                                    @Ajax.ActionLink(" ", "Delete", new { @ID = Model[i].ID }, new AjaxOptions
+                                    <button class="btn btn-danger btn-flat btn-action-first btn-delete-product" data-id="@Model[i].ID" data-name="@Model[i].Name"><i class="fa fa-trash"></i></button>
+                                    @*@Ajax.ActionLink(" ", "Delete", new { @ID = Model[i].ID }, new AjaxOptions
                                {
                                    Confirm = "Bạn chắc chắn muốn xóa thông tin sản phẩm " + @Model[i].Name + " ?",
                                    OnComplete = "$('#row_" + @Model[i].ID + "').remove()",
                                    HttpMethod = "Delete"
                                },
-                               new { @class = "btn btn-danger btn-flat glyphicon glyphicon-trash  btn-action-second" })
+                               new { @class = "btn btn-danger btn-flat glyphicon glyphicon-trash  btn-action-second" })*@
                                 </div>
 
                             </td>

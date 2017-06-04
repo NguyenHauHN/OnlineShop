@@ -15,5 +15,6 @@ namespace OnlineShop.Common
         public string Password { get; set; }
         public string Email { get; set; }
         public DateTime? JoinDate { get; set; } 
+        public string GroupID { get; set; }
     }
 }

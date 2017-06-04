@@ -118,17 +118,18 @@
                 </div>
 
             </div>
+            <div class="clearfix"></div>
             @if (TempData["CreateError"] != null)
             {
-                <div class="alert alert-danger alert-dismissible">
+                <div class="alert alert-danger alert-dismissible center-block" style="width:50%;">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                     <h4><i class="icon fa fa-warning"></i> Thông báo!</h4>
                     @TempData["CreateError"]
                 </div>
             }
 
-
         </div>
+
 
 
         <!-- /.box-body -->

@@ -1,6 +1,194 @@
-﻿
+﻿@model List<Model.EF.Product>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var categoryInfo = (Model.EF.Category)ViewBag.CategoryInfo;
+    var listCategoryMen = (List<Model.EF.Category>)ViewBag.ListcategoryMen;
+    var listCategoryWomen = (List<Model.EF.Category>)ViewBag.ListcategoryWomen;
+    var listCategoryKid = (List<Model.EF.Category>)ViewBag.ListcategoryKid;
+    var listProductTopRate = (List<Model.EF.Product>)ViewBag.ListProductTopRate;
+}
+@section jsFooter{
+    <script type="text/javascript" src="~/Assets/Client/customJs/changeSortProduct.js"></script>
+    <script src="~/Assets/Client/customJs/cart.js"></script>
 }
 
+<section class="page-title-wrapper page-title-shop-wrapper dark page-title-image" style="background-image: url(@Url.Content("~/Images/shop-page-title-bg.jpg"));">
+    <div class="page-title-inner">
+        <div class="container">
+            <h1>@categoryInfo.Name</h1>
+        </div>
+    </div>
+</section>
+<main role="main" class="site-content-product-archive">
+    <div class="container clearfix">
+        <div class="row clearfix">
+            <div class="col-md-9 col-md-push-3">
+                <div class="product-wrapper clearfix">
+                    <div id="wrap-product-category">
+                        <div class="product-listing woocommerce row clearfix">
+                            @foreach (var item in Model)
+                            {
+                                <div class="product type-product status-publish has-post-thumbnail product-item-wrapper col-md-4  col-sm-4 col-xs-6 taxable shipping-taxable purchasable product-type-simple product-cat-autumn-collection product-cat-boys product-cat-hanbags-wallets product-cat-hoodies product-cat-jean-men product-cat-jewelry product-cat-jewelry-diamond product-cat-posters product-cat-shoes product-tag-coach product-tag-products product-tag-shop product-tag-veston instock">
+                                    <div class="product-item-inner">
+                                        <div class="product-thumb">
+                                            <div class="product-item-feature">
+                                                @if (item.Sale > 0)
+                                                {
+                                                    <div class="on-sale"><span>-@item.Sale%</span></div>
+                                                }
+
+                                            </div>
+                                            <div class="product-images-hover change-images">
+                                                <div class="product-thumb-primary">
+                                                    <img width="390" height="520" src=@Url.Content(item.MainImage) class="attachment-shop_catalog wp-post-image main-image-product" alt="product-07">
+                                                </div>
+                                            </div>
+                                            <a class="product-link" href="/san-pham/@item.MetaTitle/@item.ID"></a>
+                                        </div>
+
+                                        <a class="product-name" href="/san-pham/@item.MetaTitle/@item.ID">@item.Name</a>
+                                        <span class="price">
+                                            @if (item.Sale > 0)
+                                            {
+                                                <ins><span class="amount">&dollar;@(item.Price * (100 - item.Sale) / 100)</span></ins>
+                                            }
+
+                                            <del><span class="amount">&dollar;@item.Price</span></del>
+                                        </span>
+                                        <div class="product-button clearfix">
+                                            <div class="product-button-inner">
+                                                <div class="clear"></div>
+                                                <button data-id="@item.ID" data-amount="1" id="btn-add-to-cart-@item.ID" class="button product_type_simple add_to_cart_button ajax_add_to_cart btn-add-to-cart">
+                                                    <span class="pull-left"><img id="loader-@item.ID" class="loader-add-to-cart hide" src="~/Images/ajax-loader.gif" /></span>&nbsp;
+                                                    <span> Add to cart</span>
+                                                </button>
+                                                <a href="/Cart/Index" id="view-cart-@item.ID" class="added_to_cart wc-forward view-cart hide" title="View Cart">
+                                                    View Cart
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+
+                        @*<div class="text-center wrap-pagination">
+                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                        </div>*@
+                        @{ 
+                            var currentPage = (int)ViewBag.Page;
+                            var totalPage = (int)ViewBag.TotalPage;
+                            var next = 1;
+                            var prev = 1;
+                            if(currentPage < totalPage)
+                            {
+                                next = currentPage + 1;
+                            }
+                            if(currentPage > 1)
+                            {
+                                prev = currentPage - 1;
+                            }
+                            var categoryID = (long)ViewBag.CategoryID;
+                        }
+                        <div class="text-center wrap-pagination">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination">
+                                    <li class="page-item">
+                                        <a class="page-link" href="/Category/Index/@ViewBag.CategoryID?page=@prev" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                    </li>
+                                   @for (var i = 1; i <= totalPage; i++)
+                                   {
+                                       if (i == currentPage)
+                                       {
+                                        <li class="page-item active"><a class="page-link" href="/Category/Index/@ViewBag.CategoryID?page=@i">@i</a></li>
+                                       }
+                                       else
+                                       {
+                                        <li class="page-item"><a class="page-link" href="/Category/Index/@ViewBag.CategoryID?page=@i">@i</a></li>
+                                       }
+                                   }
+                                    <li class="page-item">
+                                        <a class="page-link" href="/Category/Index/@ViewBag.CategoryID?page=@next" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div id="secondary" class="shop-sidebar col-md-3 col-md-pull-9 hidden-sm hidden-xs" role="complementary">
+                <aside id="woocommerce_product_categories-2" class="widget woocommerce widget_product_categories">
+                    <h4 class="widget-title"><span>Danh mục</span></h4>
+                    <ul class="product-categories">
+                        <li class="cat-item cat-item-78 cat-parent">
+                            <a href="">Thời trang nam</a>
+                            <ul class='children'>
+                                @foreach (var item in listCategoryMen)
+                                {
+                                    <li class="cat-item">
+                                        <a href="/danh-muc/@item.MetaTitle/@item.ID">@item.Name</a>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                        <li class="cat-item cat-item-30 cat-parent current-cat-parent">
+                            <a href="">Thời trang nữ</a>
+                            <ul class='children'>
+                                @foreach (var item in listCategoryWomen)
+                                {
+                                    <li class="cat-item">
+                                        <a href="/danh-muc/@item.MetaTitle/@item.ID">@item.Name</a>
+                                    </li>
+                                }
+
+                            </ul>
+                        </li>
+                        <li class="cat-item cat-item-32 cat-parent">
+                            <a href="">Thời trang trẻ em</a>
+                            <ul class='children'>
+                                @foreach (var item in listCategoryKid)
+                                {
+                                    <li class="cat-item">
+                                        <a href="/danh-muc/@item.MetaTitle/@item.ID">@item.Name</a>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    </ul>
+                </aside>
+                <aside id="woocommerce_top_rated_products-2" class="widget woocommerce widget_top_rated_products">
+                    <h4 class="widget-title"><span>Sản phẩm Top đầu</span></h4>
+                    <ul class="product_list_widget">
+                        @foreach (var item in listProductTopRate)
+                        {
+                            <li>
+                                <a href="/san-pham/@item.MetaTitle/@item.ID" title="@item.Name">
+                                    <img width="180" height="180" src=@Url.Content(item.MainImage) class="attachment-shop_thumbnail wp-post-image" alt="product-15">
+                                    <span class="product-title">@item.Name</span>
+                                </a>
+                                <span class="amount">&dollar;@item.Price</span>
+                            </li>
+                        }
+                    </ul>
+                </aside>
+                <aside id="woocommerce_product_tag_cloud-2" class="widget woocommerce widget_product_tag_cloud">
+                    <h4 class="widget-title"><span>Tags sản phẩm</span></h4>
+                    <div class="tagcloud">
+                        @foreach (var item in Model)
+                        {
+                            <a href='/san-pham/@item.MetaTitle/@item.ID' class='tag-link-52' title='@item.Name'>@item.Tag</a>
+                        }
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+</main>

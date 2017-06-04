@@ -1,4 +1,5 @@
 ﻿using Model.DAO;
+using OnlineShop.Common;
 using OnlineShop.Models;
 using System;
 using System.Collections.Generic;
@@ -17,20 +18,16 @@ namespace OnlineShop.Controllers
         }
 
         [HttpPost]
-        public JsonResult Login(string Username, string Password, bool RememberMe)
+        public JsonResult Login(string Username, string Password)
         {
-            var result = new UserDAO().Login(Username, Password);
-            if(result > 0)
+            var result = new UserDAO().Login(Username, Encrypt.MD5Hash(Password));
+            if (result > 0)
             {
-                if(RememberMe == true)
-                {
-                    Session[Common.CommonConstant.RememberMe] = 1;
-                    
-                }
                 var clientModel = new ClientModel();
                 clientModel.username = Username;
                 clientModel.password = Password;
                 Session[Common.CommonConstant.CLIENT_SESSION] = clientModel;
+
                 return Json(new
                 {
                     Result = result,
@@ -45,19 +42,19 @@ namespace OnlineShop.Controllers
                     status = false
                 });
             }
-            
+
         }
 
         [HttpPost]
         public JsonResult Register(string Name, string Username, string Password, string ConfirmPassword, string Email, string PhoneNumber)
         {
-            if(!string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password) && !string.IsNullOrEmpty(ConfirmPassword) 
+            if (!string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password) && !string.IsNullOrEmpty(ConfirmPassword)
                 && !string.IsNullOrEmpty(Email) && !string.IsNullOrEmpty(PhoneNumber))
             {
-                if(Password == ConfirmPassword)
+                if (Password == ConfirmPassword)
                 {
                     var result = new UserDAO().Register(Name, Username, Password, Email, PhoneNumber);
-                    if(result > 0)
+                    if (result > 0)
                     {
                         return Json(new
                         {
@@ -75,7 +72,7 @@ namespace OnlineShop.Controllers
                             Status = false
                         });
                     }
-                    
+
                 }
                 else
                 {
@@ -86,7 +83,7 @@ namespace OnlineShop.Controllers
                         Status = false
                     });
                 }
-               
+
             }
             else
             {
@@ -97,7 +94,9 @@ namespace OnlineShop.Controllers
                     Status = false
                 });
             }
-           
+
         }
+
+
     }
 }

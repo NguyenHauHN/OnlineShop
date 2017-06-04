@@ -7,12 +7,14 @@ using PagedList;
 using Model.DAO;
 using Model.EF;
 using Model.ViewModels;
+using OnlineShop.Common;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
     public class OrderController : BaseController
     {
         // GET: Admin/Order
+        [HasCredential(RoleID = "ORDER_MANAGE")]
         public ActionResult Index(string keyword, int page = 1, int pageSize = 5)
         {
             int totalOrder = 0;
@@ -23,12 +25,14 @@ namespace OnlineShop.Areas.Admin.Controllers
             return View(listOrder);
         }
 
+        [HasCredential(RoleID = "ORDER_MANAGE")]
         public ActionResult Create()
         {
             //var listProduct
             return View();
         }
 
+        [HasCredential(RoleID = "ORDER_MANAGE")]
         public ActionResult Edit(long ID)
         {
             var order = new OrderDAO().GetByID(ID);
@@ -40,6 +44,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [HasCredential(RoleID = "ORDER_MANAGE")]
         public ActionResult Edit(Order order)
         {
             if (ModelState.IsValid)
@@ -59,10 +64,11 @@ namespace OnlineShop.Areas.Admin.Controllers
             return View();
         }
 
+        [HasCredential(RoleID = "ORDER_MANAGE")]
         public ActionResult ListProduct(long ID, string keyword, int page = 1, int pageSize = 5)
         {
             int totalOrderProduct = 0;
-            var listOrderProduct = new OrderDAO().ListAllProduct(ID, keyword, ref totalOrderProduct, page, pageSize);
+            var listOrderProduct = new OrderDAO().ListOrderProduct(ID, keyword, ref totalOrderProduct, page, pageSize);
             ViewBag.Keyword = keyword;
             ViewBag.Page = page;
             ViewBag.OrderID = ID;
@@ -70,6 +76,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         }
 
         [HttpDelete]
+        [HasCredential(RoleID = "ORDER_MANAGE")]
         public ActionResult Delete(long ID)
         {
             var result = new OrderDAO().Delete(ID);

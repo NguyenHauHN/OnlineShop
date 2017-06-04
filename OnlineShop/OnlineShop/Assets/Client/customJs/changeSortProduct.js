@@ -9,7 +9,7 @@
         },
         changeSortProduct: function () {
             $('#sortProduct').off('change').on('change', function () {
-                $.get("/Category/ListProduct", {
+                $.get("/Category/Index", {
                     ID: $('#categoryID').val(),
                     valueselectsort: $(this).val()
                 },
@@ -22,20 +22,21 @@
         },
         searchProduct: function () {
             $('#searchProduct').keyup(function (e) {
-                    $.get("/Category/ListProduct", {
+                    $.get("/Category/Index", {
                         ID: $('#categoryID').val(),
                         valueselectsort: $(this).val(),
-                        searchProduct: $(this).val()
+                        searchProduct: $(this).val(),
+                        page: 1
                     },
                     function (data, status, xhr) {
-                        $('.product-listing').html($(data).find('.product-listing').html());
+                        $('.product-wrapper').html($(data).find('.product-wrapper').html());
                     }
                 )
             });
         },
         filterProductByPrice: function () {
             $('#filterPrice').off('click').on('click', function () {
-                $.post("/Category/ListProduct", {
+                $.post("/Category/Index", {
                     ID: $('#categoryID').val(),
                     valueselectsort: $(this).val(),
                     searchProduct: $(this).val(),

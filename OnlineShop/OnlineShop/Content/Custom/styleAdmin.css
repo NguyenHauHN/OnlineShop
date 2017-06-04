@@ -76,3 +76,12 @@
     margin-top: 20px;
     width: 50%;
 }
+.wrap-datetimepicker{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+.wrap-datetimepicker button{
+    margin-top: 5px;
+}

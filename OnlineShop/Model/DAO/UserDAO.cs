@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PagedList;
+using Common;
 
 namespace Model.DAO
 {
@@ -17,7 +18,7 @@ namespace Model.DAO
             db = new OnlineShopDbContext();
         }
 
-        public int Login (string Username, string Password)
+        public int Login (string Username, string Password, bool isLoginAdmin= false)
         {
             var result = db.Users.SingleOrDefault(x => x.Username == Username);
             if (result == null)
@@ -26,18 +27,47 @@ namespace Model.DAO
             }
             else
             {
-                if (result.Status == 0)
-                    return -1;
+                if(isLoginAdmin == true)
+                {
+                    if(result.GroupID == CommonConstantCredential.ADMIN_GROUP || result.GroupID == CommonConstantCredential.SALE_GROUP || result.GroupID == CommonConstantCredential.ACCOUNTANT_GROUP)
+                    {
+                        if (result.Status == 0)
+                            return -1;
+                        else
+                        {
+                            if (result.Password == Password)
+                            {
+                                return 1;
+                            }
+                            else
+                                return -2;
+
+                        }
+                    }
+                    else
+                    {
+                        return -3;
+                    }
+                }
                 else
                 {
-                    if (result.Password == Password)
-
-                        return 1;
-
+                    if (result.Status == 0)
+                        return -1;
                     else
-                        return -2;
+                    {
+                        if (result.Password == Password)
+                        {
+                           
+                            return 1;
+                        }
+                        else
+                            return -2;
 
+                    }
                 }
+                
+
+                
             }
         }
 
@@ -75,23 +105,44 @@ namespace Model.DAO
             return db.Users.Find(ID);
         }
 
-        public List<User> ListAllAdmin(string keyword, ref int totalAdmin, int page = 1, int pageSize = 1)
+        public IEnumerable<User> ListAllAdmin(string keyword, ref int totalAdmin, int page = 1, int pageSize = 5)
         {
-            var model = new List<User>();
-            var offset = (page - 1) * pageSize;
-            totalAdmin = db.Users.Where(x => x.Type == 1).ToList().Count();
+            IQueryable<User> model = db.Users;
             if (!string.IsNullOrEmpty(keyword))
             {
-                model = db.Users.Where(x => x.Type == 1 && (x.Name.Contains(keyword) || x.Username.Contains(keyword))).OrderByDescending(x => x.JoinDate).Skip(offset).Take(pageSize).ToList();
+                var list = db.Users.SqlQuery("select * from [User] where Type = 1 and Status !=2 and ( Name like N'%" + keyword + "%' or Username like N'%" + keyword + "%' or Email like N'%" 
+                    + keyword + "%' or Address like N'%" + keyword  + "%')").AsQueryable<User>();
+                model = list;
             }
             else
             {
-                model = db.Users.Where(x => x.Type == 1).OrderByDescending(x => x.JoinDate).Skip(offset).Take(pageSize).ToList();
+                model = model.Where(x => x.Type == 1 && x.Status != 2);
             }
-           
-           
-            return model;
 
+
+            totalAdmin = model.Count();
+            return model.OrderByDescending(x => x.JoinDate).ToPagedList(page, pageSize);
+
+
+        }
+
+        public IEnumerable<User> ListAllCustomer(string keyword, ref int totalCustomer, int page = 1, int pageSize = 5)
+        {
+            IQueryable<User> model = db.Users;
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                var list = db.Users.SqlQuery("select * from [User] where Type = 0 and Status !=2 and ( Name like N'%" + keyword + "%' or Username like N'%" + keyword + "%' or Email like N'%"
+                    + keyword + "%' or Address like N'%" + keyword + "%')").AsQueryable<User>();
+                model = list;
+            }
+            else
+            {
+                model = model.Where(x => x.Type == 0 && x.Status != 2);
+            }
+
+
+            totalCustomer = model.Count();
+            return model.OrderByDescending(x => x.JoinDate).ToPagedList(page, pageSize);
         }
 
         public List<User> ListAllUserOrder()
@@ -108,7 +159,7 @@ namespace Model.DAO
             }
             else
             {
-                user.Type = 1;
+                user.Type = user.Type;
                 user.JoinDate = DateTime.Now;
                 db.Users.Add(user);
                 db.SaveChanges();
@@ -145,7 +196,8 @@ namespace Model.DAO
             try
             {
                 var user = db.Users.Find(ID);
-                db.Users.Remove(user);
+                user.Status = 2;
+                //db.Users.Remove(user);
                 db.SaveChanges();
                 return 1;
             }
@@ -185,6 +237,24 @@ namespace Model.DAO
             {
                 return -1;
             }
+        }
+
+        public List<string> GetListCredential(string username)
+        {
+            var user = db.Users.Single(x => x.Username == username);
+            var data = (from a in db.Credentials
+                       join b in db.UserGroups on a.UserGroupID equals b.ID
+                       join c in db.Roles on a.RoleID equals c.ID
+                       where b.ID == user.GroupID
+                       select new
+                       {
+                           RoleID = a.RoleID,
+                           UserGroupID = a.UserGroupID
+                       }).AsEnumerable().Select(x => new Credential() {
+                           RoleID = x.RoleID,
+                           UserGroupID = x.UserGroupID
+                       });
+            return data.Select(x => x.RoleID).ToList();
         }
     }
 }

@@ -11,12 +11,14 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web.Script.Serialization;
 using System.Xml.Linq;
+using OnlineShop.Common;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
     public class ProductController : BaseController
     {
         // GET: Admin/Product
+        [HasCredential(RoleID = "PRODUCT_MANAGE")]
         public ActionResult Index(string keyword, int page = 1, int pageSize = 5)
         {
             int totalProduct = 0;
@@ -27,6 +29,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [HasCredential(RoleID = "PRODUCT_MANAGE")]
         public ActionResult Create()
         {
             TempData["ListGalleryImage"] = null;
@@ -36,6 +39,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [HasCredential(RoleID = "PRODUCT_MANAGE")]
         public ActionResult Create(Product product, string mainImageProduct)
         {
             if (ModelState.IsValid)
@@ -73,6 +77,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         }
 
         [HttpGet]
+        [HasCredential(RoleID = "PRODUCT_MANAGE")]
         public ActionResult Edit(long ID)
         {
             var product = new ProductDAO().GetByID(ID);
@@ -85,6 +90,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        [HasCredential(RoleID = "PRODUCT_MANAGE")]
         public ActionResult Edit(Product product, string saveMainImage)
         {
             if (ModelState.IsValid)
@@ -124,6 +130,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         }
       
         [HttpPost]
+        [HasCredential(RoleID = "PRODUCT_MANAGE")]
         public ActionResult UploadImage()
         {
             try
@@ -195,13 +202,14 @@ namespace OnlineShop.Areas.Admin.Controllers
 
         }
 
+        [HasCredential(RoleID = "PRODUCT_MANAGE")]
         public ActionResult UpdateGalleryImage(long ID)
         {
             ViewBag.ProductID = ID;
             return View();
         }
 
-        [HttpDelete]
+        [HasCredential(RoleID = "PRODUCT_MANAGE")]
         public ActionResult Delete(long ID)
         {
             var result = new ProductDAO().Delete(ID);

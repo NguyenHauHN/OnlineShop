@@ -39,7 +39,6 @@ namespace Model.EF
         [StringLength(400)]
         public string Note { get; set; }
 
-
         public int? Status { get; set; }
     }
 }

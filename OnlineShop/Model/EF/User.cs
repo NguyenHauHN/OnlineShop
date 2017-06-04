@@ -1,4 +1,4 @@
-namespace Model.EF
+﻿namespace Model.EF
 {
     using System;
     using System.Collections.Generic;
@@ -11,12 +11,15 @@ namespace Model.EF
     {
         public long ID { get; set; }
 
+        [Required(ErrorMessage = "Bạn không được để trống trường này!")]
         [StringLength(250)]
         public string Name { get; set; }
 
+        [Required(ErrorMessage = "Bạn không được để trống trường này!")]
         [StringLength(250)]
         public string Username { get; set; }
 
+        [Required(ErrorMessage = "Bạn không được để trống trường này!")]
         [StringLength(50)]
         public string Password { get; set; }
 
@@ -30,6 +33,7 @@ namespace Model.EF
         [StringLength(50)]
         public string Phone { get; set; }
 
+        [Required(ErrorMessage = "Bạn không được để trống trường này!")]
         [StringLength(250)]
         public string Email { get; set; }
 
@@ -41,5 +45,8 @@ namespace Model.EF
         public string Avatar { get; set; }
 
         public DateTime? RecentChange { get; set; }
+
+        [StringLength(50)]
+        public string GroupID { get; set; }
     }
 }

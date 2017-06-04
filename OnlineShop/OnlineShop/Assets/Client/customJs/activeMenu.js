@@ -9,14 +9,17 @@
         else {
             $(this).removeClass('current-menu-ancestor');
         }
-        if (urlCurrent.includes('danh-muc')) {
+        
+        if (urlCurrent.includes('Category')) {
             $("li.menu-item").eq(1).addClass('current-menu-ancestor');
             check = true;
         }
+        if (urlCurrent == 'http://localhost:64109/') {
+            $("li.menu-item").eq(0).addClass('current-menu-ancestor');
+        }
 
-        
     });
-    if (check == false) {
-        $("li.menu-item").eq(0).addClass('current-menu-ancestor');
-    }
+   
+    
+
 });

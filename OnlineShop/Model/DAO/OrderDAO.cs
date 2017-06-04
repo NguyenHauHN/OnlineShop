@@ -22,7 +22,9 @@ namespace Model.DAO
             IQueryable<Order> model = db.Orders;
             if (!string.IsNullOrEmpty(keyword))
             {
-                model = model.Where(x => x.Status != 5 && (x.CustomerName.Contains(keyword) || x.CustomerAddress.Contains(keyword) || x.CustomerPhone.Contains(keyword)));
+                var list = db.Orders.SqlQuery("select * from [Order] where Status !=5 and ( CustomerName like N'%" + keyword + "%' or CustomerAddress like N'%" + keyword + "%' or CustomerEmail like N'%"
+                    + keyword + "%' or CustomerPhone like N'%" + keyword + "%')").AsQueryable<Order>();
+                model = list;
             }
             else
             {
@@ -111,12 +113,62 @@ namespace Model.DAO
             }
             else
             {
+                //var l
                 model = model.Where(x => x.OrderID == orderID);
             }
 
 
             totalOrderProduct = model.Count();
             return model.OrderByDescending(x => x.ProductID).ToPagedList(page, pageSize);
+        }
+
+        public IEnumerable<OrderProductViewModel> ListOrderProduct(long orderID, string keyword, ref int totalOrderProduct, int page = 1, int pageSize = 5)
+        {
+            IQueryable<OrderProductViewModel> model = null;
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                var list = (from p in db.Products
+                            join o in db.OrderProducts
+                            on p.ID equals o.ProductID
+                            join b in db.Orders
+                            on o.OrderID equals b.ID
+                            where o.OrderID == orderID && (p.Name.Contains(keyword) || p.Description.Contains(keyword))
+                            select new OrderProductViewModel()
+                            {
+                                ID = o.ID,
+                                ProductName = p.Name,
+                                MainImage = p.MainImage,
+                                Price = (double)p.Price,
+                                Sale = (double)p.Sale,
+                                Amount = o.Amount,
+                                TotalMoney = (double)o.TotalMoney,
+                                CreatDate = b.CreateDate
+                            }).AsQueryable<OrderProductViewModel>();
+                model = list;
+            }
+            else
+            {
+                var list = (from p in db.Products
+                           join o in db.OrderProducts
+                           on p.ID equals o.ProductID
+                           join b in db.Orders
+                           on o.OrderID equals b.ID
+                           where o.OrderID == orderID
+                           select new OrderProductViewModel()
+                           {
+                               ID = o.ID,
+                               ProductName = p.Name,
+                               MainImage = p.MainImage,
+                               Price = (double)p.Price,
+                               Sale = (double)p.Sale,
+                               Amount = o.Amount,
+                               TotalMoney = (double)o.TotalMoney,
+                               CreatDate = b.CreateDate
+                           }).AsQueryable<OrderProductViewModel>();
+                model = list;
+            }
+            totalOrderProduct = model.Count();
+            return model.OrderByDescending(x => x.CreatDate).ToPagedList(page, pageSize);
         }
 
         public long InsertOrder(long customerID, string orderAddress, string Note)

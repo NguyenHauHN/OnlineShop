@@ -1,0 +1,129 @@
+﻿@model Model.EF.User
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section breadcrumb {
+    <section class="content-header">
+        <h4>Quản lý Khách hàng</h4>
+        <ol class="breadcrumb">
+            <li><a href="/Admin/Home"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
+            <li><a href="/Admin/Customer/Index">Quản lý Khách hàng</a></li>
+            <li class="active">Thêm mới</li>
+        </ol>
+    </section>
+}
+@section jsFooter{
+    
+<script src="~/Assets/Admin/customJS/deleteItem.js"></script>
+}
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Thông tin Khách hàng mới</h3>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <div class="box-body ">
+            <div class="row col-lg-12">
+                    @using (Html.BeginForm("Create", "Customer", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="row">
+                            <input type="hidden" id="saveSrcAvatar" name="singleImage" value="" />
+                            <fieldset>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Họ tên</label>
+                                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Họ tên", @autofocus = "autofocus" } })
+                                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Tên đăng nhập</label>
+                                        @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", @placeholder = "Tên đăng nhập" } })
+                                        @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Mật khẩu</label>
+                                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @placeholder = "Mật khẩu", @type = "password" } })
+                                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Giới tính</label>
+                                        <div class="row col-lg-12">
+                                            <div class="radio col-lg-2">
+                                                @Html.RadioButtonFor(model => model.Gender, "1", new { @checked = true })
+                                                @Html.Label("Nam")
+
+                                            </div>
+                                            <div class="radio col-lg-2 radio-second">
+                                                @Html.RadioButtonFor(model => model.Gender, "0", false)
+                                                @Html.Label("Nữ")
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Địa chỉ</label>
+                                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @placeholder = "Địa chỉ" } })
+                                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Số điện thoại</label>
+                                        @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control", @placeholder = "Số điện thoại" } })
+                                        @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Email</label>
+                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email", @type = "email" } })
+                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputPassword1">Trạng thái</label>
+                                        <div class="row col-lg-12">
+                                            <div class="radio col-lg-5">
+                                                @Html.RadioButtonFor(model => model.Status, "1", new { @checked = true })
+                                                @Html.Label("Hoạt động")
+
+                                            </div>
+                                            <div class="radio col-lg-5 radio-second">
+                                                @Html.RadioButtonFor(model => model.Status, "0", false)
+                                                @Html.Label("Đã khóa")
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                        </div>
+                        <div class="row wrap-button-add">
+                            <button type="submit" class="btn btn-primary pull-right">Thêm mới</button>
+                        </div>
+                    }
+            </div>
+            <div class="clearfix"></div>
+            @if (TempData["CreateError"] != null)
+            {
+                <div class="alert alert-danger alert-dismissible center-block" style="width:50%;">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h4><i class="icon fa fa-warning"></i> Thông báo!</h4>
+                    @TempData["CreateError"]
+                </div>
+            }
+
+        </div>
+
+
+
+        <!-- /.box-body -->
+
+
+    </div>
+</section>
+

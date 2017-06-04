@@ -5,7 +5,7 @@
             modal.modalRegister();
             modal.modalLogin();
         },
-        getInfo: function(){
+        getInfo: function () {
             var value = $('#save-login').val();
             if (value.length > 0) {
                 $('#btn-login').addClass('hide');
@@ -20,7 +20,7 @@
                 $('#modal-register').modal('show');
             });
             $('#btn-register-client').off('click').on('click', function () {
-                $.post("/Client/Register", 
+                $.post("/Client/Register",
                 {
                     Name: $('#name-register').val(),
                     Username: $('#username-register').val(),
@@ -75,7 +75,7 @@
                         }
                     }
                     else {
-                       
+
                     }
                 });
             });
@@ -86,25 +86,23 @@
                 $('#modal-login').modal('show');
             });
             $('#btn-login-client').off('click').on('click', function () {
+                console.log(123);
                 $.post("/Client/Login",
                 {
                     Username: $('#username-login').val(),
-                    Password: $('#password-login').val(),
-                    RememberMe: $('#remember-me').val()
+                    Password: $('#password-login').val()
                 },
                 function (data, status, xhr) {
                     if (data.status == true) {
-                        if (data.Result == 1) {
+                        
                             $('#modal-login').modal('hide');
                             $('#btn-login').addClass('hide');
                             $('#btn-register').addClass('hide');
                             $('#dash').addClass('hide');
                             $('#btn-logout').removeClass('hide');
                             location.reload();
-                        }
-                        else {
-                            
-                        }
+                        
+                       
                     }
                     else {
                         if (data.Result == -2) {

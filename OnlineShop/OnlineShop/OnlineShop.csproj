@@ -223,6 +223,7 @@
     <Compile Include="Areas\Admin\Models\LoginModel.cs" />
     <Compile Include="Common\CommonConstant.cs" />
     <Compile Include="Common\Encrypt.cs" />
+    <Compile Include="Common\HasCredentialAttribute.cs" />
     <Compile Include="Common\UserLogin.cs" />
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\CartController.cs" />
@@ -243,11 +244,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Admin\bootstrap\css\bootstrap-datetimepicker.css" />
     <Content Include="Assets\Admin\bootstrap\css\bootstrap-theme.css" />
     <Content Include="Assets\Admin\bootstrap\css\bootstrap-theme.min.css" />
     <Content Include="Assets\Admin\bootstrap\css\bootstrap.css" />
     <Content Include="Assets\Admin\bootstrap\css\bootstrap.min.css" />
     <Content Include="Assets\Admin\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Assets\Admin\bootstrap\js\bootstrap-datetimepicker.js" />
     <Content Include="Assets\Admin\bootstrap\js\bootstrap.js" />
     <Content Include="Assets\Admin\bootstrap\js\bootstrap.min.js" />
     <Content Include="Assets\Admin\bootstrap\js\npm.js" />
@@ -255,6 +258,7 @@
     <Content Include="Assets\Admin\customJS\deleteItem.js" />
     <Content Include="Assets\Admin\customJS\loadGalleryImage.js" />
     <Content Include="Assets\Admin\customJS\pagination.js" />
+    <Content Include="Assets\Admin\customJS\statistic.js" />
     <Content Include="Assets\Admin\customJS\uploadImage.js" />
     <Content Include="Assets\Admin\dist\css\AdminLTE.css" />
     <Content Include="Assets\Admin\dist\css\AdminLTE.min.css" />
@@ -328,8 +332,11 @@
     <Content Include="Assets\Admin\fontawesome\font-awesome.min.css" />
     <Content Include="Assets\Admin\fonts\fontawesome-webfont.svg" />
     <Content Include="Assets\Admin\ionicon\ionicons.min.css" />
+    <Content Include="Assets\Admin\jquery-ui\jquery-ui.min.css" />
     <Content Include="Assets\Admin\jquery-ui\jquery-ui.min.js" />
     <Content Include="Assets\Admin\moment\moment.min.js" />
+    <Content Include="Assets\Admin\morris\morris.css" />
+    <Content Include="Assets\Admin\morris\morris.js" />
     <Content Include="Assets\Admin\plugins\bootstrap-slider\bootstrap-slider.js" />
     <Content Include="Assets\Admin\plugins\bootstrap-slider\slider.css" />
     <Content Include="Assets\Admin\plugins\bootstrap-wysihtml5\bootstrap3-wysihtml5.all.js" />
@@ -2151,6 +2158,11 @@
     <Content Include="Areas\Admin\Views\ResetPassword\Index.cshtml" />
     <Content Include="Images\.DS_Store" />
     <Content Include="Areas\Admin\Views\AdminManage\ChangePassword.cshtml" />
+    <Content Include="Areas\Admin\Views\Customer\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Customer\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Customer\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Statistic\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\Error401.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Custom\cart.js" />
     <Content Include="Scripts\Custom\uploadGalleryImage.js" />
@@ -2179,9 +2191,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\Header.cshtml" />
     <Content Include="Views\Shared\Slider.cshtml" />
-    <Content Include="Views\Shared\CategoryProduct.cshtml" />
     <Content Include="Views\Shared\Footer.cshtml" />
-    <Content Include="Views\Shared\CommonProduct.cshtml" />
     <Content Include="Views\Product\ViewDetail.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Cart\Payment.cshtml" />
@@ -2194,12 +2204,13 @@
     <Content Include="Views\Checkout\Index.cshtml" />
     <Content Include="Views\Client\Register.cshtml" />
     <Content Include="Views\Checkout\PlaceSuccess.cshtml" />
+    <Content Include="Views\Shared\401.cshtml" />
+    <Content Include="Views\Shared\BodyEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\Base\" />
     <Folder Include="Areas\Admin\Views\Home\" />
-    <Folder Include="Areas\Admin\Views\Statistic\" />
     <Folder Include="Areas\Admin\Views\User\" />
     <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
@@ -2212,6 +2223,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{EBD4BD33-212C-44AF-9DF7-752A3A9DFA24}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{cd6be2bf-6d59-43ae-8b89-cf2eaa5aa61a}</Project>
       <Name>Model</Name>
