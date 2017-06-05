@@ -1786,6 +1786,7 @@
     <Content Include="Assets\Client\customJs\checkout.js" />
     <Content Include="Assets\Client\customJs\modal.js" />
     <Content Include="Assets\Client\customJs\search.js" />
+    <Content Include="Assets\Client\customJs\sendContact.js" />
     <Content Include="Assets\Client\zorka\assets\css\font-icon.css" />
     <Content Include="Assets\Client\zorka\assets\css\pe-icon-7-stroke.css" />
     <Content Include="Assets\Client\zorka\assets\css\style.min.css" />
@@ -2206,6 +2207,7 @@
     <Content Include="Views\Checkout\PlaceSuccess.cshtml" />
     <Content Include="Views\Shared\401.cshtml" />
     <Content Include="Views\Shared\BodyEmail.cshtml" />
+    <Content Include="Views\Shared\EmailContact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

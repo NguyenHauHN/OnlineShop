@@ -22,7 +22,7 @@
         <div class="box-body chart-responsive">
             <div class="row col-lg-12 wrap-datetimepicker">
                 <div class="col-lg-3">
-                    @*<div class="form-group">
+                    <div class="form-group">
                         <label>Từ ngày: </label>
                         <div class='input-group date' id='start-date'>
                             <input type='text' class="form-control" />
@@ -30,23 +30,12 @@
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
                         </div>
-                    </div>*@
-                    @*<div class="form-group">
-                        <label>Date:</label>
-
-                        <div class="input-group date">
-                            <div class="input-group-addon">
-                                <i class="fa fa-calendar"></i>
-                            </div>
-                            <input type="text" class="form-control pull-right" id="datepicker">
-                        </div>
-                    </div>*@
-                    <p>Date: <input type="text" id="datepicker"></p>
+                    </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="form-group">
                         <label>Đến ngày: </label>
-                        <div class='input-group date' id='datetimepicker1'>
+                        <div class='input-group date' id='end-date'>
                             <input type='text' class="form-control" />
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
@@ -55,37 +44,16 @@
                     </div>
                 </div>
                 <div class="">
-                    <button class="btn btn-primary">Thống kê</button>
+                    <button type="button" class="btn btn-block btn-primary" id="statistic">Thống kê</button>
                 </div>
                 
             </div>
-            <div id="bar-example"></div>>
+            <div class="clearfix"></div>
+            <p class="text-danger text-center" id="msg-statistic">Chưa có dữ liệu! Mời chọn thời gian thống kê!</p>
+            <div id="bar-example"></div>
         </div>
         <!-- /.box-body -->
     </div>
 </section>
-<script type="text/javascript">
-    //$(document).ready(function () {
-        //$('#datetimepicker1').datetimepicker();
-    //    Morris.Bar({
-    //        element: 'bar-example',
-    //        data: [
-    //          { y: '2006', a: 100, b: 90, c: 70 },
-    //          { y: '2007', a: 75, b: 65, c: 70 },
-    //          { y: '2008', a: 50, b: 40, c: 70 },
-    //          { y: '2009', a: 75, b: 65, c: 70 },
-    //        ],
 
-    //        hoverCallback: function (index, options, content) {
-    //            return (content);
-    //        },
-    //        xkey: 'y',
-    //        ykeys: ['a', 'b', 'c'],
-    //        labels: ['Series A', 'Series B', 'Series C']
-    //    });
-    //});
-    $(function () {
-        $("#datepicker").datetimepicker();
-    });
-</script>
 

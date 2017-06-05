@@ -20,5 +20,7 @@ namespace Model.EF
         public int? Status { get; set; }
 
         public decimal? TotalMoney { get; set; }
+
+        public DateTime? CreateDate { get; set; }
     }
 }

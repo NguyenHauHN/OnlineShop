@@ -1,4 +1,5 @@
-﻿using OnlineShop.Common;
+﻿using Model.DAO;
+using OnlineShop.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,28 @@ namespace OnlineShop.Areas.Admin.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        [HttpGet]
+        public JsonResult StatisticOrder(string startDate, string endDate)
+        {
+            try
+            {
+                var listData = new StatisticDAO().StatisticOrder(startDate, endDate);
+                return Json(new
+                {
+                    result = listData,
+                    status = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return Json(new
+                {
+                    status = false
+                }, JsonRequestBehavior.AllowGet);
+            }
+           
         }
     }
 }

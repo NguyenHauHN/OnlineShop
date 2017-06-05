@@ -3,7 +3,9 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@section jsFooter{
+<script src="~/Assets/Client/customJs/sendContact.js"></script>
+}
 <main role="main" class="site-content">
     <div id="post-307" class="post-307 page type-page status-publish hentry">
         <div class="entry-content">
@@ -42,26 +44,26 @@
                         <div class="wpb_wrapper">
                             <div class="wpcf7" id="wpcf7-f4-p307-o1" lang="en-US" dir="ltr">
                                 <div class="screen-reader-response"></div>
-                                <form name="" action="/zorka/contact-us-1/?add_to_wishlist=217#wpcf7-f4-p307-o1" method="post" class="wpcf7-form" novalidate="novalidate">
-                                    <div style="display: none;">
-                                        <input type="hidden" name="_wpcf7" value="4">
-                                        <input type="hidden" name="_wpcf7_version" value="4.0.2">
-                                        <input type="hidden" name="_wpcf7_locale" value="en_US">
-                                        <input type="hidden" name="_wpcf7_unit_tag" value="wpcf7-f4-p307-o1">
-                                        <input type="hidden" name="_wpnonce" value="962dca0161">
-                                    </div>
+                                <div>
                                     <div class="contact-form">
                                         <p>HỌ TÊN*</p>
-                                        <p><span class="wpcf7-form-control-wrap your-name"><input type="text" name="your-name" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" id="your-name" aria-required="true" aria-invalid="false"></span></p>
+                                        <p><span class="wpcf7-form-control-wrap your-name">
+                                            <input type="text" name="your-name" value="" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" id="your-name" aria-required="true" aria-invalid="false">
+                                            </span>
+                                        </p>
                                         <p>EMAIL*</p>
-                                        <p><span class="wpcf7-form-control-wrap your-email"><input type="email" name="your-email" value="" size="40" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" id="your-email" aria-required="true" aria-invalid="false"></span></p>
+                                        <p><span class="wpcf7-form-control-wrap your-email">
+                                            <input type="email" name="your-email" value="" class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" id="your-email" aria-required="true" aria-invalid="false">
+                                            </span></p>
                                         <p>NỘI DUNG*</p>
                                         <p>
-                                            <span class="wpcf7-form-control-wrap your-message"><textarea name="your-message" cols="4" rows="10" class="wpcf7-form-control wpcf7-textarea wpcf7-validates-as-required" id="your-message" aria-required="true" aria-invalid="false"></textarea></span><br>
-                                            <input type="submit" value="GỬI" class="wpcf7-form-control wpcf7-submit zorka-button button-sm" id="submit">
+                                            <span class="wpcf7-form-control-wrap your-message">
+                                            <textarea name="your-message" cols="4" rows="10" class="wpcf7-form-control wpcf7-textarea wpcf7-validates-as-required" id="your-message" aria-required="true" aria-invalid="false"></textarea>
+                                            </span><br>
+                                            <button type="button" style="outline: none!important;" class="btn wpcf7-form-control wpcf7-submit zorka-button button-sm" id="submit-contact">Gửi</button>
                                         </p>
                                     </div>
-                                    <div class="wpcf7-response-output wpcf7-display-none"></div>
+                                    <p class="text-success text-center hide" id="feedback">Thư của bạn đã đươc gửi. Cám ơn bạn đã quan tâm đến Zorka, chúng tôi sẽ trả lời bạn ngay khi có thể!</p>
                                 </form>
                             </div>
                         </div>
