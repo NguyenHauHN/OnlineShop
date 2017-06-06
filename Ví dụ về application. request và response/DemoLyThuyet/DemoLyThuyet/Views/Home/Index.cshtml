@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<h3>So ng dang online: @ViewBag.NumberOnlineUser</h3>
+<a href="/Home/DemoApplication?YourName=Haunguyen">Click!</a>
+<p>Query string: @ViewBag.Param1</p>
+
+@using (Html.BeginForm("Test", "Home"))
+{
+    <p>Name: <input type="text" name="name" /></p>
+    <p>Password: <input type="password" name="password" /></p>
+    <input type="submit" value="Login" />
+}
+<p>Ket qua: @ViewBag.Message</p>
+<a href="/Home/TestResponse">Click response</a>

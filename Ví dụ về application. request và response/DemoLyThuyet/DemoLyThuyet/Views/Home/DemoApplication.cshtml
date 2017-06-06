@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "DemoApplication";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Test", "Home"))
+{
+    <p>Name: <input type="text" name="name" /></p>
+    <p>Password: <input type="password" name="password" /></p>
+    <input type="submit" value="Login" />
+}
+

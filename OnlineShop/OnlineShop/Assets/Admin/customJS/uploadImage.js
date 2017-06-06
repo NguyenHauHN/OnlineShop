@@ -1,6 +1,5 @@
 ﻿var product = {
     init: function () {
-        console.log(2);
         product.registerEvents();
         product.uploadAvatarAdmin();
         product.uploadMainImageProduct();

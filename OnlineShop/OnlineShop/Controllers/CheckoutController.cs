@@ -69,7 +69,7 @@ namespace OnlineShop.Controllers
                     content = content.Replace("{{CustomerAddress}}", AddressOrder);
                     content = content.Replace("{{Total}}", totalOrder.ToString());
 
-                    new MailHelper().SendMail(customer.Email, "Đơn hàng mới từ Zorka Shop", content);
+                    //new MailHelper().SendMail(customer.Email, "Đơn hàng mới từ Zorka Shop", content);
                     return Json(new
                     {
                         status = true

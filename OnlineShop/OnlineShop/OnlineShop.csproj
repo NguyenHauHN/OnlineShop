@@ -2208,6 +2208,7 @@
     <Content Include="Views\Shared\401.cshtml" />
     <Content Include="Views\Shared\BodyEmail.cshtml" />
     <Content Include="Views\Shared\EmailContact.cshtml" />
+    <Content Include="Views\Product\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

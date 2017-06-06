@@ -1,0 +1,36 @@
+﻿@model List<Model.EF.Product>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Detail</title>
+</head>
+<body>
+    <div> 
+        <table>
+            <thead>
+                <tr>
+                    <th>Tên sp</th>
+                    <th>Giá sp</th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                @foreach(var item in Model)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.Price</td>
+                    </tr>
+                    
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

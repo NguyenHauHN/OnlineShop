@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>View</h2>
+
+
+
+<div class="form-horizontal">
+    <h4>LoginViewModel</h4>
+    <hr />
+    <div class="form-group">
+        <label>Nhap ten: </label>
+        <div class="col-md-10">
+            <input name="YourName" value="" type="text" />
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <a href="/Home/DemoApplication?YourName=Haunguyen">Click!</a>
+        </div>
+    </div>
+</div>

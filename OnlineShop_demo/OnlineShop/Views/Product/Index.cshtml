@@ -1,0 +1,37 @@
+﻿@model List<Models.EF.Product>
+@{
+    ViewBag.Title = "Tất cả sản phẩm - OnlineShop";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="content">
+    <div class="content_top">
+        <div class="heading">
+            <h3>Tất cả sản phẩm</h3>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="section group">
+        @foreach (var item in Model)
+        {
+            var url = "/chi-tiet/" + @item.MetaTitle + "-" + @item.ID;
+            <div class="grid_1_of_4 images_1_of_4">
+                <a href="@url"><img src="@item.Image" alt="@item.Name" /></a>
+                <h2>@item.Name</h2>
+                <div class="price-details">
+                    <div class="price-number">
+                        <p><span class="rupees">@(item.Price.HasValue ? item.Price.Value.ToString() + "$" : "Đang cập nhật")</span></p>
+                    </div>
+                    <div class="add-cart">
+                        <h4><a href="@url">Mua ngay</a></h4>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+            </div>
+        }
+
+    </div>
+</div>
+
+
+

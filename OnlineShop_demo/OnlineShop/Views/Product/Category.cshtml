@@ -1,0 +1,124 @@
+﻿@model List<Models.EF.Product>
+@{
+    ViewBag.Title = "Sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var slide = (List<Models.EF.Slide>)ViewBag.Slide;
+    var categoryDetail = (Models.EF.ProductCategory)ViewBag.categoryDetail;
+}
+@section slider{
+    <div class="header_slide">
+        <div class="header_bottom_left">
+            @{
+                Html.RenderAction("ProductCategory", "Product");
+            }
+        </div>
+        <div class="header_bottom_right">
+            <div class="slider">
+                <div id="slider">
+                    <div id="mover">
+                        @foreach (var item in slide)
+                        {
+                            <div id="slide-@item.ID" class="slide">
+                                <div class="slider-img">
+                                    <a href="@item.Link"><img src="@item.Image" alt="learn more" /></a>
+                                </div>
+                                <div class="slider-text">
+                                    <h1>Clearance<br><span>SALE</span></h1>
+                                    <h2>UPTo 20% OFF</h2>
+                                    <div class="features_list">
+                                        <h4>Get to Know More About Our Memorable Services Lorem Ipsum is simply dummy text</h4>
+                                    </div>
+                                    <a href="preview.html" class="button">Shop Now</a>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+}
+<div class="content">
+    <div class="content_top">
+        <div class="heading">
+            <h3>@categoryDetail.Name</h3>
+        </div>
+        <div class="see">
+            <p><a href="/san-pham">Tất cả sản phẩm</a></p>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="section group">
+
+        @foreach (var item in Model)
+        {
+            var url = "/chi-tiet/" + @item.MetaTitle + "-" + @item.ID;
+            <div class="grid_1_of_4 images_1_of_4">
+                <a href="@url"><img src="@item.Image" alt="@item.Name" /></a>
+                <h2>@item.Name</h2>
+                <div class="price-details">
+                    <div class="price-number">
+                        <p><span class="rupees">@(item.Price.HasValue ? item.Price.Value.ToString() + "$" : "Đang cập nhật")</span></p>
+                    </div>
+                    <div class="add-cart">
+                        <h4><a href="/gio-hang/@item.ID">Thêm vào giỏ</a></h4>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+            </div>
+        }
+
+       
+
+    </div>
+    <div>
+        @* Phan trang *@
+        @if (ViewBag.TotalPage > 1)
+        {
+            var pageDisplay = (int)ViewBag.MaxPage;
+            int totalPage = (int)ViewBag.TotalPage;
+            int currPage = (int)ViewBag.Page;
+
+            // create numberic links
+            var startPageIndex = Math.Max(1, currPage - pageDisplay / 2);
+            var endPageIndex = Math.Min(totalPage, currPage + pageDisplay / 2);
+            var link = "/san-pham/" + categoryDetail.MetaTitle + "-" + categoryDetail.ID;
+
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li>
+                        <a href="@link?page=@ViewBag.Prev" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    @for (int i = 1; i <= totalPage; i++)
+                    {
+                        if (i == currPage)
+                        {
+                            <li class="active"><a href="@link?page=@i">@i</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="@link?page=@i">@i</a></li>
+                        }
+                    }
+                  
+                    <li>
+                        <a href="@link?page=@ViewBag.Next" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        }
+        
+    </div>
+</div>
+
+
+

@@ -35,6 +35,11 @@ namespace OnlineShop.Controllers
             return View(product);
         }
 
+        public ActionResult Detail()
+        {
+            var list = new ProductDAO().ListAllProductMen();
+            return View(list);
+        }
         public JsonResult SearchProduct(string Keyword)
         {
             var listProduct = new List<Product>();

@@ -26,7 +26,7 @@ namespace OnlineShop.Controllers
                 content = content.Replace("{{CustomerEmail}}", Email);
                 content = content.Replace("{{ContactContent}}", Content);
                 var toEmailAddress = ConfigurationManager.AppSettings["FromEmailAddress"].ToString();
-                new MailHelper().SendMail(toEmailAddress, "Email từ khách hàng", content);
+                //new MailHelper().SendMail(toEmailAddress, "Email từ khách hàng", content);
                 return Json(new
                 {
                     status = true

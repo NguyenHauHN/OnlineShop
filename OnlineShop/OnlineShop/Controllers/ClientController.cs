@@ -53,7 +53,7 @@ namespace OnlineShop.Controllers
             {
                 if (Password == ConfirmPassword)
                 {
-                    var result = new UserDAO().Register(Name, Username, Password, Email, PhoneNumber);
+                    var result = new UserDAO().Register(Name, Username, Encrypt.MD5Hash(Password), Email, PhoneNumber);
                     if (result > 0)
                     {
                         return Json(new

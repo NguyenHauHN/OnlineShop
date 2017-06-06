@@ -58,8 +58,7 @@
                 $.post("/Client/Login",
                 {
                     Username: $('#username-register').val(),
-                    Password: $('#password-register').val(),
-                    RememberMe: $('#remember-me').val()
+                    Password: $('#password-register').val()
                 },
                 function (data, status, xhr) {
                     if (data.status == true) {
@@ -69,6 +68,7 @@
                             $('#btn-register').addClass('hide');
                             $('#dash').addClass('hide');
                             $('#btn-logout').removeClass('hide');
+                            location.reload();
                         }
                         else {
 
@@ -86,7 +86,6 @@
                 $('#modal-login').modal('show');
             });
             $('#btn-login-client').off('click').on('click', function () {
-                console.log(123);
                 $.post("/Client/Login",
                 {
                     Username: $('#username-login').val(),

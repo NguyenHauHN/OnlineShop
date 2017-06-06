@@ -1,0 +1,14 @@
+E:\Cong nghe web\OnlineShop\Models\bin\Debug\Models.dll.config
+E:\Cong nghe web\OnlineShop\Models\bin\Debug\Models.dll
+E:\Cong nghe web\OnlineShop\Models\bin\Debug\Models.pdb
+E:\Cong nghe web\OnlineShop\Models\bin\Debug\EntityFramework.dll
+E:\Cong nghe web\OnlineShop\Models\bin\Debug\EntityFramework.SqlServer.dll
+E:\Cong nghe web\OnlineShop\Models\bin\Debug\EntityFramework.xml
+E:\Cong nghe web\OnlineShop\Models\bin\Debug\EntityFramework.SqlServer.xml
+E:\Cong nghe web\OnlineShop\Models\obj\Debug\Models.dll
+E:\Cong nghe web\OnlineShop\Models\obj\Debug\Models.pdb
+E:\Cong nghe web\OnlineShop\Models\bin\Debug\PagedList.dll
+E:\Cong nghe web\OnlineShop\Models\bin\Debug\PagedList.Mvc.dll
+E:\Cong nghe web\OnlineShop\Models\bin\Debug\PagedList.xml
+E:\Cong nghe web\OnlineShop\Models\bin\Debug\PagedList.Mvc.xml
+E:\Cong nghe web\OnlineShop\Models\obj\Debug\Models.csprojResolveAssemblyReference.cache
