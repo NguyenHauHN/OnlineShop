@@ -22,5 +22,9 @@ namespace Model.EF
         public decimal? TotalMoney { get; set; }
 
         public DateTime? CreateDate { get; set; }
+
+        public virtual Order Order { get; set; }
+
+        public virtual Product Product { get; set; }
     }
 }

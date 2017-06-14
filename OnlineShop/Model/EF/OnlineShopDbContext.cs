@@ -35,6 +35,11 @@ namespace Model.EF
                 .Property(e => e.CustomerPhone)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<Order>()
+                .HasMany(e => e.OrderProducts)
+                .WithRequired(e => e.Order)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<OrderProduct>()
                 .Property(e => e.TotalMoney)
                 .HasPrecision(18, 0);
@@ -70,6 +75,11 @@ namespace Model.EF
             modelBuilder.Entity<User>()
                 .Property(e => e.GroupID)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.Orders)
+                .WithOptional(e => e.User)
+                .HasForeignKey(e => e.CustomerID);
 
             modelBuilder.Entity<UserGroup>()
                 .Property(e => e.ID)

@@ -9,6 +9,12 @@
     [Table("User")]
     public partial class User
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public User()
+        {
+            Orders = new HashSet<Order>();
+        }
+
         public long ID { get; set; }
 
         [Required(ErrorMessage = "Bạn không được để trống trường này!")]
@@ -48,5 +54,8 @@
 
         [StringLength(50)]
         public string GroupID { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

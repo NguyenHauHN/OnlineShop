@@ -9,6 +9,12 @@ namespace Model.EF
     [Table("Category")]
     public partial class Category
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Category()
+        {
+            Products = new HashSet<Product>();
+        }
+
         public long ID { get; set; }
 
         [StringLength(250)]
@@ -34,5 +40,8 @@ namespace Model.EF
         public int? Status { get; set; }
 
         public int? Type { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Product> Products { get; set; }
     }
 }
